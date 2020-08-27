@@ -23,7 +23,7 @@
     </div>
     <div class="company-list block-wrapper">
       <div class="add">
-        <el-button size="medium" type="primary">新增企业</el-button>
+        <el-button size="medium" type="primary" @click="add">新增企业</el-button>
       </div>
       <div class="list-table">
         <el-table
@@ -108,7 +108,31 @@
 <script>
 
 export default {
-  name: 'Company'
+  name: 'Company',
+  data() {
+    return{
+
+    }
+  },
+  methods: {
+    add() {
+      this.$router.push({
+        path: '/companyDetail',
+        query:{
+          types : "add"
+        }
+      });
+    },
+    handleClick(row) {
+      this.$router.push({
+        path: '/companyDetail',
+        query:{
+          types : "edit",
+          id: row.id
+        }
+      });
+    },
+  }
 }
 </script>
 

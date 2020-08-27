@@ -69,12 +69,21 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    children: [{
-      path: 'company',
-      name: 'company',
-      component: () => import('@/views/company/index'),
-      meta: { title: '企业管理', icon: 'dashboard' }
-    }]
+    children: [
+      {
+        path: 'company',
+        name: 'company',
+        component: () => import('@/views/company/index'),
+        meta: { title: '企业管理', icon: 'dashboard' }
+      },
+      {
+        path: 'companyDetail',
+        name: 'companyDetail',
+        component: () => import('@/views/company/companyDetail'),
+        meta: { title: '企业管理 / 新增企业', icon: 'dashboard' },
+        hidden: true
+      }
+      ]
   },
 
   {
