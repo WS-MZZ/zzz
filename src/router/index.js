@@ -58,12 +58,22 @@ export const constantRoutes = [
   {
     path: '/',
     component: Layout,
-    redirect: '/personalInfo',
     children: [{
       path: 'personalInfo',
       name: 'personalInfo',
       component: () => import('@/views/personalInfo/index'),
       hidden: true
+    }]
+  },
+
+  {
+    path: '/',
+    component: Layout,
+    children: [{
+      path: 'company',
+      name: 'company',
+      component: () => import('@/views/company/index'),
+      meta: { title: '企业管理', icon: 'dashboard' }
     }]
   },
 
@@ -160,7 +170,6 @@ export const constantRoutes = [
   //     }
   //   ]
   // },
-
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
