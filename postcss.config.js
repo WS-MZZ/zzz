@@ -1,6 +1,8 @@
+// https://github.com/michael-ciniawsky/postcss-load-config
 
-module.exports = { 
-  plugins: { 
-    'autoprefixer': {browsers: 'last 5 version'} 
+module.exports = {
+  'plugins': {
+    // to edit target browsers: use "browserslist" field in package.json
+    'autoprefixer': {}
   }
-} 
+}

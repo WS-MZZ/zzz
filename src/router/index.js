@@ -4,196 +4,180 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '../views/layout/Layout'
-import AppMain from '../views/layout/components/AppMain'
+import Layout from '@/layout'
 
 /**
- * 实例化vue的时候只挂载constantRouter  
- * 如果没有项目中没有权限的概念，应该把所有的路由配置constantRouter中
+ * Note: sub-menu only appear when route children.length >= 1
+ * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
+ *
+ * hidden: true                   if set true, item will not show in the sidebar(default is false)
+ * alwaysShow: true               if set true, will always show the root menu
+ *                                if not set alwaysShow, when item has more than one children route,
+ *                                it will becomes nested mode, otherwise not show the root menu
+ * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
+ * name:'router-name'             the name is used by <keep-alive> (must set!!!)
+ * meta : {
+    roles: ['admin','editor']    control the page roles (you can set multiple roles)
+    title: 'title'               the name show in sidebar and breadcrumb (recommend set)
+    icon: 'svg-name'/'el-icon-x' the icon show in the sidebar
+    breadcrumb: false            if set false, the item will hidden in breadcrumb(default is true)
+    activeMenu: '/example/list'  if set path, the sidebar will highlight the path you set
+  }
  */
 
-export const constantRouterMap = [
-  { path: '/', component: () => import('@/views/login/index'), hidden: true },
-  { path: '/forget', component: () => import('@/views/login/forget_pwd'), hidden: true },
-  { path: '/404', component: () => import('@/views/404'), hidden: true },
+/**
+ * constantRoutes
+ * a base page that does not have permission requirements
+ * all roles can be accessed
+ */
+export const constantRoutes = [
   {
-    path: '',
+    path: '/login',
+    component: () => import('@/views/login/index'),
+    hidden: true
+  },
+
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  },
+
+  {
+    path: '/',
     component: Layout,
-    redirect: 'home',
-    meta: {id: 0},
+    redirect: '/dashboard',
     children: [{
-      path: 'home',
-      name: 'home',
+      path: 'dashboard',
+      name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
+      meta: { title: 'Dashboard', icon: 'dashboard' }
     }]
   },
-  {
-    path: '/dashboard',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index'),
-        meta: { title: 'Dashboard', icon: 'example' },
-      }
-    ]
-  }
-]
 
-/**
- * 异步挂载的路由
- * 根据权限动态加载的路由表 
- */
-export const asyncRouterMap = [
   {
-    path: '/banner',
+    path: '/',
     component: Layout,
-    redirect: '/banner/list',
-    name: "banner",
-    meta: { title: 'Banner', icon: 'example', permissions: ['BANNER_MANAGE'] },
+    redirect: '/personalInfo',
+    children: [{
+      path: 'personalInfo',
+      name: 'personalInfo',
+      component: () => import('@/views/personalInfo/index'),
+      hidden: true
+    }]
+  },
+
+  {
+    path: '/example',
+    component: Layout,
+    redirect: '/example/table',
+    name: 'Example',
+    meta: { title: 'Example', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'list',
-        name: 'list',
-        component: () => import('@/views/cms/banner/index'),
-        meta: { title: 'Banner', icon: 'form', permissions: ['BANNER_MANAGE'] }
+        path: 'table',
+        name: 'Table',
+        component: () => import('@/views/table/index'),
+        meta: { title: 'Table', icon: 'table' }
       },
       {
-        path: 'add',
-        name: 'add',
-        component: () => import('@/views/cms/banner/add'),
-        meta: { title: '新增', icon: 'form', permissions: ['BANNER_MANAGE'] },
-        hidden: true
-      },
-      {
-        path: 'edit',
-        name: 'edit',
-        component: () => import('@/views/cms/banner/edit'),
-        meta: { title: '编辑', icon: 'form', permissions: ['BANNER_MANAGE'] },
-        hidden: true
+        path: 'tree',
+        name: 'Tree',
+        component: () => import('@/views/tree/index'),
+        meta: { title: 'Tree', icon: 'tree' }
       }
     ]
   },
-  {
-    path: '/news',
-    component: Layout,
-    redirect: '/news/list',
-    name: 'news',
-    meta: { title: '新闻管理', icon: 'example', permissions: ['NEWS_MANAGE'] },
-    children: [
-      {
-        path: 'list',
-        name: 'news-list',
-        component: () => import('@/views/cms/news/index'),
-        meta: { title: '新闻管理', icon: 'form', permissions: ['NEWS_MANAGE'] }
-      },
-      {
-        path: 'add',
-        name: 'news-add',
-        component: () => import('@/views/cms/news/add'),
-        meta: { title: '新增新闻', icon: 'form', permissions: ['NEWS_MANAGE'] },
-        hidden: true
-      },
-      {
-        path: 'edit',
-        name: 'news-edit',
-        component: () => import('@/views/cms/news/edit'),
-        meta: { title: '编辑新闻', icon: 'form', permissions: ['NEWS_MANAGE'] },
-        hidden: true
-      },
-      {
-        path: 'tag-list',
-        name: 'news-tag-list',
-        component: () => import('@/views/cms/news/tag/index'),
-        meta: { title: '分类管理', icon: 'form', permissions: ['NEWS_MANAGE'] }
-      },
-      {
-        path: 'tag-add',
-        name: 'news-tag-add',
-        component: () => import('@/views/cms/news/tag/add'),
-        meta: { title: '新增分类', icon: 'form', permissions: ['NEWS_MANAGE'] },
-        hidden: true
-      },
-      {
-        path: 'tag-edit',
-        name: 'news-tag-edit',
-        component: () => import('@/views/cms/news/tag/edit'),
-        meta: { title: '编辑分类', icon: 'form', permissions: ['NEWS_MANAGE'] },
-        hidden: true
-      }
-    ]
-  },
-  {
-    path: '/system',
-    component: Layout,
-    redirect: '/system/user/list',
-    name: "system-setting",
-    meta: { title: '系统管理', icon: 'example', permissions: ['SYSTEM_MANGE'] },
-    children: [
-      {
-        path: 'user',
-        name: 'user',
-        component: AppMain,
-        redirect: '/system/user/list',
-        children: [
-          {
-            path: 'list',
-            name: 'user-list',
-            component: () => import('@/views/system/user/index'),
-            meta: { title: '用户管理', icon: 'form', permissions: ['SYSTEM_MANGE'] }
-          },
-          {
-            path: 'add',
-            name: 'user-add',
-            component: () => import('@/views/system/user/add'),
-            meta: { title: '添加用户', icon: 'form', permissions: ['SYSTEM_MANGE'] },
-            hidden: true
-          },
-          {
-            path: 'edit',
-            name: 'user-edit',
-            component: () => import('@/views/system/user/edit'),
-            meta: { title: '编辑用户', icon: 'form', permissions: ['SYSTEM_MANGE'] },
-            hidden: true
-          }
-        ]
-      },
-      {
-        path: 'role',
-        name: 'role',
-        component: AppMain,
-        redirect: '/system/role/list',
-        children: [
-          {
-            path: 'list',
-            name: 'role-list',
-            component: () => import('@/views/system/role/index'),
-            meta: { title: '角色管理', icon: 'form', permissions: ['SYSTEM_MANGE'] }
-          },
-          {
-            path: 'add',
-            name: 'role-add',
-            component: () => import('@/views/system/role/add'),
-            meta: { title: '添加角色', icon: 'form', permissions: ['SYSTEM_MANGE'] },
-            hidden: true
-          },
-          {
-            path: 'edit',
-            name: 'role-edit',
-            component: () => import('@/views/system/role/edit'),
-            meta: { title: '编辑角色', icon: 'form', permissions: ['SYSTEM_MANGE'] },
-            hidden: true
-          }
-        ]
-      }
-    ]
-  },
+
+  // {
+  //   path: '/form',
+  //   component: Layout,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       name: 'Form',
+  //       component: () => import('@/views/form/index'),
+  //       meta: { title: 'Form', icon: 'form' }
+  //     }
+  //   ]
+  // },
+  //
+  // {
+  //   path: '/nested',
+  //   component: Layout,
+  //   redirect: '/nested/menu1',
+  //   name: 'Nested',
+  //   meta: {
+  //     title: 'Nested',
+  //     icon: 'nested'
+  //   },
+  //   children: [
+  //     {
+  //       path: 'menu1',
+  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
+  //       name: 'Menu1',
+  //       meta: { title: 'Menu1' },
+  //       children: [
+  //         {
+  //           path: 'menu1-1',
+  //           component: () => import('@/views/nested/menu1/menu1-1'),
+  //           name: 'Menu1-1',
+  //           meta: { title: 'Menu1-1' }
+  //         },
+  //         {
+  //           path: 'menu1-2',
+  //           component: () => import('@/views/nested/menu1/menu1-2'),
+  //           name: 'Menu1-2',
+  //           meta: { title: 'Menu1-2' },
+  //           children: [
+  //             {
+  //               path: 'menu1-2-1',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
+  //               name: 'Menu1-2-1',
+  //               meta: { title: 'Menu1-2-1' }
+  //             },
+  //             {
+  //               path: 'menu1-2-2',
+  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
+  //               name: 'Menu1-2-2',
+  //               meta: { title: 'Menu1-2-2' }
+  //             }
+  //           ]
+  //         },
+  //         {
+  //           path: 'menu1-3',
+  //           component: () => import('@/views/nested/menu1/menu1-3'),
+  //           name: 'Menu1-3',
+  //           meta: { title: 'Menu1-3' }
+  //         }
+  //       ]
+  //     },
+  //     {
+  //       path: 'menu2',
+  //       component: () => import('@/views/nested/menu2/index'),
+  //       name: 'Menu2',
+  //       meta: { title: 'menu2' }
+  //     }
+  //   ]
+  // },
+
+
+  // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-export default new Router({
-  // mode: 'history', //后端支持可开
+const createRouter = () => new Router({
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
+  routes: constantRoutes
 })
+
+const router = createRouter()
+
+// Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
+export function resetRouter() {
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
+}
+
+export default router
