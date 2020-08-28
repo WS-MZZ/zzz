@@ -25,10 +25,12 @@
       <div class="add">
         <el-button size="medium" type="primary">新增企业</el-button>
       </div>
-      <div class="list-table">
+      <div class="list-table" >
         <el-table
+          ref="companyList"
           :data="tableData"
-          border
+          :border="showTable"
+          :height="tableHeight + 'px'"
           style="width: 100%"
         >
           <el-table-column
@@ -108,7 +110,43 @@
 <script>
 
 export default {
-  name: 'Company'
+  name: 'Company',
+  data() {
+    return {
+      tableHeight: 0,
+      showTable: false,
+      tableData: [
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+
+      ]
+    }
+  },
+  created() {
+    window.onresize = () => {
+      this.tableHeight = this.calculateTableHeight()
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.tableHeight = this.calculateTableHeight()
+      this.showTable = true
+    }, 0)
+  },
+  methods: {
+    calculateTableHeight() {
+      let tableOffsetTop = this.$refs.companyList.$el.offsetTop
+      console.log(tableOffsetTop, this.$refs.companyList.$el)
+      console.log(window.innerHeight - tableOffsetTop - 94)
+      return window.innerHeight - tableOffsetTop - 185
+    }
+  }
 }
 </script>
 
@@ -134,6 +172,8 @@ export default {
   .pagination {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
   }
 }
 </style>
