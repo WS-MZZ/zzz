@@ -25,10 +25,12 @@
       <div class="add">
         <el-button size="medium" type="primary" @click="add">新增企业</el-button>
       </div>
-      <div class="list-table">
+      <div class="list-table" >
         <el-table
+          ref="companyList"
           :data="tableData"
-          border
+          :border="showTable"
+          :height="tableHeight + 'px'"
           style="width: 100%"
         >
           <el-table-column
@@ -187,6 +189,8 @@ export default {
   .pagination {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
   }
 }
 </style>
