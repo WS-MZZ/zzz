@@ -25,12 +25,10 @@
       <div class="add">
         <el-button size="medium" type="primary" @click="add">新增企业</el-button>
       </div>
-      <div class="list-table" >
+      <div class="list-table">
         <el-table
-          ref="companyList"
           :data="tableData"
-          :border="showTable"
-          :height="tableHeight + 'px'"
+          border
           style="width: 100%"
         >
           <el-table-column
@@ -112,11 +110,40 @@
 export default {
   name: 'Company',
   data() {
-    return{
+    return {
+      tableHeight: 0,
+      showTable: false,
+      tableData: [
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
+        { corpId: 1 },
 
+      ]
     }
   },
+  created() {
+    window.onresize = () => {
+      this.tableHeight = this.calculateTableHeight()
+    }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.tableHeight = this.calculateTableHeight()
+      this.showTable = true
+    }, 0)
+  },
   methods: {
+    calculateTableHeight() {
+      let tableOffsetTop = this.$refs.companyList.$el.offsetTop
+      console.log(tableOffsetTop, this.$refs.companyList.$el)
+      console.log(window.innerHeight - tableOffsetTop - 94)
+      return window.innerHeight - tableOffsetTop - 185
+    },
     add() {
       this.$router.push({
         path: '/companyDetail',
@@ -133,7 +160,7 @@ export default {
           id: row.id
         }
       });
-    },
+    }
   }
 }
 </script>
@@ -160,8 +187,6 @@ export default {
   .pagination {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
   }
 }
 </style>
