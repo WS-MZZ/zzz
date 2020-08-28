@@ -15,6 +15,11 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import IEcharts from 'vue-echarts/components/ECharts';
+import echart from 'echarts';
+import 'echarts/lib/chart/line'; //折线图
+import 'echarts/lib/chart/pie'; //柱状图
+import 'echarts/lib/chart/funnel'; //柱状图
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api
@@ -28,6 +33,8 @@ if (process.env.NODE_ENV === 'production') {
   mockXHR()
 }
 
+Vue.component('chart', IEcharts);
+Vue.component('echart', echart);
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明

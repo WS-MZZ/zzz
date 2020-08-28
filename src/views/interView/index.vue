@@ -2,7 +2,7 @@
   <div>
     <div class="company-search block-wrapper">
       <div class="search-para">
-        <el-select v-model="value" placeholder="状态" size="medium">
+        <el-select v-model="value" placeholder="所属应用" size="medium">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -10,11 +10,14 @@
             :value="item.value"
           />
         </el-select>
-        <el-input
-          v-model="input"
-          size="medium"
-          placeholder="请输入企业名称/账号"
-          class="search-input"
+        <el-date-picker
+          v-model="value1"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="访问开始日期"
+          end-placeholder="访问结束日期"
+          size="small"
+          style="margin-left: 20px"
         />
       </div>
       <div class="search-operation">
@@ -23,9 +26,6 @@
       </div>
     </div>
     <KgTable>
-      <div class="add">
-        <el-button size="medium" type="primary" @click="add">新增企业</el-button>
-      </div>
       <el-table ref="companyList" :height="tableHeight" :data="tableData" border style="width: 100%">
         <el-table-column
           v-for="(item) in tableHeader"
@@ -45,18 +45,6 @@
             <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
           </template>
         </el-table-column>
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width=""
-        >
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-            <el-button type="text" size="small">冻结</el-button>
-            <el-button type="text" size="small">查看密码</el-button>
-            <el-button type="text" size="small">删除</el-button>
-          </template>
-        </el-table-column>
       </el-table>
     </KgTable>
   </div>
@@ -66,7 +54,7 @@
 import KgTable from '@/components/KgComponents/KgTable'
 
 export default {
-  name: 'Company',
+  name: 'InterView',
   components: {
     KgTable
   },
@@ -80,45 +68,43 @@ export default {
       tableHeader: [
         {
           prop: 'corpId',
-          label: '企业ID'
+          label: '记录ID'
           // width: '160'
         },
         {
           prop: 'name',
-          label: 'logo'
+          label: '接口名称'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '企业名称'
+          label: '访问应用'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '企业账号'
+          label: '访问结果'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '联系人'
+          label: '响应时长（秒）'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '到期时间'
+          label: 'ip地址'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '状态'
-          // width: '160'
-        },
-        {
-          prop: 'name',
-          label: '创建时间'
+          label: '访问时间'
           // width: '160'
         }
-      ]
+      ],
+      value1: [],
+      value: '',
+      options: []
     }
   },
   created() {
@@ -135,55 +121,59 @@ export default {
   methods: {
     calculateTableHeight() {
       const tableOffsetTop = this.$refs.companyList.$el.offsetTop
-      console.log(tableOffsetTop, this.$refs.companyList.$el)
-      console.log(window.innerHeight - tableOffsetTop - 94)
+      // console.log(tableOffsetTop, this.$refs.companyList.$el)
+      // console.log(window.innerHeight - tableOffsetTop - 94)
       return window.innerHeight - tableOffsetTop - 185
     },
-    add() {
+    detail(data) {
+      // console.log(data)
       this.$router.push({
-        path: '/companyDetail',
+        path: '/inter/interViewDetails',
         query: {
-          types: 'add'
+          id: data.id
         }
       })
     },
-    handleClick(row) {
-      this.$router.push({
-        path: '/companyDetail',
-        query: {
-          types: 'edit',
-          id: row.id
-        }
-      })
+    handleSizeChange(pageSize) {
+      console.log(pageSize)
+    },
+    handleCurrentChange(currentPage) {
+      console.log(currentPage)
+    },
+    currentPage() {
+
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.company {
-  &-search {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    .search-input {
-      width: 300px;
-      margin-left: 10px;
+  .block-wrapper {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  .company {
+    &-search {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      .search-input {
+        width: 300px;
+        margin-left: 10px;
+      }
     }
   }
-}
-.company-list {
-  .add {
-    margin-bottom: 10px;
+  .company-list {
+    .add {
+      margin-bottom: 10px;
+    }
+    .list-table {
+      margin-bottom: 10px;
+    }
+    .pagination {
+      display: flex;
+      justify-content: space-between;
+    }
   }
-  .list-table {
-    margin-bottom: 10px;
-  }
-  .pagination {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
-  }
-}
 </style>

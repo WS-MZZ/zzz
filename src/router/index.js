@@ -87,24 +87,44 @@ export const constantRoutes = [
   },
 
   {
-    path: '/example',
+    path: '/inter',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/inter/interface',
+    name: 'inter',
+    meta: { title: '接口管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'interface',
+        name: 'interface',
+        component: () => import('@/views/interface/index'),
+        meta: { title: '应用授权管理', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
+        path: 'interfaceDetail',
+        name: 'interfaceDetail',
+        component: () => import('@/views/interface/modules/details'),
+        meta: { title: '应用授权管理 / 应用详情', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'interView',
+        name: 'interView',
+        component: () => import('@/views/interView/index'),
+        meta: { title: '接口访问记录', icon: 'table' }
+      },
+      {
+        path: 'interViewDetails',
+        name: 'interViewDetails',
+        component: () => import('@/views/interView/modules/details'),
+        meta: { title: '接口访问记录 / 应用详情', icon: 'table' },
+        hidden: true
+      },
+      // {
+      //   path: 'tree',
+      //   name: 'Tree',
+      //   component: () => import('@/views/tree/index'),
+      //   meta: { title: '接口访问记录', icon: 'tree' }
+      // }
     ]
   },
 
