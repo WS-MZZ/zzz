@@ -2,31 +2,23 @@
   <div class="dashboard-container">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
-        <el-form-item label="企业名称：">
-          <el-input v-model="form.name" size="middle" />
-        </el-form-item>
         <el-form-item label="logo：">
-          <el-upload
-            class="upload"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
-          >
-            <i class="el-icon-plus" />
-          </el-upload>
+          <ImgUpload class="imgUpload" :width="400" :height="200" />
+          <span>建议尺寸：400*200</span>
         </el-form-item>
-        <el-form-item label="联系人：" prop="email">
+        <el-form-item label="登录背景图：">
+          <ImgUpload class="imgUpload" :width="1920" :height="800" />
+          <span>建议尺寸：1920*800</span>
+        </el-form-item>
+        <el-form-item label="网页标题：" prop="email">
           <el-input v-model="form.email" size="middle" />
         </el-form-item>
-        <el-form-item label="账号：" prop="mobile">
+        <el-form-item label="favicon：">
+          <ImgUpload class="imgUpload" :width="20" :height="20" />
+          <span>建议尺寸：20*20</span>
+        </el-form-item>
+        <el-form-item label="fooer：" prop="mobile">
           <el-input v-model="form.mobile" size="middle" />
-        </el-form-item>
-        <el-form-item label="密码：">
-          <el-input v-model="form.name" size="middle" />
-        </el-form-item>
-        <el-form-item label="有效期至：">
-          <el-date-picker v-model="form.value1" type="date" placeholder="选择日期" />
         </el-form-item>
         <div class="but">
           <el-button type="primary" size="middle" @click="submit">提交</el-button>
@@ -37,10 +29,13 @@
 </template>
 
 <script>
+import ImgUpload from './modules/imgUpload'
 
 export default {
-  name: 'CompanyDetail',
-  components: {},
+  name: 'SystemConfig',
+  components: {
+    ImgUpload
+  },
   data() {
     return {
       form: {
@@ -89,11 +84,10 @@ export default {
       }
     }
   }
-  .upload{
-    ::v-deep .el-upload--picture-card {
-      width: 80px;
-      height: 80px;
-      line-height: 82px;
-    }
+  ::v-deep .pan-item{
+    margin: 0 !important;
+  }
+  span{
+    color: #999999;
   }
 </style>

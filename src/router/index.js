@@ -83,7 +83,7 @@ export const constantRoutes = [
         meta: { title: '企业管理 / 新增企业', icon: 'dashboard' },
         hidden: true
       }
-      ]
+    ]
   },
 
   {
@@ -118,13 +118,28 @@ export const constantRoutes = [
         component: () => import('@/views/interView/modules/details'),
         meta: { title: '接口访问记录 / 应用详情', icon: 'table' },
         hidden: true
+      }
+    ]
+  },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/system/systemConfig',
+    name: 'inter',
+    meta: { title: '系统管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'systemConfig',
+        name: 'systemConfig',
+        component: () => import('@/views/system/index'),
+        meta: { title: '系统配置', icon: 'table' }
       },
-      // {
-      //   path: 'tree',
-      //   name: 'Tree',
-      //   component: () => import('@/views/tree/index'),
-      //   meta: { title: '接口访问记录', icon: 'tree' }
-      // }
+      {
+        path: 'systemLog',
+        name: 'systemLog',
+        component: () => import('@/views/system/systemLog'),
+        meta: { title: '系统日志', icon: 'table' }
+      },
     ]
   },
 

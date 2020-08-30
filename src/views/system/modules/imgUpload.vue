@@ -1,16 +1,12 @@
 <template>
   <div class="components-container">
-    <pan-thumb :image="image" />
-
-    <el-button type="primary" icon="el-icon-upload" style="margin: 0 auto;display: block;" @click="imagecropperShow=true">
-      更换头像
-    </el-button>
+    <pan-thumb :image="image" :width="imgWidth" :height="imgHeight" :borderRadius="borderRadius" @click.native="imagecropperShow = true"/>
 
     <image-cropper
       v-show="imagecropperShow"
       :key="imagecropperKey"
-      :width="300"
-      :height="300"
+      :width="width"
+      :height="height"
       url="https://httpbin.org/post"
       lang-type="zh"
       @close="close"
@@ -23,16 +19,34 @@
 import ImageCropper from '@/components/ImageCropper'
 import PanThumb from '@/components/PanThumb'
 export default {
-  name: 'AvatarUpload',
+  name: 'ImgUpload',
   components: { ImageCropper, PanThumb },
   data() {
     return {
       imagecropperShow: false,
       imagecropperKey: 0,
-      image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
+      image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191',
+      imgWidth: '60px',
+      imgHeight: '60px',
+      borderRadius: '5px'
     }
   },
+  props: {
+    // 剪裁图片的宽
+    width: {
+      type: Number,
+      default: 200
+    },
+    // 剪裁图片的高
+    height: {
+      type: Number,
+      default: 200
+    },
+  },
   methods: {
+    click(){
+      console.log(111)
+    },
     cropSuccess(resData) {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
@@ -46,9 +60,4 @@ export default {
 </script>
 
 <style scoped>
-  .avatar{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-  }
 </style>

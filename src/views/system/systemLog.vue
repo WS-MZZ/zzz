@@ -2,7 +2,7 @@
   <div>
     <div class="company-search block-wrapper">
       <div class="search-para">
-        <el-select v-model="value" placeholder="所属应用" size="medium">
+        <el-select v-model="value" placeholder="全部操作人" size="medium">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -10,14 +10,11 @@
             :value="item.value"
           />
         </el-select>
-        <el-date-picker
-          v-model="value1"
-          type="datetimerange"
-          range-separator="至"
-          start-placeholder="访问开始日期"
-          end-placeholder="访问结束日期"
-          size="small"
-          style="margin-left: 20px"
+        <el-input
+          v-model="input"
+          size="medium"
+          placeholder="请输入操作行为"
+          class="search-input"
         />
       </div>
       <div class="search-operation">
@@ -39,10 +36,7 @@
           :fixed="item.fixed"
         >
           <template slot-scope="scope">
-            <span v-if="item.prop == 'corpId'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
-              {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
-            </span>
-            <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
+            <span>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -54,7 +48,7 @@
 import KgTable from '@/components/KgComponents/KgTable'
 
 export default {
-  name: 'InterView',
+  name: 'SystemLog',
   components: {
     KgTable
   },
@@ -68,43 +62,28 @@ export default {
       tableHeader: [
         {
           prop: 'corpId',
-          label: '记录ID'
+          label: '操作行为'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '接口名称'
+          label: '操作人姓名'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '访问应用'
+          label: '操作人手机号'
           // width: '160'
         },
         {
           prop: 'name',
-          label: '访问结果'
-          // width: '160'
-        },
-        {
-          prop: 'name',
-          label: '响应时长（秒）'
-          // width: '160'
-        },
-        {
-          prop: 'name',
-          label: 'ip地址'
-          // width: '160'
-        },
-        {
-          prop: 'name',
-          label: '访问时间'
+          label: '操作时间'
           // width: '160'
         }
       ],
-      value1: [],
-      value: '',
-      options: []
+      options: [],
+      input: '',
+      value: ''
     }
   },
   created() {
@@ -121,38 +100,13 @@ export default {
   methods: {
     calculateTableHeight() {
       const tableOffsetTop = this.$refs.companyList.$el.offsetTop
-      // console.log(tableOffsetTop, this.$refs.companyList.$el)
-      // console.log(window.innerHeight - tableOffsetTop - 94)
       return window.innerHeight - tableOffsetTop - 185
-    },
-    detail(data) {
-      // console.log(data)
-      this.$router.push({
-        path: '/inter/interViewDetails',
-        query: {
-          id: data.id
-        }
-      })
-    },
-    handleSizeChange(pageSize) {
-      console.log(pageSize)
-    },
-    handleCurrentChange(currentPage) {
-      console.log(currentPage)
-    },
-    currentPage() {
-
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .block-wrapper {
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 5px;
-  }
   .company {
     &-search {
       display: flex;
@@ -174,6 +128,8 @@ export default {
     .pagination {
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
     }
   }
 </style>
