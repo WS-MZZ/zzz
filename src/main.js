@@ -19,7 +19,8 @@ import IEcharts from 'vue-echarts/components/ECharts';
 import echart from 'echarts';
 import 'echarts/lib/chart/line'; //折线图
 import 'echarts/lib/chart/pie'; //柱状图
-import 'echarts/lib/chart/funnel'; //柱状图
+import 'echarts/lib/chart/funnel';
+import 'echarts/lib/chart/bar';
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

@@ -54,6 +54,14 @@
         </div>
         <lineChart ref="lineChart" class="line" />
       </div>
+
+      <div class="bottoms">
+        <div class="time">
+          <div :class="[{ select: isSelect }, 'time1']" style="border-bottom-left-radius: 5px;border-top-left-radius: 5px;" @click="click(1)">今日</div>
+          <div :class="[{ select: !isSelect }, 'time1']" style="border-bottom-right-radius: 5px;border-top-right-radius: 5px;" @click="click(30)">近30日</div>
+        </div>
+        <barChart ref="barChart" />
+      </div>
     </div>
   </div>
 </template>
@@ -61,12 +69,14 @@
 <script>
 import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
+import barChart from '@/components/BarChart/barChart'
 
 export default {
   name: 'PersonalInfo',
   components: {
     pieChart,
-    lineChart
+    lineChart,
+    barChart
   },
   data() {
     return {
@@ -92,6 +102,8 @@ export default {
     &-container {
       /*padding: 15px;*/
       height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
     &-text {
       font-size: 30px;
@@ -157,8 +169,40 @@ export default {
         background-color: #fff;
         border-radius: 5px;
         .time{
-          position: fixed;
-          right: 100px;
+          margin-left: 80%;
+          margin-bottom: -50px;
+          /*position: fixed;*/
+          /*right: 100px;*/
+          z-index: 99;
+          cursor: pointer;
+          .time1{
+            display: inline-block;
+            font-size: 18px;
+            width: 100px;
+            line-height: 36px;
+            text-align: center;
+            background-color: #f2f2f2;
+          }
+          .select{
+            color: #20a0ff;
+          }
+        }
+        .line{
+          padding-top: 20px;
+          padding-left: 1%;
+        }
+      }
+      .bottoms{
+        height: auto;
+        width: 100%;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-top: 5px;
+        .time{
+          margin-left: 80%;
+          margin-bottom: -50px;
+          /*position: fixed;*/
+          /*right: 100px;*/
           z-index: 99;
           cursor: pointer;
           .time1{
@@ -185,10 +229,11 @@ export default {
     margin-left: 30px;
     padding-top: 5px;
     img{
-      position: absolute;
+      /*position: absolute;*/
       margin-left: 100px;
       margin-top: 20px;
       width: 60px;
+      margin-bottom: -50px;
     }
   }
   .el-form-item{

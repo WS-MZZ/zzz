@@ -36,31 +36,42 @@
           :fixed="item.fixed"
         >
           <template slot-scope="scope">
-              <span v-if="item.prop == 'corpId'" style="color:#66b1ff" @click="detail(scope.row)">
-                {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
-              </span>
-            <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
+            <span v-if="item.prop == 'corpId'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
+              {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+            </span>
+            <span v-if="item.prop == 'num'" style="color:#66b1ff;cursor: pointer" @click="buyDetail(scope.row)">
+              {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+            </span>
+            <span v-if="item.prop != 'num' && item.prop != 'corpId'">{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
           </template>
         </el-table-column>
       </el-table>
     </KgTable>
+    <buyDialog ref="buyDialog" :visible.sync="visible"></buyDialog>
   </div>
 </template>
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
+import buyDialog from './modules/buyDialog'
 
 export default {
   name: 'Interface',
   components: {
-    KgTable
+    KgTable,
+    buyDialog
   },
   data() {
     return {
       tableHeight: 0,
       showTable: false,
       tableData: [
-        { corpId: 1 }
+        { corpId: 1,
+          num: 2
+        },
+        { corpId: 2,
+          num: 0
+        }
       ],
       tableHeader: [
         {
@@ -71,6 +82,11 @@ export default {
         {
           prop: 'name',
           label: 'Appid'
+          // width: '160'
+        },
+        {
+          prop: 'num',
+          label: '购套数量'
           // width: '160'
         },
         {
@@ -87,16 +103,12 @@ export default {
           prop: 'name',
           label: '创建时间'
           // width: '160'
-        },
-        {
-          prop: 'name',
-          label: '到期时间'
-          // width: '160'
         }
       ],
       input: '',
       value: '',
-      options: []
+      options: [],
+      visible: false
     }
   },
   created() {
@@ -125,6 +137,10 @@ export default {
           id: data.id
         }
       })
+    },
+    buyDetail(data) {
+      console.log(data)
+      this.visible = true
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)
