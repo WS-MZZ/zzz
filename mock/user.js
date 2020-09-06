@@ -1,32 +1,14 @@
 
 const tokens = {
   admin: {
-    token: 'admin-token'
-  },
-  editor: {
-    token: 'editor-token'
-  }
-}
-
-const users = {
-  'admin-token': {
-    roles: ['admin'],
-    introduction: 'I am a super administrator',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Super Admin'
-  },
-  'editor-token': {
-    roles: ['editor'],
-    introduction: 'I am an editor',
-    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
-    name: 'Normal Editor'
+    id_token: 'admin-token'
   }
 }
 
 module.exports = [
   // user login
   {
-    url: '/vue-admin-template/user/login',
+    url: '/api/console/login',
     type: 'post',
     response: config => {
       const { username } = config.body
@@ -40,45 +22,67 @@ module.exports = [
         }
       }
 
-      return {
-        code: 20000,
-        data: token
-      }
+      return token
     }
   },
 
   // get user info
   {
-    url: '/vue-admin-template/user/info\.*',
+    url: '/api/console/currentUser\.*',
     type: 'get',
     response: config => {
-      const { token } = config.query
-      const info = users[token]
-
-      // mock error
-      if (!info) {
-        return {
-          code: 50008,
-          message: 'Login failed, unable to get user details.'
-        }
-      }
-
       return {
-        code: 20000,
-        data: info
+        username: 'testuser',
+        logoUrl: 'https://chilunyc.com/media/prototypes/S3bZ4i3GXJLZWZct/images/%E9%A6%96%E9%A1%B5/u98.svg',
+        accountNo: '12345',
+        email: '12345@qq.com',
+        mobilePhone: '123456789011',
+        id: '1',
+        workNo: '12334',
+        englishName: 'jack',
+        department: 'rd',
+        role: ['admin']
       }
+    }
+  },
+
+  // updateUserInfo
+  {
+    url: '/api/console/editUser',
+    type: 'put',
+    response: config => {
+      return 'ok'
+    }
+  },
+
+  // get verification code
+  {
+    url: '/api/console/email/sendCode',
+    type: 'post',
+    response: config => {
+      return 'ok'
+    }
+  },
+
+  // get verification code
+  {
+    url: '/api/console/forgotPassword',
+    type: 'post',
+    response: config => {
+      return 'ok'
     }
   },
 
   // user logout
   {
-    url: '/vue-admin-template/user/logout',
+    url: '/api/console/logout',
     type: 'post',
-    response: _ => {
-      return {
-        code: 20000,
-        data: 'success'
-      }
-    }
+    response: _ => 'ok'
+  },
+  // user logout
+  {
+    url: '/api/console/updatePassword',
+    type: 'put',
+    response: _ => 'ok'
   }
 ]
