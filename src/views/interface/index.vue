@@ -56,7 +56,10 @@
                 <el-link v-if="item.prop == 'name'" style="color:#66b1ff" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
-                <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
+                <el-link v-if="item.prop == 'sysEnterpriseCount'" style="color:#66b1ff" @click="company(scope.row)">
+                  {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+                </el-link>
+                <span v-if="item.prop != 'name' && item.prop != 'sysEnterpriseCount'">{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -75,6 +78,7 @@
         </template>
       </KgTable>
     </div>
+    <BuyDialog ref="BuyDialog" :visible.sync='visible'></BuyDialog>
   </div>
 </template>
 
@@ -82,11 +86,13 @@
 import KgTable from '@/components/KgComponents/KgTable'
 import { getApplicationList, freezeApplication, unfreezeApplication, deleteApplication } from '@/api/applications'
 import { mapGetters } from 'vuex'
+import BuyDialog from './modules/buyDialog'
 
 export default {
   name: 'Interface',
   components: {
-    KgTable
+    KgTable,
+    BuyDialog
   },
   data() {
     return {
@@ -103,6 +109,11 @@ export default {
         {
           prop: 'appId',
           label: 'Appid'
+          // width: '160'
+        },
+        {
+          prop: 'sysEnterpriseCount',
+          label: '购套数量'
           // width: '160'
         },
         {
@@ -143,7 +154,8 @@ export default {
         status: '',
         sysEnterpriseId: ''
       },
-      total: 0
+      total: 0,
+      visible: false
     }
   },
   computed: {
@@ -211,6 +223,10 @@ export default {
           id: data.id
         }
       })
+    },
+    company(row){
+      console.log(row)
+      this.visible = true
     },
     handleClick(row) {
       this.$router.push({

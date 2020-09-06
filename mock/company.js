@@ -25,7 +25,7 @@ module.exports = [
           name: 'xxx财务系统',
           status: 'NORMAL',
           statusDesc: '',
-          sysEnterpriseCount: ''
+          sysEnterpriseCount: '1'
         }, {
           appId: 123,
           createdBy: 'jack',
@@ -35,7 +35,7 @@ module.exports = [
           name: 'xxx财务',
           status: 'FREEZE',
           statusDesc: '',
-          sysEnterpriseCount: ''
+          sysEnterpriseCount: '2'
         }]
       }
     }
