@@ -21,3 +21,24 @@ export function getSassEnterpriseList(params) {
     params
   })
 }
+
+export function activateEnterprise(id) {
+  return request({
+    url: '/api/sysEnterprise/unfreeze/' + id,
+    method: 'put'
+  })
+}
+
+export function freezeEnterprise(id) {
+  return request({
+    url: '/api/sysEnterprise/freeze/' + id,
+    method: 'put'
+  })
+}
+
+export function deleteEnterprise(id) {
+  return request({
+    url: '/api/sysEnterprise/' + id,
+    method: 'delete'
+  })
+}

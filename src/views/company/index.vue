@@ -54,9 +54,12 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <span v-if="item.prop == 'corpId'" style="color:#66b1ff" @click="detail(scope.row)">
+                <span v-if="item.prop == 'id'" style="color:#66b1ff" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
+                <el-link v-else-if="item.prop == 'status'">
+                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : ''}}
+                </el-link>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
             </el-table-column>
@@ -67,10 +70,10 @@
             >
               <template slot-scope="scope">
                 <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate">解冻</el-button>
-                <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze">冻结</el-button>
+                <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
                 <el-button type="text" size="small">查看密码</el-button>
-                <el-button type="text" size="small">删除</el-button>
+                <el-button type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -82,7 +85,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getSassEnterpriseList } from '@/api/enterprise'
+import { getSassEnterpriseList, activateEnterprise, freezeEnterprise, deleteEnterprise } from '@/api/enterprise'
 
 export default {
   name: 'Company',
@@ -202,11 +205,50 @@ export default {
         }
       })
     },
-    activate() {
-      console.log(111)
+    activate(id) {
+      this.$confirm('是否确认解冻?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        activateEnterprise(id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '解冻成功!'
+          })
+          this.getEnterpriseList(this.searchCondition)
+        })
+      })
     },
-    freeze() {
-      console.log(222)
+    freeze(id) {
+      this.$confirm('是否确认冻结?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        freezeEnterprise(id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '冻结成功!'
+          })
+          this.getEnterpriseList(this.searchCondition)
+        })
+      })
+    },
+    deleteEnterprise(id) {
+      this.$confirm('是否确认删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteEnterprise(id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getEnterpriseList(this.searchCondition)
+        })
+      })
     }
   }
 }
