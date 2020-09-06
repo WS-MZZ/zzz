@@ -61,6 +61,26 @@ export const constantRoutes = [
   },
 
   {
+    path: '/',
+    component: Layout,
+    children: [
+      {
+        path: 'company',
+        name: 'company',
+        component: () => import('@/views/company/index'),
+        meta: { title: '企业管理', icon: 'dashboard' }
+      },
+      {
+        path: 'companyDetail',
+        name: 'companyDetail',
+        component: () => import('@/views/company/companyDetail'),
+        meta: { title: '企业管理 / 新增企业', icon: 'dashboard' },
+        hidden: true
+      }
+    ]
+  },
+
+  {
     path: '/inter',
     component: Layout,
     redirect: '/inter/interface',
@@ -126,6 +146,12 @@ export const constantRoutes = [
     alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
     meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
+      {
+        path: 'systemConfig',
+        name: 'systemConfig',
+        component: () => import('@/views/system/index'),
+        meta: { title: '系统配置', icon: 'table' }
+      },
       {
         path: 'systemLog',
         name: 'systemLog',
