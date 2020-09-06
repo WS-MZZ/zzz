@@ -39,35 +39,31 @@ export function getInterfaceRecordList(params) {
   })
 }
 
-export function getInterfaceRecord(params) {
+export function getInterfaceRecord(recordId) {
   return request({
-    url: '/api/interfaceRecord',
-    method: 'get',
-    params
+    url: '/api/interfaceRecord/' + recordId,
+    method: 'get'
   })
 }
 
-export function freezeApplication(params) {
+export function freezeApplication(id) {
   return request({
-    url: '/api/sysApplication/freeze',
-    method: 'put',
-    params
+    url: '/api/sysApplication/freeze/' + id,
+    method: 'put'
   })
 }
 
-export function unfreezeApplication(params) {
+export function unfreezeApplication(id) {
   return request({
-    url: '/api/sysApplication/unfreeze',
-    method: 'put',
-    params
+    url: '/api/sysApplication/unfreeze/' + id,
+    method: 'put'
   })
 }
 
-export function deleteApplication(params) {
+export function deleteApplication(id) {
   return request({
-    url: '/api/sysApplication',
-    method: 'delete',
-    params
+    url: '/api/sysApplication/' + id,
+    method: 'delete'
   })
 }
 
