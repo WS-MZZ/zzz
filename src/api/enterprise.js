@@ -42,3 +42,24 @@ export function deleteEnterprise(id) {
     method: 'delete'
   })
 }
+
+export function createEnterprise(data) {
+  return request({
+    url: '/api/sysEnterprise',
+    method: 'post',
+    data
+  })
+}
+export function updateEnterprise(data) {
+  return request({
+    url: '/api/sysEnterprise',
+    method: 'put',
+    data
+  })
+}
+export function getEnterpriseDetail(id) {
+  return request({
+    url: '/api/sysEnterprise/' + id,
+    method: 'get'
+  })
+}

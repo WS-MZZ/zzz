@@ -122,6 +122,20 @@ module.exports = [
     }
   },
   {
+    url: '/api/sysEnterprise',
+    type: 'post',
+    response: config => {
+      return 'ok'
+    }
+  },
+  {
+    url: '/api/sysEnterprise',
+    type: 'put',
+    response: config => {
+      return 'ok'
+    }
+  },
+  {
     url: '/api/sysEnterprise/page',
     type: 'get',
     response: config => {
@@ -153,6 +167,22 @@ module.exports = [
             'statusDesc': 'ullamco eu s'
           }
         ]
+      }
+    }
+  },
+  {
+    url: '/api/sysEnterprise/1',
+    type: 'get',
+    response: config => {
+      return {
+        'accountNo': 'veniam voluptate ut aliquip',
+        'contact': 'nulla ',
+        'email': 'anim adipisicing dolor dolore quis',
+        'expireDate': '2011-11-08',
+        'id': 1,
+        'logoUrl': 'aute ut id nulla',
+        'mobilePhone': 'enim irure ea ullamco dolore',
+        'name': 'non sed magna'
       }
     }
   }

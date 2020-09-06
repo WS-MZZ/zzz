@@ -2,10 +2,10 @@
   <div class="dashboard-container">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
-        <el-form-item label="企业名称：">
+        <el-form-item label="企业名称：" prop="name">
           <el-input v-model="form.name" size="middle" />
         </el-form-item>
-        <el-form-item label="logo：">
+        <el-form-item label="logo：" prop="logoUrl">
           <el-upload
             class="upload"
             action="https://jsonplaceholder.typicode.com/posts/"
@@ -16,20 +16,26 @@
             <i class="el-icon-plus" />
           </el-upload>
         </el-form-item>
-        <el-form-item label="联系人：" prop="email">
+        <el-form-item label="联系人：" prop="contact">
+          <el-input v-model="form.contact" size="middle" />
+        </el-form-item>
+        <el-form-item label="账号：" prop="accountNo">
+          <el-input v-model="form.accountNo" size="middle" />
+        </el-form-item>
+        <el-form-item label="密码：" prop="password">
+          <el-input v-model="form.password" size="middle" />
+        </el-form-item>
+        <el-form-item label="邮箱：" prop="email">
           <el-input v-model="form.email" size="middle" />
         </el-form-item>
-        <el-form-item label="账号：" prop="mobile">
-          <el-input v-model="form.mobile" size="middle" />
+        <el-form-item label="手机号：" prop="mobilePhone">
+          <el-input v-model="form.mobilePhone" size="middle" />
         </el-form-item>
-        <el-form-item label="密码：">
-          <el-input v-model="form.name" size="middle" />
-        </el-form-item>
-        <el-form-item label="有效期至：">
-          <el-date-picker v-model="form.value1" type="date" placeholder="选择日期" />
+        <el-form-item label="有效期至：" prop="expireDate">
+          <el-date-picker v-model="form.expireDate" type="date" placeholder="选择日期" />
         </el-form-item>
         <div class="but">
-          <el-button type="primary" size="middle" @click="submit">提交</el-button>
+          <el-button :loading="loading" type="primary" size="middle" @click="submit">提交</el-button>
         </div>
       </el-form>
     </div>
@@ -38,15 +44,38 @@
 
 <script>
 
+// import regexps from '@/utils/regexps'
+import { createEnterprise, updateEnterprise, getEnterpriseDetail } from '@/api/enterprise'
+
 export default {
   name: 'CompanyDetail',
   components: {},
   data() {
     return {
-      form: {
-
-      },
+      loading: false,
+      form: {},
       rules: {
+        name: [
+          { message: '请输入名称', trigger: 'blur', required: true }
+        ],
+        contact: [
+          { message: '请输入联系人', trigger: 'blur', required: true }
+        ],
+        accountNo: [
+          { message: '请输入账号', trigger: 'blur', required: true }
+        ],
+        password: [
+          { message: '请输入密码', trigger: 'blur', required: true }
+        ],
+        email: [
+          { message: '请输入邮箱', trigger: 'blur', required: true }
+        ],
+        mobilePhone: [
+          { message: '请输入手机号', trigger: 'blur', required: true }
+        ],
+        expireDate: [
+          { message: '请输入截止日期', trigger: 'blur', required: true }
+        ]
 
       },
       dialogImageUrl: '',
@@ -54,9 +83,40 @@ export default {
     }
   },
   computed: {},
+  created() {
+    if (this.$route.query.types === 'edit') {
+      getEnterpriseDetail(this.$route.query.id).then(res => {
+        this.form = res
+      })
+    }
+  },
   methods: {
     submit() {
-      this.$router.back(-1)
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.loading = true
+          let changeRequest
+          if (this.$route.query.types === 'add') {
+            changeRequest = createEnterprise
+          } else if (this.$route.query.types === 'edit') {
+            changeRequest = updateEnterprise
+          }
+          changeRequest(this.form).then(res => {
+            this.$message({
+              message: '成功',
+              type: 'success',
+              onClose: () => {
+                this.$router.push({
+                  path: '/company'
+                })
+              }
+            })
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     handleRemove(file, fileList) {
       console.log(file, fileList)
