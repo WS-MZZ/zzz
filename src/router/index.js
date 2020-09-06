@@ -42,48 +42,22 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
+    redirect: '/home',
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
-  },
-
-  {
-    path: '/',
-    component: Layout,
-    children: [{
+      path: 'home',
+      name: 'home',
+      meta: { title: '首页', icon: 'el-icon-s-help' },
+      component: () => import('@/views/home/index')
+    }, {
       path: 'personalInfo',
       name: 'personalInfo',
       component: () => import('@/views/personalInfo/index'),
+      meta: { title: '个人信息', icon: 'el-icon-s-help' },
       hidden: true
     }]
-  },
-
-  {
-    path: '/',
-    component: Layout,
-    children: [
-      {
-        path: 'company',
-        name: 'company',
-        component: () => import('@/views/company/index'),
-        meta: { title: '企业管理', icon: 'dashboard' }
-      },
-      {
-        path: 'companyDetail',
-        name: 'companyDetail',
-        component: () => import('@/views/company/companyDetail'),
-        meta: { title: '企业管理 / 新增企业', icon: 'dashboard' },
-        hidden: true
-      }
-    ]
   },
 
   {
@@ -122,98 +96,44 @@ export const constantRoutes = [
     ]
   },
   {
+    path: '/documentation',
+    component: Layout,
+    name: 'documentation',
+    redirect: '/documentation/list',
+    alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
+    meta: { title: '文档管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'list',
+        name: 'documentationList',
+        meta: { title: '文档列表', icon: 'el-icon-s-help' },
+        component: () => import('@/views/documentation/index')
+      },
+      {
+        path: 'detail',
+        name: 'documentationDetail',
+        meta: { title: '文档详情', icon: 'el-icon-s-help' },
+        component: () => import('@/views/documentation/modules/details')
+        // hidden: true
+      }
+    ]
+  },
+  {
     path: '/system',
     component: Layout,
     redirect: '/system/systemConfig',
     name: 'inter',
+    alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
     meta: { title: '系统管理', icon: 'el-icon-s-help' },
     children: [
-      {
-        path: 'systemConfig',
-        name: 'systemConfig',
-        component: () => import('@/views/system/index'),
-        meta: { title: '系统配置', icon: 'table' }
-      },
       {
         path: 'systemLog',
         name: 'systemLog',
         component: () => import('@/views/system/systemLog'),
         meta: { title: '系统日志', icon: 'table' }
-      },
+      }
     ]
   },
-
-  // {
-  //   path: '/form',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       name: 'Form',
-  //       component: () => import('@/views/form/index'),
-  //       meta: { title: 'Form', icon: 'form' }
-  //     }
-  //   ]
-  // },
-  //
-  // {
-  //   path: '/nested',
-  //   component: Layout,
-  //   redirect: '/nested/menu1',
-  //   name: 'Nested',
-  //   meta: {
-  //     title: 'Nested',
-  //     icon: 'nested'
-  //   },
-  //   children: [
-  //     {
-  //       path: 'menu1',
-  //       component: () => import('@/views/nested/menu1/index'), // Parent router-view
-  //       name: 'Menu1',
-  //       meta: { title: 'Menu1' },
-  //       children: [
-  //         {
-  //           path: 'menu1-1',
-  //           component: () => import('@/views/nested/menu1/menu1-1'),
-  //           name: 'Menu1-1',
-  //           meta: { title: 'Menu1-1' }
-  //         },
-  //         {
-  //           path: 'menu1-2',
-  //           component: () => import('@/views/nested/menu1/menu1-2'),
-  //           name: 'Menu1-2',
-  //           meta: { title: 'Menu1-2' },
-  //           children: [
-  //             {
-  //               path: 'menu1-2-1',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-  //               name: 'Menu1-2-1',
-  //               meta: { title: 'Menu1-2-1' }
-  //             },
-  //             {
-  //               path: 'menu1-2-2',
-  //               component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-  //               name: 'Menu1-2-2',
-  //               meta: { title: 'Menu1-2-2' }
-  //             }
-  //           ]
-  //         },
-  //         {
-  //           path: 'menu1-3',
-  //           component: () => import('@/views/nested/menu1/menu1-3'),
-  //           name: 'Menu1-3',
-  //           meta: { title: 'Menu1-3' }
-  //         }
-  //       ]
-  //     },
-  //     {
-  //       path: 'menu2',
-  //       component: () => import('@/views/nested/menu2/index'),
-  //       name: 'Menu2',
-  //       meta: { title: 'menu2' }
-  //     }
-  //   ]
-  // },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

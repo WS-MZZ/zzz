@@ -39,4 +39,22 @@ export default {
     padding-right: 15px;
   }
 }
+// 白底圆角div
+.block-wrapper {
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+// 所有的横条搜索框
+.table {
+  &-search {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .search-input {
+      width: 300px;
+      margin-left: 10px;
+    }
+  }
+}
 </style>

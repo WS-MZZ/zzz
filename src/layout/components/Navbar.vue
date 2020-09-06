@@ -4,11 +4,22 @@
 
     <breadcrumb class="breadcrumb-container" />
 
+    <div class="breadcrumb-container" style="margin-left: 30%">
+      <p style="margin: 0">{{ currentEnterprise }}
+        <el-dropdown class="avatar-container" trigger="click" placement="bottom-end">
+          <span style="cursor: pointer;color: #20a0ff;">[切换企业]</span>
+          <el-dropdown-menu slot="dropdown" class="user-dropdown" style="overflow: hidden;width: 300px;">
+            <el-dropdown-item v-for="(item, index) in enterpriseList" @click.native="changeEnterprise(index, item)">{{ item.name }}</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </p>
+    </div>
+
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
-          <span class="name">name</span>
+          <span class="name">{{ name }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -18,7 +29,7 @@
           <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
             <el-dropdown-item>更换皮肤</el-dropdown-item>
           </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
+          <a @click="showChangePass">
             <el-dropdown-item>修改密码</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
@@ -27,6 +38,25 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <el-dialog title="修改密码" :visible.sync="showChangePassForm" :before-close="cancel">
+      <div class="changePassword">
+        <el-form ref="changePassword" :model="password" :rules="rules" label-width="150px">
+          <el-form-item label="密码" prop="oldPassword">
+            <el-input v-model="password.oldPassword" type="password" autocomplete="off" />
+          </el-form-item>
+          <el-form-item label="新密码" prop="newPassword">
+            <el-input v-model="password.newPassword" type="password" autocomplete="off" />
+          </el-form-item>
+          <el-form-item label="重复新密码密码" prop="confirmPassword">
+            <el-input v-model="password.confirmPassword" type="password" autocomplete="off" />
+          </el-form-item>
+        </el-form>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="cancel">取 消</el-button>
+        <el-button :loading="loading" type="primary" @click="submit">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -34,17 +64,67 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import { getEnterpriseList, changeEnterprise } from '@/api/enterprise'
+import { changePassword } from '@/api/user'
+import { setToken } from '@/utils/auth'
+import { validPassword } from '@/utils/validate'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger
   },
+  data() {
+    const validatePassword = (rule, value, callback) => {
+      if (!validPassword(value)) {
+        callback(new Error('密码只可以包括数字和字母，不小于6位'))
+      } else {
+        callback()
+      }
+    }
+    const validateRePassword = (rule, value, callback) => {
+      if (value !== this.password.newPassword) {
+        callback(new Error('密码不一致'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      enterpriseList: [],
+      currentEnterprise: '',
+      showChangePassForm: false,
+      password: {
+        oldPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      },
+      rules: {
+        oldPassword: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
+        newPassword: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        confirmPassword: [{ required: true, trigger: 'blur', validator: validateRePassword }]
+      },
+      loading: false
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'avatar',
+      'name',
+      'corpId',
+      'userInfo'
     ])
+  },
+  created() {
+    getEnterpriseList().then(res => {
+      if (res[0]) {
+        this.$store.commit('enterprise/SET_CORP_ID', res[0].id)
+      }
+      if (Array.isArray(res)) {
+        this.enterpriseList = res
+        this.currentEnterprise = res[0].name
+      }
+    })
   },
   methods: {
     toggleSideBar() {
@@ -53,6 +133,42 @@ export default {
     async logout() {
       await this.$store.dispatch('user/logout')
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+    },
+    changeEnterprise(index, item) {
+      this.currentEnterprise = item.name
+      changeEnterprise(item.id).then(res => {
+        setToken(res.id_token)
+        window.location.href = '/'
+      })
+    },
+    showChangePass() {
+      this.showChangePassForm = true
+    },
+    submit() {
+      this.$refs.changePassword.validate(valid => {
+        if (valid) {
+          this.loading = true
+          this.password.id = this.userInfo.id
+          changePassword(this.password).then(res => {
+            this.loading = false
+            this.cancel()
+            this.$message({
+              message: '修改成功',
+              type: 'success'
+            })
+          })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields()
+    },
+    cancel() {
+      this.showChangePassForm = false
+      this.resetForm('changePassword')
     }
   }
 }
@@ -61,7 +177,7 @@ export default {
 <style lang="scss" scoped>
 .navbar {
   height: 60px;
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0,21,41,.08);

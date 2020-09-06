@@ -1,48 +1,44 @@
 <template>
-  <div :style="{zIndex:zIndex,height:height,width:width,borderRadius:borderRadius}" class="pan-item">
+  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item">
     <div class="pan-info">
       <div class="pan-info-roles-container">
         <slot />
       </div>
     </div>
     <!-- eslint-disable-next-line -->
-    <div :style="{backgroundImage: `url(${image})`,borderRadius:borderRadius}" class="pan-thumb"></div>
+    <div :style="{backgroundImage: `url(${image})`}" class="pan-thumb"></div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'PanThumb',
-  props: {
-    image: {
-      type: String,
-      required: true
-    },
-    zIndex: {
-      type: Number,
-      default: 1
-    },
-    width: {
-      type: String,
-      default: '150px'
-    },
-    height: {
-      type: String,
-      default: '150px'
-    },
-    borderRadius: {
-      type: String,
-      default: '50%'
+  export default {
+    name: 'PanThumb',
+    props: {
+      image: {
+        type: String,
+        required: true
+      },
+      zIndex: {
+        type: Number,
+        default: 1
+      },
+      width: {
+        type: String,
+        default: '150px'
+      },
+      height: {
+        type: String,
+        default: '150px'
+      }
     }
   }
-}
 </script>
 
 <style scoped>
   .pan-item {
     width: 160px;
     height: 160px;
-    /*border-radius: 50%;*/
+    border-radius: 50%;
     display: inline-block;
     position: relative;
     cursor: default;
@@ -61,7 +57,7 @@ export default {
     height: 100%;
     background-position: center center;
     background-size: cover;
-    /*border-radius: 50%;*/
+    border-radius: 50%;
     overflow: hidden;
     position: absolute;
     transform-origin: 95% 40%;

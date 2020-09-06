@@ -51,13 +51,6 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-  .block-wrapper {
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 5px;
-  }
-</style>
 
 <style lang="scss" scoped>
   @import "~@/styles/mixin.scss";

@@ -12,6 +12,7 @@
           <el-input
             ref="username"
             v-model="loginForm.username"
+            maxlength="20"
             placeholder="用户名"
             name="username"
             type="text"
@@ -27,6 +28,7 @@
             :key="passwordType"
             ref="password"
             v-model="loginForm.password"
+            maxlength="20"
             :type="passwordType"
             placeholder="密码"
             name="password"
@@ -42,18 +44,18 @@
         </el-form-item>
 
         <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:22px;" @click.native.prevent="handleLogin">登录</el-button>
-        <div class="tips" @click="gotoForgetPassword">
+        <el-link type="primary" class="tips" @click="gotoForgetPassword">
           忘记密码?
-        </div>
+        </el-link>
       </div>
 
     </el-form>
-    <forget-password v-else />
+    <forget-password v-else v-on:showLoginForm="showLoginForm" />
   </div>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validUsername, validPassword } from '@/utils/validate'
 import ForgetPassword from '@/views/login/ForgetPassword'
 
 export default {
@@ -64,14 +66,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('用户名只可以包括数字字母和汉字'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (!validPassword(value)) {
+        callback(new Error('密码只可以包括数字和字母，不小于6位'))
       } else {
         callback()
       }
@@ -128,6 +130,9 @@ export default {
     },
     gotoForgetPassword() {
       this.forgetPassword = true
+    },
+    showLoginForm() {
+      this.forgetPassword = false
     }
   }
 }

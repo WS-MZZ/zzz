@@ -1,5 +1,5 @@
 <template>
-  <el-form ref="forgetPassword" :model="loginForm" :rules="loginRules" class="fp-form" auto-complete="on" label-position="left">
+  <el-form ref="forgetPassword" :model="forgetPasswordForm" :rules="loginRules" class="fp-form" auto-complete="on" label-position="left">
     <div class="fp-form-wrapper">
       <div class="title-container">
         <h3 class="title">
@@ -10,7 +10,7 @@
       <el-form-item prop="username">
         <el-input
           ref="username"
-          v-model="loginForm.username"
+          v-model="forgetPasswordForm.username"
           placeholder="用户名"
           name="username"
           type="text"
@@ -21,113 +21,144 @@
         </el-input>
       </el-form-item>
 
-      <el-form-item prop="username">
+      <el-form-item prop="email">
         <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          name="username"
+          ref="email"
+          v-model="forgetPasswordForm.email"
+          placeholder="邮箱"
+          name="email"
           type="text"
-          tabindex="1"
+          tabindex="2"
           auto-complete="on"
         >
-          <svg-icon slot="prefix" icon-class="user" class="svg-icon" />
+          <i slot="prefix" class="el-input__icon el-icon-folder" style="padding-left: 8px"></i>
         </el-input>
       </el-form-item>
 
-      <el-form-item prop="username">
+      <el-form-item prop="code">
         <el-col :span="16">
           <el-input
-            ref="username"
-            v-model="loginForm.username"
+            ref="code"
+            v-model="forgetPasswordForm.code"
             class="verify-code"
-            placeholder="用户名"
-            name="username"
+            placeholder="验证码"
+            name="code"
             type="text"
-            tabindex="1"
+            tabindex="3"
             auto-complete="on"
           >
-            <svg-icon slot="prefix" icon-class="user" class="svg-icon" />
+            <i slot="prefix" class="el-input__icon el-icon-lock" style="padding-left: 8px"></i>
           </el-input>
         </el-col>
         <el-col :span="8">
-          <el-button type="primary" style="width:100%;">获取验证码</el-button>
+          <el-button v-if="count === 10" type="primary" style="width:100%;" @click="getCode">获取验证码</el-button>
+          <el-button v-else type="primary" disabled style="width:100%;">{{ count }}s</el-button>
         </el-col>
       </el-form-item>
 
-      <el-form-item prop="username">
+      <el-form-item prop="password">
         <el-input
           :key="passwordType"
           ref="password"
-          v-model="loginForm.password"
+          v-model="forgetPasswordForm.password"
           :type="passwordType"
-          placeholder="密码"
+          placeholder="新密码"
           name="password"
-          tabindex="2"
+          tabindex="4"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
         >
           <svg-icon slot="prefix" icon-class="password" class="svg-icon" />
         </el-input>
       </el-form-item>
 
-      <el-form-item prop="username">
+      <el-form-item prop="rePassword">
         <el-input
           :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
+          ref="rePassword"
+          v-model="forgetPasswordForm.rePassword"
           :type="passwordType"
-          placeholder="密码"
+          placeholder="重复新密码"
           name="password"
-          tabindex="2"
+          tabindex="5"
           auto-complete="on"
-          @keyup.enter.native="handleLogin"
         >
           <svg-icon slot="prefix" icon-class="password" class="svg-icon" />
         </el-input>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:22px;" @click.native.prevent="handleLogin">登录</el-button>
-      <div class="tips" @click="">
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:22px;" @click.native.prevent="submit">提交</el-button>
+      <el-link type="primary" class="tips" @click="showLoginForm">
         前往登录
-      </div>
+      </el-link>
     </div>
 
   </el-form>
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validUsername, validPassword, validEmail } from '@/utils/validate'
+import { getVerificationCode, submitNewPassword } from '@/api/user'
 
 export default {
   name: 'ForgetPassword',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('用户名只可以包括数字字母和汉字'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (!validPassword(value)) {
+        callback(new Error('密码只可以包括数字和字母，不小于6位'))
+      } else {
+        callback()
+      }
+    }
+    const validateEmail = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('邮箱不能为空'))
+      } else if (!validEmail(value)) {
+        callback(new Error('邮箱格式错误'))
+      } else {
+        callback()
+      }
+    }
+    const validateCode = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error('验证码缺失'))
+      } else {
+        callback()
+      }
+    }
+    const validateRePassword = (rule, value, callback) => {
+      if (value !== this.forgetPasswordForm.password) {
+        callback(new Error('密码不一致'))
       } else {
         callback()
       }
     }
     return {
-      loginForm: {
-        username: 'admin',
-        password: '111111'
+      forgetPasswordForm: {
+        username: '',
+        password: '',
+        rePassword: '',
+        email: '',
+        code: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
-        password: [{ required: true, trigger: 'blur', validator: validatePassword }]
+        password: [{ required: true, trigger: 'blur', validator: validatePassword }],
+        email: [{ required: true, trigger: 'blur', validator: validateEmail }],
+        code: [{ required: true, trigger: 'blur', validator: validateCode }],
+        rePassword: [{ required: true, trigger: 'blur', validator: validateRePassword }]
+
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      count: 10
     }
   },
   watch: {
@@ -149,21 +180,59 @@ export default {
         this.$refs.password.focus()
       })
     },
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+    submit() {
+      this.$refs.forgetPassword.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+          const submitForm = {
+            confirmPassword: this.forgetPasswordForm.rePassword,
+            email: this.forgetPasswordForm.email,
+            newPassword: this.forgetPasswordForm.password,
+            validCode: this.forgetPasswordForm.code
+          }
+          submitNewPassword(submitForm).then(response => {
             this.loading = false
-          }).catch(() => {
-            this.loading = false
+            this.$message({
+              message: '提交成功',
+              type: 'success',
+              onClose: () => {
+                this.$emit('showLoginForm')
+              }
+            })
+          }).catch(error => {
+            console.log(error)
           })
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    getCode() {
+      this.$refs.forgetPassword.validateField('email', errMsg => {
+        if (errMsg) {
+          console.log('邮箱错误')
+        } else {
+          this.countDownCode()
+          getVerificationCode({ email: this.forgetPasswordForm.email }).catch(() => {
+            alert('验证码发送失败请重试')
+            clearInterval(this.countDown)
+            this.count = 10
+          })
+        }
+      })
+    },
+    countDownCode() {
+      this.countDown = setInterval(() => {
+        this.count--
+        if (this.count <= 0) {
+          clearInterval(this.countDown)
+          this.count = 10
+        }
+      }, 1000)
+    },
+    showLoginForm() {
+      this.$emit('showLoginForm')
     }
   }
 }
@@ -210,7 +279,7 @@ export default {
   margin-left: 10px;
 }
 .el-form-item {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 .verify-code {
   width: 98%;

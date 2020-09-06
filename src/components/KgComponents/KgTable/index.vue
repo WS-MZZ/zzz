@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="company-list block-wrapper">
-      <div class="list-table">
-        <slot />
+    <div class="table-list">
+      <div ref="table" class="list-table">
+        <slot :tableHeight="tableHeight" />
       </div>
       <div class="pagination">
         <div class="total">
@@ -33,7 +33,7 @@ export default {
       default: 0
     },
     pageSizes: {
-      default: () => [10, 20, 50, 100]
+      default: () => [2, 20, 50, 100]
     },
     pageSize: {
       default: 10
@@ -64,14 +64,16 @@ export default {
   },
   methods: {
     calculateTableHeight() {
-      const tableOffsetTop = this.$slots.default[0].context.$el.offsetTop
+      const tableOffsetTop = this.$refs.table.offsetTop
       return window.innerHeight - tableOffsetTop - 185
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)
+      this.$emit('pageSizeChange', pageSize)
     },
     handleCurrentChange(currentPage) {
       console.log(currentPage)
+      this.$emit('pageChange', currentPage)
     }
   }
 }
@@ -83,7 +85,7 @@ export default {
     background-color: #fff;
     border-radius: 5px;
   }
-  .company {
+  .table {
     &-search {
       display: flex;
       justify-content: space-between;
@@ -94,7 +96,7 @@ export default {
       }
     }
   }
-  .company-list {
+  .table-list {
     .add {
       margin-bottom: 10px;
     }

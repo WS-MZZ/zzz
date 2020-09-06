@@ -1,18 +1,18 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">
-      <div class="title">新增接口发票</div>
+      <div class="title">{{ form.name }}</div>
       <div>
         <el-form ref="form" :model="form" label-width="100px">
           <el-row>
             <el-col :span="8">
               <el-form-item label="访问应用：">
-                <span>{{ form.account }}</span>
+                <span>{{ form.sysApplicationName }}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item label="访问结果：">
-                <span>{{ form.name }}</span>
+                <span>{{ form.result }}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -24,7 +24,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="ip地址：" prop="mobile">
-                <span>{{ form.mobile }}</span>
+                <span>{{ form.ipAddress }}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -61,6 +61,8 @@
 
 <script>
 
+import { getInterfaceRecord } from '@/api/applications'
+
 export default {
   name: 'InterViewDetails',
   components: { },
@@ -69,12 +71,12 @@ export default {
       form: {},
       tableHeader: [
         {
-          prop: 'corpId',
+          prop: 'fieldName',
           label: '字段名'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'fieldDesc',
           label: '字段名备注'
           // width: '160'
         },
@@ -102,11 +104,24 @@ export default {
       this.tableHeight = this.calculateTableHeight()
       this.showTable = true
     }, 0)
+    if (this.$route.query.id) {
+      this.recordId = this.$route.query.id
+      this.getInterfaceRecord(this.recordId)
+    }
   },
   methods: {
     calculateTableHeight() {
       const tableOffsetTop = this.$refs.table.$el.offsetTop
-      return window.innerHeight - tableOffsetTop - 155
+      return window.innerHeight - tableOffsetTop - 220
+    },
+    getInterfaceRecord(id) {
+      getInterfaceRecord(id).then(res => {
+        console.log(res.data)
+        this.form = res.data
+        this.tableData = res.data.paramList
+      }).catch(error => {
+        console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
+      })
     }
   }
 }

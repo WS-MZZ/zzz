@@ -2,38 +2,38 @@
   <div class="dashboard-container">
     <div class="dashboard-text">
       <div class="left">
-        <avatarUpload ref="avatarUpload"></avatarUpload>
+        <avatarUpload ref="avatarUpload" />
       </div>
 
       <div class="right">
-        <personalDetails ref="personalDetails" :isEdit="isEdit" @submit="submit"></personalDetails>
+        <personalDetails ref="personalDetails" :is-edit="isEdit" @submit="submit" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import avatarUpload from "./modules/avatarUpload.vue";
-  import personalDetails from "./modules/personalDetails";
+import avatarUpload from './modules/avatarUpload.vue'
+import personalDetails from './modules/personalDetails'
 
-  export default {
-    name: 'personalInfo',
-    components:{
-      avatarUpload,
-      personalDetails
-    },
-    computed: {},
-    data() {
-      return {
-        isEdit: false
-      }
-    },
-    methods: {
-      submit(data){
-        this.isEdit = data;
-      }
+export default {
+  name: 'PersonalInfo',
+  components: {
+    avatarUpload,
+    personalDetails
+  },
+  data() {
+    return {
+      isEdit: false
+    }
+  },
+  computed: {},
+  methods: {
+    submit(data) {
+      this.isEdit = data
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>
