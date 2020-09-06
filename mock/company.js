@@ -99,5 +99,28 @@ module.exports = [
         id_token: '12345'
       }
     }
+  },
+  {
+    url: '/api/sysEnterprise/page',
+    type: 'get',
+    response: config => {
+      return {
+        total: 4,
+        data: [
+          {
+            'accountNo': 'sint aliquip proident veniam nulla',
+            'contact': 'tempor exercitation pariatur dolor',
+            'createdBy': 'do nostrud',
+            'createdDate': '1998-02-11T13:49:54.697Z',
+            'expireDate': '1977-11-18',
+            'id': 1031,
+            'logoUrl': 'ut eu et d',
+            'name': 'sit ex ea dolore',
+            'status': 'NORMAL',
+            'statusDesc': 'ullamco eu s'
+          }
+        ]
+      }
+    }
   }
 ]

@@ -13,3 +13,11 @@ export function changeEnterprise(enterpriseId) {
     method: 'post'
   })
 }
+
+export function getSassEnterpriseList(params) {
+  return request({
+    url: '/api/sysEnterprise/page',
+    method: 'get',
+    params
+  })
+}

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="company-search block-wrapper">
+    <div class="table-search block-wrapper">
       <div class="search-para">
-        <el-select v-model="value" placeholder="状态" size="medium">
+        <el-select v-model="searchCondition.status" placeholder="状态" size="medium">
           <el-option
             v-for="item in options"
             :key="item.value"
@@ -11,59 +11,78 @@
           />
         </el-select>
         <el-input
-          v-model="input"
+          v-model="searchCondition.name"
           size="medium"
           placeholder="请输入企业名称/账号"
           class="search-input"
         />
       </div>
       <div class="search-operation">
-        <el-button size="medium" type="primary">查询</el-button>
-        <el-button size="medium">重置</el-button>
+        <el-button size="medium" type="primary" @click="search">查询</el-button>
+        <el-button size="medium" @click="resetSearchCondition">重置</el-button>
       </div>
     </div>
-    <KgTable>
+    <div class="block-wrapper company-list">
       <div class="add">
         <el-button size="medium" type="primary" @click="add">新增企业</el-button>
       </div>
-      <el-table ref="companyList" :height="tableHeight" :data="tableData" border style="width: 100%">
-        <el-table-column
-          v-for="(item) in tableHeader"
-          :key="item.id"
-          :align="item.align || 'left'"
-          :prop="item.prop"
-          :label="item.label"
-          :show-overflow-tooltip="true"
-          :width="item.width"
-          :min-width="item.minWidth"
-          :fixed="item.fixed"
-        >
-          <template slot-scope="scope">
-            <span v-if="item.prop == 'corpId'" style="color:#66b1ff" @click="detail(scope.row)">
-              {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
-            </span>
-            <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          fixed="right"
-          label="操作"
-          width=""
-        >
-          <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-            <el-button type="text" size="small">冻结</el-button>
-            <el-button type="text" size="small">查看密码</el-button>
-            <el-button type="text" size="small">删除</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </KgTable>
+      <KgTable
+        :total="total"
+        :page-size="searchCondition.size"
+        @pageChange="handleCurrentChange"
+        @pageSizeChange="handleSizeChange"
+      >
+        <template v-slot:default="slotProps">
+          <el-table
+            ref="companyList"
+            :loading="loading"
+            :height="slotProps.tableHeight"
+            :data="tableData"
+            border
+            style="width: 100%"
+            :header-cell-style="{'background-color': 'rgba(250,250,250,1)', color: '#272727', 'font-weight': 400}"
+          >
+            <el-table-column
+              v-for="(item) in tableHeader"
+              :key="item.id"
+              :align="item.align || 'left'"
+              :prop="item.prop"
+              :label="item.label"
+              :show-overflow-tooltip="true"
+              :width="item.width"
+              :min-width="item.minWidth"
+              :fixed="item.fixed"
+            >
+              <template slot-scope="scope">
+                <span v-if="item.prop == 'corpId'" style="color:#66b1ff" @click="detail(scope.row)">
+                  {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+                </span>
+                <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
+              </template>
+            </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作"
+              width=""
+            >
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze">冻结</el-button>
+                <el-button type="text" size="small">查看密码</el-button>
+                <el-button type="text" size="small">删除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </template>
+      </KgTable>
+    </div>
   </div>
 </template>
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
+import { getSassEnterpriseList } from '@/api/enterprise'
 
 export default {
   name: 'Company',
@@ -72,19 +91,32 @@ export default {
   },
   data() {
     return {
-      tableHeight: 0,
       showTable: false,
-      tableData: [
-        { corpId: 1 }
-      ],
+      loading: false,
+      options: [{
+        label: '正常',
+        value: 'NORMAL'
+      }, {
+        label: '冻结',
+        value: 'FREEZE'
+      }],
+      tableData: [],
+      total: 0,
+      searchCondition: {
+        name: '',
+        page: '',
+        size: 2,
+        sort: 'DESC',
+        status: ''
+      },
       tableHeader: [
         {
-          prop: 'corpId',
+          prop: 'id',
           label: '企业ID'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'logoUrl',
           label: 'logo'
           // width: '160'
         },
@@ -94,27 +126,27 @@ export default {
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'accountNo',
           label: '企业账号'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'contact',
           label: '联系人'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'expireDate',
           label: '到期时间'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'status',
           label: '状态'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'createdDate',
           label: '创建时间'
           // width: '160'
         }
@@ -122,23 +154,11 @@ export default {
     }
   },
   created() {
-    window.onresize = () => {
-      this.tableHeight = this.calculateTableHeight()
-    }
+    this.getEnterpriseList(this.searchCondition)
   },
   mounted() {
-    setTimeout(() => {
-      this.tableHeight = this.calculateTableHeight()
-      this.showTable = true
-    }, 0)
   },
   methods: {
-    calculateTableHeight() {
-      const tableOffsetTop = this.$refs.companyList.$el.offsetTop
-      console.log(tableOffsetTop, this.$refs.companyList.$el)
-      console.log(window.innerHeight - tableOffsetTop - 94)
-      return window.innerHeight - tableOffsetTop - 185
-    },
     add() {
       this.$router.push({
         path: '/companyDetail',
@@ -146,6 +166,32 @@ export default {
           types: 'add'
         }
       })
+    },
+    getEnterpriseList(searchCondition) {
+      this.loading = true
+      getSassEnterpriseList(searchCondition).then(res => {
+        this.loading = false
+        this.tableData = res.data
+        this.total = res.total
+      }).catch(error => {
+        console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
+        this.loading = false
+      })
+    },
+    handleSizeChange(pageSize) {
+      this.searchCondition.size = pageSize
+      this.getEnterpriseList(this.searchCondition)
+    },
+    handleCurrentChange(currentPage) {
+      this.searchCondition.page = currentPage
+      this.getEnterpriseList(this.searchCondition)
+    },
+    search() {
+      this.getEnterpriseList(this.searchCondition)
+    },
+    resetSearchCondition() {
+      this.searchCondition.name = ''
+      this.searchCondition.status = ''
     },
     handleClick(row) {
       this.$router.push({
@@ -155,6 +201,12 @@ export default {
           id: row.id
         }
       })
+    },
+    activate() {
+      console.log(111)
+    },
+    freeze() {
+      console.log(222)
     }
   }
 }
