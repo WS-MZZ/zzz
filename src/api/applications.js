@@ -24,11 +24,10 @@ export function updateApplication(params) {
   })
 }
 
-export function getSysApplication(params) {
+export function getSysApplication(id) {
   return request({
-    url: '/api/sysApplication',
-    method: 'get',
-    params
+    url: '/api/sysApplication/' + id,
+    method: 'get'
   })
 }
 

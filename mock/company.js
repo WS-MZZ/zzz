@@ -76,7 +76,7 @@ module.exports = [
     }
   },
   {
-    url: '/api/sysApplication',
+    url: '/api/sysApplication/3',
     type: 'get',
     response: config => {
       return {
