@@ -32,12 +32,47 @@ module.exports = [
           createdDate: '2020-01-01',
           id: 4,
           maxLimit: 100,
-          name: 'xxx财务系统',
-          status: 'NORMAL',
+          name: 'xxx财务',
+          status: 'FREEZE',
           statusDesc: '',
           sysEnterpriseCount: ''
         }]
       }
+    }
+  },
+  {
+    url: '/api/sysApplication',
+    type: 'post',
+    response: config => {
+      return 'ok'
+    }
+  },
+  {
+    url: '/api/sysApplication',
+    type: 'put',
+    response: config => {
+      return 'ok'
+    }
+  },
+  {
+    url: '/api/sysApplication/freeze',
+    type: 'put',
+    response: config => {
+      return 'ok'
+    }
+  },
+  {
+    url: '/api/sysApplication/unfreeze',
+    type: 'put',
+    response: config => {
+      return 'ok'
+    }
+  },
+  {
+    url: '/api/sysApplication',
+    type: 'delete',
+    response: config => {
+      return 'ok'
     }
   },
   {

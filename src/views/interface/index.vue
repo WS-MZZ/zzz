@@ -22,7 +22,10 @@
         <el-button size="medium" @click="resetSearchCondition">重置</el-button>
       </div>
     </div>
-    <div class="block-wrapper">
+    <div class="block-wrapper company-list">
+      <div class="add">
+        <el-button size="medium" type="primary" @click="add">新增应用</el-button>
+      </div>
       <KgTable
         :total="total"
         :page-size="searchCondition.size"
@@ -56,6 +59,18 @@
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
             </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="操作"
+              width=""
+            >
+              <template slot-scope="scope">
+                <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row)">冻结</el-button>
+                <el-button type="text" size="small" @click="del(scope.row)">删除</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </template>
       </KgTable>
@@ -65,7 +80,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getApplicationList } from '@/api/applications'
+import { getApplicationList, freezeApplication, unfreezeApplication, deleteApplication } from '@/api/applications'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -153,15 +168,6 @@ export default {
   mounted() {
   },
   methods: {
-    detail(data) {
-      console.log(data)
-      this.$router.push({
-        path: '/inter/interfaceDetail',
-        query: {
-          id: data.id
-        }
-      })
-    },
     getApplicationList(searchCondition) {
       this.loading = true
       getApplicationList(searchCondition).then(res => {
@@ -188,6 +194,95 @@ export default {
     resetSearchCondition() {
       this.searchCondition.name = ''
       this.searchCondition.status = ''
+    },
+    add() {
+      this.$router.push({
+        path: '/inter/addDetail',
+        query: {
+          types: 'add'
+        }
+      })
+    },
+    detail(data) {
+      console.log(data)
+      this.$router.push({
+        path: '/inter/interfaceDetail',
+        query: {
+          id: data.id
+        }
+      })
+    },
+    handleClick(row) {
+      this.$router.push({
+        path: '/inter/addDetail',
+        query: {
+          types: 'edit',
+          id: row.id
+        }
+      })
+    },
+    activate(row) {
+      this.$confirm('确定要解冻 ' + row.name + ' 吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        const parm = { ids: [] }
+        parm.ids.push(row.id)
+        unfreezeApplication(parm).then(res => {
+          // console.log(res);
+          this.$message({
+            type: 'success',
+            message: '解冻成功'
+          })
+          this.getApplicationList(this.searchCondition)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消解冻'
+        })
+      })
+    },
+    freeze(row) {
+      this.$confirm('确定要冻结 ' + row.name + ' 吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        freezeApplication(row.id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '冻结成功'
+          })
+          this.getApplicationList(this.searchCondition)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消冻结'
+        })
+      })
+    },
+    del(row) {
+      this.$confirm('确定要删除 ' + row.name + ' 吗?', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        deleteApplication(row.id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '删除成功'
+          })
+          this.getApplicationList(this.searchCondition)
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
     }
   }
 }

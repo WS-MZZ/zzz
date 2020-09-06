@@ -101,6 +101,13 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'addDetail',
+        name: 'addDetail',
+        component: () => import('@/views/interface/modules/addDetail'),
+        meta: { title: '应用授权管理 / 新增应用', icon: 'table' },
+        hidden: true
+      },
+      {
         path: 'interView',
         name: 'interView',
         component: () => import('@/views/interView/index'),
