@@ -5,9 +5,7 @@
         v-model="value"
         style="text-align: left; display: inline-block"
         filterable
-        :left-default-checked="[2, 3]"
-        :right-default-checked="[1]"
-        :titles="['已选择企业', '可选择企业']"
+        :titles="['可选择企业', '已选择企业']"
         :button-texts="['加入左边', '加入右边']"
         :data="data"
         @change="handleChange"
@@ -21,7 +19,8 @@
 </template>
 
 <script>
-
+/* eslint-disable prefer-const */
+import { getEnterpriseListOfApp, updateApplication } from '@/api/applications'
 export default {
   name: 'BuyDialog',
   props: {
@@ -31,32 +30,58 @@ export default {
     }
   },
   data() {
-    const generateData = _ => {
-      const data = []
-      for (let i = 1; i <= 15; i++) {
-        data.push({
-          key: i,
-          label: `备选项 ${i}`,
-          disabled: i % 4 === 0
-        })
-      }
-      return data
-    }
     return {
-      data: generateData(),
+      data: [],
       value: [],
-      loading: false
+      loading: false,
+      allEnterpriseIdList: [],
+      application: ''
     }
   },
-  mounted() {
+  created() {
+    this.getEnterpriseListOfApp()
   },
   methods: {
+    getEnterpriseListOfApp(params) {
+      getEnterpriseListOfApp(params).then(res => {
+        this.allEnterpriseIdList = res.allEnterpriseIdList
+        this.data = res.allEnterpriseIdList.map((item, index) => {
+          return {
+            key: item.id,
+            label: item.name
+          }
+        })
+        if (res.selectEnterpriseIdList) {
+          this.value = res.selectEnterpriseIdList.map((item, index) => {
+            return item.id
+          })
+        } else {
+          this.value = []
+        }
+      })
+    },
+    showLoadedList(application, isEdit) {
+      this.getEnterpriseListOfApp({ id: application.id })
+      if (!isEdit) {
+        this.application = application
+      }
+    },
     confirm() {
-      this.clear()
-      this.$emit('update:visible', false)
+      if (this.application) {
+        this.application.sysEnterpriseIdList = this.value
+        updateApplication(this.application).then(res => {
+          console.log(res)
+          this.$emit('updateLinkedEnterprises')
+        })
+      } else {
+        let linkedEnterprises = this.allEnterpriseIdList.filter((item, index) => {
+          return this.value.indexOf(item.id) !== -1
+        })
+        this.$emit('updateLinkedEnterprises', linkedEnterprises)
+      }
+
     },
     cancle() {
-      this.clear()
       this.$emit('update:visible', false)
     },
     clear() {

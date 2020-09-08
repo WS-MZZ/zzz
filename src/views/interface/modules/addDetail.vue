@@ -8,17 +8,21 @@
         <el-form-item label="Appid：" prop="appId">
           <el-input v-model="form.appId" size="middle" />
         </el-form-item>
-        <el-form-item label="Appsecret：" prop="appSecret">
-          <el-input v-model="form.appSecret" size="middle" />
+        <el-form-item label="Appsecret：">
+          <!-- <el-button @click="getAppsecret">配置</el-button> -->
+          <el-input v-model="form.appSecret" size="middle"></el-input>
         </el-form-item>
         <el-form-item label="账套配置：">
-          <el-input v-model="form.sysEnterpriseIdList" size="middle" />
+          <div>
+            <el-tag v-for="item in sysEnterpriseIdList" :key="item.id" style="margin-right: 5px;">{{ item.name }}</el-tag>
+          </div>
+          <el-button @click="configEnterprise">配置</el-button>
         </el-form-item>
         <el-form-item label="每分钟访问限制：">
-          <el-input v-model="form.maxLimit" size="middle" />
-          <el-radio v-model="radio" label="1">无限制</el-radio>
+          <el-input v-model="form.maxLimit" :disabled="noLimit" size="middle" />
+          <el-checkbox v-model="noLimit" @change="tickNolimit">无限制</el-checkbox>
         </el-form-item>
-        <el-form-item label="logo：">
+        <el-form-item label="应用描述：">
           <el-input
             v-model="form.remark"
             type="textarea"
@@ -32,16 +36,25 @@
         </div>
       </el-form>
     </div>
+    <BuyDialog
+      ref="BuyDialog"
+      :visible.sync="visible"
+      @updateLinkedEnterprises="getLinkedEnterprises"
+    />
   </div>
 </template>
 
 <script>
 
-import { addApplication, updateApplication, getSysApplication } from '@/api/applications'
+import { addApplication, updateApplication, getSysApplication, getAppsecret } from '@/api/applications'
+import BuyDialog from './buyDialog'
+import regexps from '@/utils/regexps'
 
 export default {
   name: 'AddDetail',
-  components: {},
+  components: {
+    BuyDialog
+  },
   data() {
     return {
       form: {
@@ -50,16 +63,19 @@ export default {
         maxLimit: '',
         name: '',
         remark: '',
-        sysEnterpriseIdList: ''
+        sysEnterpriseIdList: []
       },
+      sysEnterpriseIdList: [],
       rules: {
         appId: [{ required: true, message: '请输入appId', trigger: 'blur' }],
-        appSecret: [{ required: true, message: '请输入appSecret', trigger: 'blur' }]
+        appSecret: [{ required: true, message: '请输入appSecret', trigger: 'blur' }],
+        maxLimit: [{ pattern: regexps.maxLimit, required: true, message: '请输入次数限制', trigger: 'blur' }]
       },
-      radio: '',
+      noLimit: false,
       loading: false,
       types: 'add',
-      id: null
+      id: null,
+      visible: false
     }
   },
   computed: {
@@ -76,20 +92,24 @@ export default {
     id(newValue) {
       getSysApplication(this.typeObj.id).then(res => {
         console.log(res.data)
-        this.form = res.data
+        this.form = res
+        this.id = res.id
+        this.sysEnterpriseIdList = this.form.sysEnterpriseIdList
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
       })
     }
   },
   mounted() {
-    if(this.$route.query.types === 'edit') {
+    if (this.$route.query.types === 'edit') {
       this.id = this.$route.query.id
     }
   },
   methods: {
     submit() {
-      console.log(this.typeObj)
+      this.form.sysEnterpriseIdList = this.sysEnterpriseIdList.map((item) => {
+        return item.id
+      })
       this.$refs.form.validate(valid => {
         if (valid) {
           this.loading = true
@@ -111,6 +131,33 @@ export default {
       this.$router.back(-1)
       this.id = null
       this.types = 'add'
+    },
+    configEnterprise() {
+      if (this.id) {
+        this.$refs.BuyDialog.showLoadedList(this.form, true)
+      }
+      this.visible = true
+    },
+    getLinkedEnterprises(linkedEnterprises) {
+      this.sysEnterpriseIdList = linkedEnterprises
+      this.visible = false
+    },
+    tickNolimit(val) {
+      if (val) {
+        this.form.maxLimit = ''
+      }
+    },
+    getAppsecret() {
+      if (this.form.appId) {
+        getAppsecret(this.form.appId).then(res => {
+          console.log(res)
+        })
+      } else {
+        this.$message({
+          type: 'danger',
+          message: 'appid为空'
+        })
+      }
     }
   }
 }

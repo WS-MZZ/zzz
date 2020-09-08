@@ -93,7 +93,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getInvoiceList } from '@/api/documentation'
+import { getInvoiceList, getInvoiceListColumnConfig } from '@/api/documentation'
 
 export default {
   name: 'Invoice',
@@ -182,6 +182,7 @@ export default {
     }
   },
   created() {
+    this.getColumnConfig()
     this.getInvoiceList(this.searchCondition)
   },
   mounted() {
@@ -222,6 +223,11 @@ export default {
       this.searchCondition.fullFiledName = ''
       this.createRange = []
       this.makeOutRange = []
+    },
+    getColumnConfig() {
+      getInvoiceListColumnConfig().then(res => {
+        console.log(res)
+      })
     },
     showColumnConfigDialog() {
       this.oldColumnChecked = this.columnChecked.concat()

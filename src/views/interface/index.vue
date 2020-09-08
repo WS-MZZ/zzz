@@ -78,14 +78,13 @@
         </template>
       </KgTable>
     </div>
-    <BuyDialog ref="BuyDialog" :visible.sync='visible'></BuyDialog>
+    <BuyDialog ref="BuyDialog" :visible.sync="visible" @updateLinkedEnterprises="updateLinkedEnterprises" />
   </div>
 </template>
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
 import { getApplicationList, freezeApplication, unfreezeApplication, deleteApplication } from '@/api/applications'
-import { mapGetters } from 'vuex'
 import BuyDialog from './modules/buyDialog'
 
 export default {
@@ -158,11 +157,11 @@ export default {
       visible: false
     }
   },
-  computed: {
-    ...mapGetters([
-      'corpId'
-    ])
-  },
+  // computed: {
+  //   ...mapGetters([
+  //     'corpId'
+  //   ])
+  // },
   watch: {
     corpId: val => {
       this.searchCondition.sysEnterpriseId = val
@@ -170,12 +169,7 @@ export default {
     }
   },
   created() {
-    // 首先，获取企业列表，是在navbar初始化的时候去发请求拿的，拿到后会把第一个企业id存到全局，以后每换一次，请求就要重发一次，每页要去
-    // 这个企业id
-    if (this.corpId) {
-      this.searchCondition.sysEnterpriseId = this.corpId
-      this.getApplicationList(this.searchCondition)
-    }
+    this.getApplicationList(this.searchCondition)
   },
   mounted() {
   },
@@ -224,9 +218,14 @@ export default {
         }
       })
     },
-    company(row){
+    company(row) {
       console.log(row)
       this.visible = true
+      this.$refs.BuyDialog.showLoadedList(row)
+    },
+    updateLinkedEnterprises() {
+      this.getApplicationList(this.searchCondition)
+      this.visible = false
     },
     handleClick(row) {
       this.$router.push({

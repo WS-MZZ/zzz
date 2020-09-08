@@ -8,19 +8,19 @@ export function getApplicationList(params) {
   })
 }
 
-export function addApplication(params) {
+export function addApplication(data) {
   return request({
     url: '/api/sysApplication',
     method: 'post',
-    params
+    data
   })
 }
 
-export function updateApplication(params) {
+export function updateApplication(data) {
   return request({
     url: '/api/sysApplication',
     method: 'put',
-    params
+    data
   })
 }
 
@@ -67,3 +67,17 @@ export function deleteApplication(id) {
   })
 }
 
+export function getEnterpriseListOfApp(params) {
+  return request({
+    url: '/api/sysApplication/listEnterprise',
+    method: 'get',
+    params
+  })
+}
+
+export function getAppsecret(appkey) {
+  return request({
+    url: '/api/sysApplication/appSecret/' + appkey,
+    method: 'get'
+  })
+}
