@@ -4,7 +4,7 @@
 
     <breadcrumb class="breadcrumb-container" />
 
-    <div class="breadcrumb-container" style="margin-left: 30%">
+    <div v-if="false" class="breadcrumb-container" style="margin-left: 30%">
       <p style="margin: 0">{{ currentEnterprise }}
         <el-dropdown class="avatar-container" trigger="click" placement="bottom-end">
           <span style="cursor: pointer;color: #20a0ff;">[切换企业]</span>

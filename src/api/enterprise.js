@@ -63,3 +63,10 @@ export function getEnterpriseDetail(id) {
     method: 'get'
   })
 }
+
+export function resetEnterprisePass(id) {
+  return request({
+    url: '/api/sysEnterprise/resetPassword/' + id,
+    method: 'put'
+  })
+}

@@ -35,7 +35,7 @@
         <template v-slot:default="slotProps">
           <el-table
             ref="companyList"
-            :loading="loading"
+            v-loading="loading"
             :height="slotProps.tableHeight"
             :data="tableData"
             border
@@ -72,7 +72,7 @@
                 <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
                 <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
                 <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
-                <el-button type="text" size="small">查看密码</el-button>
+                <el-button type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
                 <el-button type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
@@ -85,7 +85,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getSassEnterpriseList, activateEnterprise, freezeEnterprise, deleteEnterprise } from '@/api/enterprise'
+import { getSassEnterpriseList, activateEnterprise, freezeEnterprise, deleteEnterprise, resetEnterprisePass } from '@/api/enterprise'
 
 export default {
   name: 'Company',
@@ -109,8 +109,7 @@ export default {
         name: '',
         page: '',
         size: 2,
-        sort: 'DESC',
-        status: ''
+        sort: 'DESC'
       },
       tableHeader: [
         {
@@ -175,7 +174,7 @@ export default {
       getSassEnterpriseList(searchCondition).then(res => {
         this.loading = false
         this.tableData = res.data
-        this.total = res.total
+        this.total = parseInt(res.total)
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
         this.loading = false
@@ -186,7 +185,7 @@ export default {
       this.getEnterpriseList(this.searchCondition)
     },
     handleCurrentChange(currentPage) {
-      this.searchCondition.page = currentPage
+      this.searchCondition.page = currentPage - 1
       this.getEnterpriseList(this.searchCondition)
     },
     search() {
@@ -232,6 +231,20 @@ export default {
             message: '冻结成功!'
           })
           this.getEnterpriseList(this.searchCondition)
+        })
+      })
+    },
+    resetPass(id) {
+      this.$confirm('是否确认重置?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        resetEnterprisePass(id).then(res => {
+          this.$message({
+            type: 'success',
+            message: '重置成功!'
+          })
         })
       })
     },

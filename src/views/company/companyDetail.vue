@@ -22,8 +22,8 @@
         <el-form-item label="账号：" prop="accountNo">
           <el-input v-model="form.accountNo" size="middle" />
         </el-form-item>
-        <el-form-item label="密码：" prop="password">
-          <el-input v-model="form.password" size="middle" />
+        <el-form-item v-if="!isEdit" label="密码：" prop="password">
+          <el-input type="password" v-model="form.password" size="middle" />
         </el-form-item>
         <el-form-item label="邮箱：" prop="email">
           <el-input v-model="form.email" size="middle" />
@@ -32,7 +32,12 @@
           <el-input v-model="form.mobilePhone" size="middle" />
         </el-form-item>
         <el-form-item label="有效期至：" prop="expireDate">
-          <el-date-picker v-model="form.expireDate" type="date" placeholder="选择日期" />
+          <el-date-picker
+            v-model="form.expireDate"
+            type="date"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
+          />
         </el-form-item>
         <div class="but">
           <el-button :loading="loading" type="primary" size="middle" @click="submit">提交</el-button>
@@ -82,7 +87,11 @@ export default {
       dialogVisible: false
     }
   },
-  computed: {},
+  computed: {
+    isEdit() {
+      return this.$route.query.types === 'edit'
+    }
+  },
   created() {
     if (this.$route.query.types === 'edit') {
       getEnterpriseDetail(this.$route.query.id).then(res => {
@@ -111,6 +120,9 @@ export default {
                 })
               }
             })
+          }).catch(err => {
+            console.log(err)
+            this.loading = false
           })
         } else {
           console.log('error submit!!')
