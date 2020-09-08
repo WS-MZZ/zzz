@@ -8,6 +8,13 @@ export function getInvoiceList(params) {
   })
 }
 
+export function getInvoiceDocument(id) {
+  return request({
+    url: '/api/invoiceDocument/' + id,
+    method: 'get'
+  })
+}
+
 export function getInvoiceListColumnConfig() {
   return request({
     url: '/api/invoiceDocument/invoiceConfig',

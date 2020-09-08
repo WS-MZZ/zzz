@@ -140,8 +140,8 @@ export const constantRoutes = [
         path: 'detail',
         name: 'documentationDetail',
         meta: { title: '文档详情', icon: 'el-icon-s-help' },
-        component: () => import('@/views/documentation/modules/details')
-        // hidden: true
+        component: () => import('@/views/documentation/modules/details'),
+        hidden: true
       }
     ]
   },

@@ -179,7 +179,7 @@ export default {
       getApplicationList(searchCondition).then(res => {
         this.loading = false
         this.tableData = res.data
-        this.total = res.total
+        this.total = parseInt(res.total)
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
         this.loading = false
