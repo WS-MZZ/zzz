@@ -2,12 +2,12 @@
   <div>
     <div class="table-search block-wrapper">
       <div class="search-para">
-        <el-select v-model="value" placeholder="所属应用" size="medium">
+        <el-select v-model="searchCondition.sysApplicationId" placeholder="所属应用" size="medium">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in applicationList"
+            :key="item.id"
+            :label="item.name"
+            :value="item.appId"
           />
         </el-select>
         <el-date-picker
@@ -69,7 +69,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getInterfaceRecordList } from '@/api/applications'
+import { getInterfaceRecordList, getApplicationList } from '@/api/applications'
 
 export default {
   name: 'InterView',
@@ -131,7 +131,8 @@ export default {
       },
       value: '',
       options: [],
-      total: 0
+      total: 0,
+      applicationList: ''
     }
   },
   watch: {
@@ -141,6 +142,7 @@ export default {
     }
   },
   created() {
+    this.getAllApplications()
     this.getInterfaceRecordList(this.searchCondition)
   },
   mounted() {
@@ -160,10 +162,18 @@ export default {
       getInterfaceRecordList(searchCondition).then(res => {
         this.loading = false
         this.tableData = res.data
-        this.total = res.total
+        this.total = parseInt(res.total)
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
         this.loading = false
+      })
+    },
+    getAllApplications() {
+      getApplicationList({
+        size: 10000,
+        sort: 'DESC'
+      }).then(res => {
+        this.applicationList = res.data
       })
     },
     handleSizeChange(pageSize) {

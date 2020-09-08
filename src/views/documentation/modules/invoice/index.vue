@@ -64,7 +64,7 @@
       >
         <template v-slot:default="slotProps">
           <el-table
-            ref="companyList"
+            v-loading="loading"
             :height="slotProps.tableHeight"
             :data="tableData"
             border
@@ -78,7 +78,7 @@
               :label="item.name"
             >
               <template slot-scope="scope">
-                <span v-if="item.prop == 'corpId'" style="color:#66b1ff" @click="detail(scope.row)">
+                <span v-if="item.prop == 'no'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
@@ -93,7 +93,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getInvoiceList, getInvoiceListColumnConfig } from '@/api/documentation'
+import { getInvoiceList, getInvoiceListColumnConfig, updateInvoiceListColumnConfig } from '@/api/documentation'
 
 export default {
   name: 'Invoice',
@@ -118,28 +118,30 @@ export default {
         { name: '发票备注', disable: false, prop: 'remark' },
         { name: '开票人', disable: false, prop: 'drawer' },
         { name: '收款人', disable: false, prop: '' },
-        { name: '复核人', disable: false, prop: '' },
+        { name: '复核人', disable: false, prop: 'auditor' },
         { name: '购买客户编号', disable: false, prop: 'code' },
         { name: '购买方名称', disable: false },
-        { name: '购买方纳税人识别号', disable: false },
-        { name: '购买方开户行及账号', disable: false },
-        { name: '购买方地址及电话', disable: false },
-        { name: '销售订单号', disable: false },
+        { name: '购买方纳税人识别号', disable: false, prop: 'customerID' },
+        { name: '购买方开户行及账号', disable: false, prop: 'customerBankAddressAndNo' },
+        { name: '购买方地址及电话', disable: false, prop: 'customerAddressAndPhone' },
+        { name: '销售订单号', disable: false, prop: 'saleOrderNo' },
         { name: '销方纳税人识别号', disable: false },
         { name: '销方银行及账号', disable: false },
         { name: '销方地址及电话', disable: false },
         { name: '电子发票pdfurl', disable: false },
         { name: '开票税率', disable: false },
         { name: '单据ID', disable: false },
-        { name: '单据编号', disable: false },
-        { name: '单据日期', disable: false },
-        { name: '客户订单号', disable: false },
-        { name: '公司编号', disable: false },
-        { name: '门店编号', disable: false },
+        { name: '单据编号', disable: false, prop: 'billId' },
+        { name: '单据日期', disable: false, prop: 'billDate' },
+        { name: '客户订单号', disable: false, prop: 'customerOrderNo' },
+        { name: '公司编号', disable: false, prop: 'companyNo' },
+        { name: '门店编号', disable: false, prop: 'shopNo' },
         { name: '单据类型', disable: false },
         { name: '采购订单号', disable: false },
         { name: '往来单位编号', disable: false },
-        { name: '经办人信息', disable: false }
+        { name: '经办人信息', disable: false, prop: 'agentInfo' },
+        { name: '经办人信息2', disable: false, prop: 'agentInfo2' },
+
       ],
       columnShowed: ['发票代码', '发票号码', '开票日期', '发票状态', '发票校验码', '发票类型'],
       columnChecked: ['发票代码', '发票号码', '开票日期', '发票状态', '发票校验码', '发票类型'],
@@ -191,7 +193,7 @@ export default {
     detail(data) {
       console.log(data)
       this.$router.push({
-        path: '/inter/interfaceDetail',
+        path: '/documentation/detail',
         query: {
           id: data.id
         }
@@ -202,7 +204,7 @@ export default {
       getInvoiceList(searchCondition).then(res => {
         this.loading = false
         this.tableData = res.data
-        this.total = res.total
+        this.total = parseInt(res.total)
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
         this.loading = false
@@ -226,7 +228,8 @@ export default {
     },
     getColumnConfig() {
       getInvoiceListColumnConfig().then(res => {
-        console.log(res)
+        this.columnShowed = res.columnConfig.split(',')
+        this.columnChecked = res.columnConfig.split(',')
       })
     },
     showColumnConfigDialog() {
@@ -236,6 +239,15 @@ export default {
     changeColumnList() {
       this.columnChanged = true
       this.columnShowed = this.columnChecked.concat()
+      let config = {
+        columnConfig: this.columnShowed.toString()
+      }
+      updateInvoiceListColumnConfig(config).then(res => {
+        this.$message({
+          type: 'success',
+          message: '设置成功'
+        })
+      })
       this.dialogConfigColumnVisible = false
     },
     cancelColumnSelection() {

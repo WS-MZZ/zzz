@@ -16,8 +16,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item label="访问时间：" prop="email">
-                <span>{{ form.email }}</span>
+              <el-form-item label="访问时间：">
+                <span>{{ form.createTime }}</span>
               </el-form-item>
             </el-col>
           </el-row>
@@ -29,7 +29,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="访问时长：">
-                <span>{{ form.number }}</span>
+                <span>{{ form.costTime }}</span>
               </el-form-item>
             </el-col>
           </el-row>
@@ -71,17 +71,17 @@ export default {
       form: {},
       tableHeader: [
         {
-          prop: 'fieldName',
+          prop: 'fieldKey',
           label: '字段名'
           // width: '160'
         },
         {
-          prop: 'fieldDesc',
+          prop: 'fieldName',
           label: '字段名备注'
           // width: '160'
         },
         {
-          prop: 'name',
+          prop: 'fieldValue',
           label: '传参值'
           // width: '160'
         }
@@ -117,8 +117,8 @@ export default {
     getInterfaceRecord(id) {
       getInterfaceRecord(id).then(res => {
         console.log(res.data)
-        this.form = res.data
-        this.tableData = res.data.paramList
+        this.form = res
+        this.tableData = res.paramList
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
       })

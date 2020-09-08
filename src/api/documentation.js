@@ -15,9 +15,10 @@ export function getInvoiceListColumnConfig() {
   })
 }
 
-export function updateInvoiceListColumnConfig() {
+export function updateInvoiceListColumnConfig(data) {
   return request({
     url: '/api/invoiceDocument/invoiceConfig',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
