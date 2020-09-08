@@ -243,9 +243,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        const parm = { ids: [] }
-        parm.ids.push(row.id)
-        unfreezeApplication(parm).then(res => {
+        unfreezeApplication(row.id).then(res => {
           // console.log(res);
           this.$message({
             type: 'success',

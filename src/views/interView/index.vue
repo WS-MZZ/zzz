@@ -54,7 +54,7 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <span v-if="item.prop == 'recordId'" style="color:#66b1ff" @click="detail(scope.row)">
+                <span v-if="item.prop == 'recordId'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
