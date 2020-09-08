@@ -11,7 +11,7 @@
       :key="imagecropperKey"
       :width="300"
       :height="300"
-      url="https://httpbin.org/post"
+      url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
       lang-type="zh"
       @close="close"
       @crop-upload-success="cropSuccess"
@@ -36,7 +36,7 @@ export default {
     cropSuccess(resData) {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
-      this.image = resData.files.avatar
+      this.image = resData.url
     },
     close() {
       this.imagecropperShow = false

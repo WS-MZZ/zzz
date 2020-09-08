@@ -770,11 +770,8 @@ export default {
         createImgUrl
       } = this
       const fmData = new FormData()
-      fmData.append(
-        field,
-        data2blob(createImgUrl, mime),
-        field + '.' + imgFormat
-      )
+      fmData.append('file', data2blob(createImgUrl, mime))
+      fmData.append('name', field + '.' + imgFormat)
       // 添加其他参数
       if (typeof params === 'object' && params) {
         Object.keys(params).forEach(k => {
@@ -794,7 +791,8 @@ export default {
       request({
         url,
         method: 'post',
-        data: fmData
+        data: fmData,
+        headers: { 'content-type': 'multipart/form-data' }
       })
         .then(resData => {
           this.loading = 2
