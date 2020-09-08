@@ -62,3 +62,19 @@ export function changePassword(data) {
     data
   })
 }
+
+export function getUsers(params) {
+  return request({
+    url: '/api/sysUser/page',
+    method: 'get',
+    params
+  })
+}
+
+export function updateAvatar(data) {
+  return request({
+    url: '/api/console/updateUserLogo',
+    method: 'put',
+    data
+  })
+}

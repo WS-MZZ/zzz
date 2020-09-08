@@ -22,21 +22,43 @@
 <script>
 import ImageCropper from '@/components/ImageCropper'
 import PanThumb from '@/components/PanThumb'
+import { updateAvatar } from '@/api/user'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'AvatarUpload',
   components: { ImageCropper, PanThumb },
   data() {
     return {
       imagecropperShow: false,
-      imagecropperKey: 0,
-      image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
+      imagecropperKey: 0
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo'
+    ]),
+    image() {
+      return this.userInfo.logoUrl
     }
   },
   methods: {
     cropSuccess(resData) {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
-      this.image = resData.url
+      let logoData = {
+        id: this.userInfo.id,
+        logoUrl: resData.url
+      }
+      updateAvatar(logoData).then(res => {
+        this.$message({
+          message: '更新成功',
+          type: 'success',
+          onClose: () => {
+            this.$router.go(0)
+          }
+        })
+      })
     },
     close() {
       this.imagecropperShow = false

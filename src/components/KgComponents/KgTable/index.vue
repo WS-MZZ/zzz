@@ -33,7 +33,7 @@ export default {
       default: 0
     },
     pageSizes: {
-      default: () => [2, 20, 50, 100]
+      default: () => [5, 20, 50, 100]
     },
     pageSize: {
       default: 10

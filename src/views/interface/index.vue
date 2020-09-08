@@ -148,7 +148,7 @@ export default {
       searchCondition: {
         name: '',
         page: '',
-        size: 2,
+        size: 5,
         sort: 'DESC',
         status: '',
         sysEnterpriseId: ''

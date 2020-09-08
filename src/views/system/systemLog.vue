@@ -2,12 +2,12 @@
   <div>
     <div class="company-search block-wrapper">
       <div class="search-para">
-        <el-select v-model="searchCondition.operateName" placeholder="全部操作人" size="medium">
+        <el-select v-model="searchCondition.operateName" filterable placeholder="全部操作人" size="medium">
           <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
+            v-for="item in users"
+            :key="item.id"
+            :label="item.username"
+            :value="item.username"
           />
         </el-select>
         <el-input
@@ -31,7 +31,7 @@
       >
         <template v-slot:default="slotProps">
           <el-table
-            ref="companyList"
+            v-loading="loading"
             :height="slotProps.tableHeight"
             :data="tableData"
             border
@@ -63,12 +63,12 @@
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
 import { getSystemList } from '@/api/system'
-import { mapGetters } from 'vuex'
+import { getUsers } from '@/api/user'
 
 const defaultForm = {
   operateName: '',
   page: '',
-  size: 2,
+  size: 5,
   typeName: ''
 }
 
@@ -106,29 +106,14 @@ export default {
           // width: '160'
         }
       ],
-      options: [],
+      users: [],
       searchCondition: { ...defaultForm },
       total: 0
     }
   },
-  computed: {
-    ...mapGetters([
-      'corpId'
-    ])
-  },
-  watch: {
-    corpId: val => {
-      // this.searchCondition.sysEnterpriseId = val
-      // this.getSystemList(this.searchCondition)
-    }
-  },
   created() {
-    // 首先，获取企业列表，是在navbar初始化的时候去发请求拿的，拿到后会把第一个企业id存到全局，以后每换一次，请求就要重发一次，每页要去
-    // 这个企业id
-    if (this.corpId) {
-      this.searchCondition.sysEnterpriseId = this.corpId
-      this.getSystemList(this.searchCondition)
-    }
+    this.getSystemList(this.searchCondition)
+    this.getAllUsers()
   },
   mounted() {
     this.getSystemList(this.searchCondition)
@@ -143,6 +128,13 @@ export default {
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
         this.loading = false
+      })
+    },
+    getAllUsers() {
+      getUsers({
+        size: 10000
+      }).then(res => {
+        this.users = res.data
       })
     },
     handleSizeChange(pageSize) {

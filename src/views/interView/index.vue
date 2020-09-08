@@ -124,7 +124,7 @@ export default {
       searchCondition: {
         startDate: '',
         page: '',
-        size: 2,
+        size: 5,
         sort: 'DESC',
         endDate: '',
         sysApplicationId: ''
@@ -137,8 +137,13 @@ export default {
   },
   watch: {
     timeRange(val) {
-      this.searchCondition.startDate = val[0]
-      this.searchCondition.endDate = val[1]
+      if (val && val.length > 0) {
+        this.searchCondition.startDate = val[0]
+        this.searchCondition.endDate = val[1]
+      } else {
+        this.searchCondition.startDate = ''
+        this.searchCondition.startDate = ''
+      }
     }
   },
   created() {
