@@ -6,15 +6,15 @@
           <el-input v-model="form.name" size="middle" />
         </el-form-item>
         <el-form-item label="logo：" prop="logoUrl">
-          <el-upload
-            class="upload"
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove"
-          >
-            <i class="el-icon-plus" />
-          </el-upload>
+          <ImgUpload
+            class="imgUpload"
+            :width="200"
+            :height="200"
+            :image="logoUrl"
+            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            @onSuccess="dealUpload"
+          />
+          <span>建议尺寸：200*200</span>
         </el-form-item>
         <el-form-item label="联系人：" prop="contact">
           <el-input v-model="form.contact" size="middle" />
@@ -23,7 +23,7 @@
           <el-input v-model="form.accountNo" size="middle" />
         </el-form-item>
         <el-form-item v-if="!isEdit" label="密码：" prop="password">
-          <el-input type="password" v-model="form.password" size="middle" />
+          <el-input v-model="form.password" type="password" size="middle" />
         </el-form-item>
         <el-form-item label="邮箱：" prop="email">
           <el-input v-model="form.email" size="middle" />
@@ -50,15 +50,19 @@
 <script>
 
 // import regexps from '@/utils/regexps'
+import ImgUpload from '@/views/system/modules/imgUpload'
 import { createEnterprise, updateEnterprise, getEnterpriseDetail } from '@/api/enterprise'
 
 export default {
   name: 'CompanyDetail',
-  components: {},
+  components: {
+    ImgUpload
+  },
   data() {
     return {
       loading: false,
       form: {},
+      logoUrl: '',
       rules: {
         name: [
           { message: '请输入名称', trigger: 'blur', required: true }
@@ -96,6 +100,7 @@ export default {
     if (this.$route.query.types === 'edit') {
       getEnterpriseDetail(this.$route.query.id).then(res => {
         this.form = res
+        this.logoUrl = res.logoUrl
       })
     }
   },
@@ -136,7 +141,11 @@ export default {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
+    },
+    dealUpload(url) {
+      this.form.logoUrl = this.logoUrl = url
     }
+
   }
 }
 </script>
@@ -167,5 +176,8 @@ export default {
       height: 80px;
       line-height: 82px;
     }
+  }
+  ::v-deep .pan-item {
+    margin: 0!important;
   }
 </style>

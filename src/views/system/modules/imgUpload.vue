@@ -7,7 +7,7 @@
       :key="imagecropperKey"
       :width="width"
       :height="height"
-      url="https://httpbin.org/post"
+      :url="url"
       lang-type="zh"
       @close="close"
       @crop-upload-success="cropSuccess"
@@ -25,7 +25,6 @@ export default {
     return {
       imagecropperShow: false,
       imagecropperKey: 0,
-      image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191',
       imgWidth: '60px',
       imgHeight: '60px',
       borderRadius: '5px'
@@ -42,15 +41,25 @@ export default {
       type: Number,
       default: 200
     },
+    // 上传地址
+    url: {
+      type: String,
+      default: ''
+    },
+    image: {
+      type: String,
+      default: ''
+    }
   },
   methods: {
-    click(){
+    click() {
       console.log(111)
     },
     cropSuccess(resData) {
       this.imagecropperShow = false
       this.imagecropperKey = this.imagecropperKey + 1
-      this.image = resData.files.avatar
+      this.image = resData.url
+      this.$emit('onSuccess', resData.url)
     },
     close() {
       this.imagecropperShow = false
@@ -59,5 +68,3 @@ export default {
 }
 </script>
 
-<style scoped>
-</style>

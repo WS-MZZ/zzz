@@ -40,6 +40,7 @@
             :data="tableData"
             border
             style="width: 100%"
+            :cell-style="cellStyle"
             :header-cell-style="{'background-color': 'rgba(250,250,250,1)', color: '#272727', 'font-weight': 400}"
           >
             <el-table-column
@@ -60,6 +61,12 @@
                 <el-link v-else-if="item.prop == 'status'">
                   {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : ''}}
                 </el-link>
+                <el-image
+                  v-else-if="item.prop == 'logoUrl'"
+                  style="width: 100px; height: 50px"
+                  :src="scope.row[item.prop]"
+                  :fit="fit"
+                />
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
             </el-table-column>
@@ -262,6 +269,12 @@ export default {
           this.getEnterpriseList(this.searchCondition)
         })
       })
+    },
+    cellStyle(column) {
+      console.log('column', column)
+      if (column.columnIndex === 1) {
+        return 'text-align: center;'
+      }
     }
   }
 }
