@@ -3,25 +3,46 @@
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
         <el-form-item label="logo：">
-          <ImgUpload class="imgUpload" :width="400" :height="200" />
+          <ImgUpload
+            class="imgUpload"
+            :width="400"
+            :height="200"
+            :image="form.logo"
+            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            @onSuccess="dealUpload($event, 'logo')"
+          />
           <span>建议尺寸：400*200</span>
         </el-form-item>
         <el-form-item label="登录背景图：">
-          <ImgUpload class="imgUpload" :width="1920" :height="800" />
+          <ImgUpload
+            class="imgUpload"
+            :width="1920"
+            :height="1080"
+            :image="form.backgroundUrl"
+            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            @onSuccess="dealUpload($event, 'backgroundUrl')"
+          />
           <span>建议尺寸：1920*800</span>
         </el-form-item>
-        <el-form-item label="网页标题：" prop="email">
-          <el-input v-model="form.email" size="middle" />
+        <el-form-item label="网页标题：" prop="title">
+          <el-input v-model="form.title" size="middle" />
         </el-form-item>
         <el-form-item label="favicon：">
-          <ImgUpload class="imgUpload" :width="20" :height="20" />
+          <ImgUpload
+            class="imgUpload"
+            :width="20"
+            :height="20"
+            :image="form.favicon"
+            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            @onSuccess="dealUpload($event, 'favicon')"
+          />
           <span>建议尺寸：20*20</span>
         </el-form-item>
-        <el-form-item label="fooer：" prop="mobile">
-          <el-input v-model="form.mobile" size="middle" />
+        <el-form-item label="footer：" prop="footer">
+          <el-input v-model="form.footer" size="middle" />
         </el-form-item>
         <div class="but">
-          <el-button type="primary" size="middle" @click="submit">提交</el-button>
+          <el-button :loading="loading" type="primary" size="middle" @click="submit">提交</el-button>
         </div>
       </el-form>
     </div>
@@ -30,6 +51,8 @@
 
 <script>
 import ImgUpload from './modules/imgUpload'
+import { updateSystemConfig, getSystemConfig } from '@/api/system'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SystemConfig',
@@ -38,9 +61,17 @@ export default {
   },
   data() {
     return {
+      loading: false,
       form: {
-
+        logo: '',
+        backgroundUrl: '',
+        favicon: '',
+        footer: '',
+        title: ''
       },
+      logo: '',
+      backgroundUrl: '',
+      favicon: '',
       rules: {
 
       },
@@ -48,10 +79,30 @@ export default {
       dialogVisible: false
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'systemConfig'
+    ])
+  },
+  created() {
+    this.form = { ...this.systemConfig }
+  },
   methods: {
     submit() {
-      this.$router.back(-1)
+      this.loading = true
+      updateSystemConfig(this.form).then(res => {
+        this.loading = false
+        this.$message({
+          message: '提交成功',
+          type: 'success',
+          onClose: () => {
+            window.location.reload()
+          }
+        })
+      }).then(err => {
+        console.log(err)
+        this.loading = false
+      })
     },
     handleRemove(file, fileList) {
       console.log(file, fileList)
@@ -59,6 +110,9 @@ export default {
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url
       this.dialogVisible = true
+    },
+    dealUpload(url, from) {
+      this.form[from] = url
     }
   }
 }

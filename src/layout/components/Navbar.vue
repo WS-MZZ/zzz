@@ -38,7 +38,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <el-dialog title="修改密码" :visible.sync="showChangePassForm" :before-close="cancel">
+    <el-dialog title="修改密码" :visible.sync="showChangePassForm" :before-close="cancel" width="30%">
       <div class="changePassword">
         <el-form ref="changePassword" :model="password" :rules="rules" label-width="150px">
           <el-form-item label="密码" prop="oldPassword">

@@ -1,10 +1,10 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" :style="{'background': background, backgroundSize:'100% 100%'}">
     <el-form v-if="!forgetPassword" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="login-form-wrapper">
         <div class="title-container">
           <h3 class="title">
-            <img src="https://developer.chilunyc.com/static/media/logo-2.d93e61a1.svg" alt="">
+            <img :src="systemConfig.logo ? systemConfig.logo : defaultLogo" alt="">
           </h3>
         </div>
 
@@ -57,6 +57,7 @@
 <script>
 import { validUsername, validPassword } from '@/utils/validate'
 import ForgetPassword from '@/views/login/ForgetPassword'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Login',
@@ -78,6 +79,7 @@ export default {
         callback()
       }
     }
+    const defaultBg = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599651220829&di=e0cddae088501e12a2e44ad15f9fc4dd&imgtype=0&src=http%3A%2F%2Ft7.baidu.com%2Fit%2Fu%3D2782670685%2C3677123616%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1000%26h%3D667'
     return {
       loginForm: {
         username: 'admin',
@@ -90,7 +92,20 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      forgetPassword: false
+      forgetPassword: false,
+      defaultLogo: 'https://developer.chilunyc.com/static/media/logo-2.d93e61a1.svg'
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'systemConfig'
+    ]),
+    background() {
+      if (this.systemConfig.backgroundUrl) {
+        return "url('" + this.systemConfig.backgroundUrl + "') no-repeat 100%"
+      } else {
+        return "url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599651220829&di=e0cddae088501e12a2e44ad15f9fc4dd&imgtype=0&src=http%3A%2F%2Ft7.baidu.com%2Fit%2Fu%3D2782670685%2C3677123616%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1000%26h%3D667') no-repeat center"
+      }
     }
   },
   watch: {
@@ -178,6 +193,7 @@ $cursor: #fff;
 /* reset element-ui css */
 
 .login-container {
+  background-size: 100%;
   min-height: 100%;
   width: 100%;
   background-color: $bg;

@@ -7,3 +7,18 @@ export function getSystemList(params) {
     params
   })
 }
+
+export function updateSystemConfig(data) {
+  return request({
+    url: '/api/console/systemConfig',
+    method: 'post',
+    data
+  })
+}
+
+export function getSystemConfig() {
+  return request({
+    url: '/api/console/systemConfig',
+    method: 'get'
+  })
+}

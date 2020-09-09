@@ -55,10 +55,7 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <span v-if="item.prop == 'id'" style="color:#66b1ff" @click="detail(scope.row)">
-                  {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
-                </span>
-                <el-link v-else-if="item.prop == 'status'">
+                <el-link v-if="item.prop == 'status'">
                   {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : ''}}
                 </el-link>
                 <el-image

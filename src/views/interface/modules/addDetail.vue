@@ -2,15 +2,15 @@
   <div class="dashboard-container">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="140px" :rules="rules">
-        <el-form-item label="应用名称：">
+        <el-form-item label="应用名称：" prop="name">
           <el-input v-model="form.name" size="middle" />
         </el-form-item>
         <el-form-item label="Appid：" prop="appId">
           <el-input v-model="form.appId" size="middle" />
         </el-form-item>
-        <el-form-item label="Appsecret：">
-          <!-- <el-button @click="getAppsecret">配置</el-button> -->
-          <el-input v-model="form.appSecret" size="middle"></el-input>
+        <el-form-item label="Appsecret：" prop="appSecret">
+          <el-button @click="getAppsecret">生成密钥</el-button>
+          <el-input v-if="isGenerated" disabled v-model="form.appSecret" size="small" />
         </el-form-item>
         <el-form-item label="账套配置：">
           <div>
@@ -67,15 +67,17 @@ export default {
       },
       sysEnterpriseIdList: [],
       rules: {
+        name: [{ required: true, message: '请输入应用名称', trigger: 'blur' }],
         appId: [{ required: true, message: '请输入appId', trigger: 'blur' }],
-        appSecret: [{ required: true, message: '请输入appSecret', trigger: 'blur' }],
+        appSecret: [{ required: true, message: '请获取appSecret', trigger: 'blur' }],
         maxLimit: [{ pattern: regexps.maxLimit, required: true, message: '请输入次数限制', trigger: 'blur' }]
       },
       noLimit: false,
       loading: false,
       types: 'add',
       id: null,
-      visible: false
+      visible: false,
+      isGenerated: false
     }
   },
   computed: {
@@ -150,11 +152,12 @@ export default {
     getAppsecret() {
       if (this.form.appId) {
         getAppsecret(this.form.appId).then(res => {
-          console.log(res)
+          this.isGenerated = true
+          this.form.appSecret = res
         })
       } else {
         this.$message({
-          type: 'danger',
+          type: 'error',
           message: 'appid为空'
         })
       }
