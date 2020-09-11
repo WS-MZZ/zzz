@@ -34,10 +34,6 @@ import 'echarts/lib/component/dataZoom' // 图表标
  * Currently MockJs will be used in the production environment,
  * please remove it before going online ! ! !
  */
-if (process.env.NODE_ENV === 'production') {
-  const { mockXHR } = require('../mock')
-  mockXHR()
-}
 
 Vue.component('chart', IEcharts)
 Vue.component('echart', echart)
