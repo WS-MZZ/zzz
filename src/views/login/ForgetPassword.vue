@@ -66,6 +66,7 @@
           name="password"
           tabindex="4"
           auto-complete="on"
+          maxlength="20"
         >
           <svg-icon slot="prefix" icon-class="password" class="svg-icon" />
         </el-input>
@@ -81,6 +82,7 @@
           name="password"
           tabindex="5"
           auto-complete="on"
+          maxlength="20"
         >
           <svg-icon slot="prefix" icon-class="password" class="svg-icon" />
         </el-input>
