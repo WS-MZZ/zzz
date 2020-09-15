@@ -18,6 +18,8 @@ router.beforeEach(async(to, from, next) => {
   }
   // set page title
   document.title = store.state.config.systemConfig.title
+  // set favicon
+  document.querySelector('link[rel="icon"]').href = store.state.config.systemConfig.favicon
 
   // determine whether the user has logged in
   const hasToken = getToken()

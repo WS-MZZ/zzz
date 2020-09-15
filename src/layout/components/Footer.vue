@@ -1,14 +1,20 @@
 <template>
   <div class="footer">
     <div>
-      © 2020 北京齿轮易创科技有限公司 | 京ICP备16038005号-1
+      {{ systemConfig.footer }}
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  computed: {
+    ...mapGetters([
+      'systemConfig'
+    ])
+  }
 }
 </script>
 
