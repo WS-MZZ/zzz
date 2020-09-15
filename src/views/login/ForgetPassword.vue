@@ -51,7 +51,7 @@
           </el-input>
         </el-col>
         <el-col :span="8">
-          <el-button v-if="count === 10" type="primary" style="width:100%;" @click="getCode">获取验证码</el-button>
+          <el-button v-if="count === 60" type="primary" style="width:100%;" @click="getCode">获取验证码</el-button>
           <el-button v-else type="primary" disabled style="width:100%;">{{ count }}s</el-button>
         </el-col>
       </el-form-item>
@@ -158,7 +158,7 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      count: 10
+      count: 60
     }
   },
   watch: {
@@ -217,7 +217,7 @@ export default {
           getVerificationCode({ email: this.forgetPasswordForm.email }).catch(() => {
             alert('验证码发送失败请重试')
             clearInterval(this.countDown)
-            this.count = 10
+            this.count = 60
           })
         }
       })
@@ -227,7 +227,7 @@ export default {
         this.count--
         if (this.count <= 0) {
           clearInterval(this.countDown)
-          this.count = 10
+          this.count = 60
         }
       }, 1000)
     },
