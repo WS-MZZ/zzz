@@ -56,7 +56,13 @@ service.interceptors.response.use(
       Message({
         message: error.response.data.detail || '连接错误请重试',
         type: 'error',
-        duration: 5 * 1000
+        duration: 3 * 1000,
+        onClose() {
+          if (error.response.data.title === 'Unauthorized') {
+            store.dispatch('user/resetToken')
+            window.location.reload()
+          }
+        }
       })
       return Promise.reject(new Error(error.response.data.detail || 'Error'))
     } else {
