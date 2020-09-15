@@ -37,6 +37,7 @@
             type="date"
             placeholder="选择日期"
             value-format="yyyy-MM-dd"
+            :picker-options="pickerOptions"
           />
         </el-form-item>
         <div class="but">
@@ -88,7 +89,12 @@ export default {
 
       },
       dialogImageUrl: '',
-      dialogVisible: false
+      dialogVisible: false,
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 8.64e7
+        }
+      }
     }
   },
   computed: {
