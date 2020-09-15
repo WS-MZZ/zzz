@@ -55,8 +55,11 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <el-link v-if="item.prop == 'status'">
-                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : ''}}
+                <div v-if="item.prop == 'status'">
+                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : '' }}
+                </div>
+                <el-link v-if="item.prop == 'name'" style="color:#66b1ff" @click="detail(scope.row)">
+                  {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <el-image
                   v-else-if="item.prop == 'logoUrl'"
@@ -170,6 +173,14 @@ export default {
         path: '/companyDetail',
         query: {
           types: 'add'
+        }
+      })
+    },
+    detail(data) {
+      this.$router.push({
+        path: '/companyHome',
+        query: {
+          id: data.id
         }
       })
     },

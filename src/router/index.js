@@ -76,7 +76,15 @@ export const constantRoutes = [
         component: () => import('@/views/company/companyDetail'),
         meta: { title: '企业管理 / 新增企业', icon: 'dashboard' },
         hidden: true
-      }
+      },
+      {
+        path: 'companyHome',
+        name: 'companyHome',
+        component: () => import('@/views/company/companyHome'),
+        meta: { title: '企业管理 / 企业详情', icon: 'dashboard' },
+        hidden: true
+      },
+
     ]
   },
 
