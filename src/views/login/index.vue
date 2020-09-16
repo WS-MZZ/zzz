@@ -85,8 +85,8 @@ export default {
     const defaultBg = 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1599651220829&di=e0cddae088501e12a2e44ad15f9fc4dd&imgtype=0&src=http%3A%2F%2Ft7.baidu.com%2Fit%2Fu%3D2782670685%2C3677123616%26fm%3D79%26app%3D86%26f%3DJPEG%3Fw%3D1000%26h%3D667'
     return {
       loginForm: {
-        username: 'admin',
-        password: '111111'
+        username: '',
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
