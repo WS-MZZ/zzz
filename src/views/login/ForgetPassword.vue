@@ -16,6 +16,7 @@
           type="text"
           tabindex="1"
           auto-complete="on"
+          maxlength="20"
         >
           <svg-icon slot="prefix" icon-class="user" class="svg-icon" />
         </el-input>
