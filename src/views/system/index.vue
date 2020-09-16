@@ -25,13 +25,15 @@
           <span>建议尺寸：1920*800</span>
         </el-form-item>
         <el-form-item label="网页标题：" prop="title">
-          <el-input v-model="form.title" size="middle" />
+          <el-input v-model="form.title" size="middle" style="width: 300px" />
         </el-form-item>
         <el-form-item label="favicon：">
           <ImgUpload
             class="imgUpload"
             :width="20"
             :height="20"
+            img-width="50px"
+            img-height="50px"
             :image="form.favicon"
             url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
             @onSuccess="dealUpload($event, 'favicon')"

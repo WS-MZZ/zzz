@@ -1,40 +1,56 @@
 <template>
-  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item">
-    <div class="pan-info">
+  <div :style="{zIndex:zIndex,height:height,width:width}" class="pan-item" :class="{'pan-item-style2': style2}">
+    <div v-if="style1" class="pan-info">
       <div class="pan-info-roles-container">
         <slot />
       </div>
     </div>
+    <div v-if="style2 && !image" class="pan-info2">
+      <div class="pan-info-roles-container container">
+        <div class="el-upload el-upload--picture-card card">
+          <i class="el-icon-plus"></i>
+        </div>
+      </div>
+    </div>
     <!-- eslint-disable-next-line -->
-    <div :style="{backgroundImage: `url(${image})`}" class="pan-thumb"></div>
+    <div v-if="image || style1" :style="{backgroundImage: `url(${image})`}" class="pan-thumb" :class="{'pan-thumb-style2': style2}"></div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'PanThumb',
-    props: {
-      image: {
-        type: String,
-        required: true
-      },
-      zIndex: {
-        type: Number,
-        default: 1
-      },
-      width: {
-        type: String,
-        default: '150px'
-      },
-      height: {
-        type: String,
-        default: '150px'
-      }
+export default {
+  name: 'PanThumb',
+  props: {
+    image: {
+      type: String,
+      required: true
+    },
+    zIndex: {
+      type: Number,
+      default: 1
+    },
+    width: {
+      type: String,
+      default: '150px'
+    },
+    height: {
+      type: String,
+      default: '150px'
+    },
+    style2: {
+      type: Boolean,
+      default: false
+    }
+  },
+  computed: {
+    style1() {
+      return !this.style2
     }
   }
+}
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .pan-item {
     width: 160px;
     height: 160px;
@@ -123,14 +139,29 @@
     transition: transform 0.3s ease-in-out 0.2s, opacity 0.3s ease-in-out 0.2s, background 0.2s linear 0s;
     transform: translateX(60px) rotate(90deg);
   }
-  /*.pan-info p a:hover {*/
-  /*  background: rgba(255, 255, 255, 0.5);*/
-  /*}*/
-  /*.pan-item:hover .pan-thumb {*/
-  /*  transform: rotate(-110deg);*/
-  /*}*/
-  /*.pan-item:hover .pan-info p a {*/
-  /*  opacity: 1;*/
-  /*  transform: translateX(0px) rotate(0deg);*/
-  /*}*/
+  .pan-item-style2 {
+    border-radius: initial;
+    box-shadow: initial;
+  }
+  .pan-thumb-style2 {
+    border-radius: initial;
+    border: 1px solid #c0ccda;
+  }
+  .pan-info2 {
+    width: 100%;
+    height: 100%;
+    .container {
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      .card {
+        width: 100%;
+        height: 100%;
+        line-height: initial;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
 </style>

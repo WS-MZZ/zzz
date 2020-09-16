@@ -1,6 +1,13 @@
 <template>
   <div class="components-container">
-    <pan-thumb :image="image" :width="imgWidth" :height="imgHeight" :borderRadius="borderRadius" @click.native="imagecropperShow = true"/>
+    <pan-thumb
+      :image="image"
+      :width="imgWidth"
+      :height="imgHeight"
+      :borderRadius="borderRadius"
+      @click.native="imagecropperShow = true"
+      :style2 = "true"
+    />
 
     <image-cropper
       v-show="imagecropperShow"
@@ -25,8 +32,6 @@ export default {
     return {
       imagecropperShow: false,
       imagecropperKey: 0,
-      imgWidth: '60px',
-      imgHeight: '60px',
       borderRadius: '5px'
     }
   },
@@ -40,6 +45,14 @@ export default {
     height: {
       type: Number,
       default: 200
+    },
+    imgWidth: {
+      type: String,
+      default: '120px'
+    },
+    imgHeight: {
+      type: String,
+      default: '120px'
     },
     // 上传地址
     url: {
