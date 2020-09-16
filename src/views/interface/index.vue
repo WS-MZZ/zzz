@@ -68,10 +68,10 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
-                <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row)">冻结</el-button>
-                <el-button type="text" size="small" @click="del(scope.row)">删除</el-button>
+                <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                <el-button class="mgr" v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
+                <el-button class="mgr" v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row)">冻结</el-button>
+                <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -328,6 +328,10 @@ export default {
     .pagination {
       display: flex;
       justify-content: space-between;
+    }
+    .mgr {
+      margin: 0;
+      margin-right: 2px;
     }
   }
 </style>

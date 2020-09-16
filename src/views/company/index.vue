@@ -76,11 +76,11 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
-                <el-button v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
-                <el-button type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
-                <el-button type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
+                <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                <el-button class="mgr" v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
+                <el-button class="mgr" v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                <el-button class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -315,6 +315,10 @@ export default {
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
+  }
+  .mgr {
+    margin: 0;
+    margin-right: 2px;
   }
 }
 </style>

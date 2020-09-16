@@ -17,7 +17,7 @@
           start-placeholder="访问开始日期"
           end-placeholder="访问结束日期"
           value-format="yyyy-MM-dd HH:mm:ss"
-          size="small"
+          size="medium"
           style="margin-left: 20px"
         />
       </div>
