@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container" :style="{'background': background, backgroundSize:'100% 100%'}">
+  <div class="login-container-1" :style="{'background': background, backgroundSize:'100% 100%'}">
     <el-form v-if="!forgetPassword" ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
       <div class="login-form-wrapper">
         <div class="title-container">
@@ -19,7 +19,7 @@
             tabindex="1"
             auto-complete="on"
           >
-            <svg-icon slot="prefix" icon-class="user" class="svg-icon" />
+            <svg-icon slot="prefix" icon-class="user" class="svg-icon kg-icon" />
           </el-input>
         </el-form-item>
 
@@ -36,10 +36,10 @@
             auto-complete="on"
             @keyup.enter.native="handleLogin"
           >
-            <svg-icon slot="prefix" icon-class="password" class="svg-icon" />
+            <svg-icon slot="prefix" icon-class="password" class="svg-icon kg-icon" />
           </el-input>
           <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" class="kg-icon" />
           </span>
         </el-form-item>
 
@@ -162,7 +162,7 @@ $light_gray:#fff;
 $cursor: #fff;
 
 /* reset element-ui css */
-.login-container {
+.login-container-1 {
   .el-input {
     display: inline-block;
 
@@ -172,9 +172,9 @@ $cursor: #fff;
       border-radius: 0;
       padding: 12px 5px 12px 40px;
 
-      &:-webkit-autofill {
-        box-shadow: 0 0 0 1000px $cursor inset !important;
-      }
+      // &:-webkit-autofill {
+      //   box-shadow: 0 0 0 1000px $cursor inset !important;
+      // }
     }
   }
 
@@ -192,7 +192,7 @@ $light_gray:#eee;
 $cursor: #fff;
 /* reset element-ui css */
 
-.login-container {
+.login-container-1 {
   background-size: 100%;
   min-height: 100%;
   width: 100%;
@@ -206,10 +206,34 @@ $cursor: #fff;
     padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
-    background: rgba(255, 255, 255, 0)
+    background: rgba(255, 255, 255, 0);
+    ::v-deep .el-input {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.1);
+      .el-input__inner {
+        color: #FFFFFF;
+      }
+      .el-input__inner:focus {
+        border-color: initial;
+      }
+
+      input {
+        background: transparent;
+        -webkit-appearance: none;
+        border-radius: 4px;
+        border: 1px solid #FFFFFF;
+        padding: 12px 5px 12px 40px;
+      }
+      input:-internal-autofill-previewed,
+      input:-internal-autofill-selected {
+          -webkit-text-fill-color: #FFFFFF !important;
+          transition: background-color 5000s ease-in-out 0s !important;
+          border-color: #ffffff;
+      }
+    }
   }
   .login-form-wrapper {
-    background: rgba(255, 255, 255, 1);
+    // background: rgba(255, 255, 255, 1);
     padding: 20px;
     margin-bottom: 10px;
   }
@@ -258,5 +282,9 @@ $cursor: #fff;
     cursor: pointer;
     user-select: none;
   }
+  .kg-icon {
+    color: #ffffff;
+  }
 }
+
 </style>

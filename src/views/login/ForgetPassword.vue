@@ -243,6 +243,13 @@ export default {
 
 <style lang="scss" scoped>
 .fp-form {
+  ::v-deep .el-input {
+    input:-webkit-autofill {
+        box-shadow: 0 0 0 1000px #ffffff inset !important;
+    }
+  }
+}
+.fp-form {
   position: relative;
   width: 520px;
   max-width: 100%;
