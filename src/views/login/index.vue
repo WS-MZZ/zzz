@@ -44,9 +44,12 @@
         </el-form-item>
 
         <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:22px;" @click.native.prevent="handleLogin">登录</el-button>
-        <el-link type="primary" class="tips" @click="gotoForgetPassword">
-          忘记密码?
-        </el-link>
+        <div style="text-align: center">
+          <a type="primary" class="tips" @click="gotoForgetPassword">
+            忘记密码?
+          </a>
+        </div>
+
       </div>
 
     </el-form>
@@ -240,7 +243,7 @@ $cursor: #fff;
 
   .tips {
     font-size: 14px;
-    color: #409EFF;
+    color: #ffffff;
     margin-bottom: 10px;
     font-weight: bold;
 
