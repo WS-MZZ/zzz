@@ -15,7 +15,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item label="状态：">
-                    <span>{{ enterpriseInfo.status }}</span>
+                    <span>{{ enterpriseInfo.status == 'NORMAL' ? '正常' : enterpriseInfo.status == 'FREEZE' ? '冻结' : enterpriseInfo.status == 'EXPIRE' ? '过期' : '' }}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
