@@ -18,7 +18,7 @@
           </div>
           <el-button @click="configEnterprise">配置</el-button>
         </el-form-item>
-        <el-form-item label="每分钟访问限制：" prop="maxLimit">
+        <el-form-item label="每分钟访问限制：" prop="maxLimit" ref="ageForm">
           <el-input v-model="form.maxLimit" :disabled="noLimit" size="middle" />
           <el-checkbox v-model="noLimit" @change="tickNolimit">无限制</el-checkbox>
         </el-form-item>
@@ -56,6 +56,15 @@ export default {
     BuyDialog
   },
   data() {
+    const validateMaxLimit = (rule, value, callback) => {
+      if (!this.noLimit && !value) {
+        callback(new Error('请正确输入次数限制'))
+      } else if (!/^[1-9][0-9]*$/.test(value) && !this.noLimit) {
+        callback(new Error('请正确输入次数限制'))
+      } else {
+        callback()
+      }
+    }
     return {
       form: {
         appId: '',
@@ -70,7 +79,7 @@ export default {
         name: [{ required: true, message: '请输入应用名称', trigger: 'blur' }],
         appId: [{ required: true, message: '请输入appId', trigger: 'blur' }],
         appSecret: [{ required: true, message: '请获取appSecret', trigger: 'blur' }],
-        maxLimit: [{ pattern: regexps.maxLimit, message: '请正确输入次数限制', trigger: 'blur' }]
+        maxLimit: [{ message: '请正确输入次数限制', trigger: 'blur', validator: validateMaxLimit }]
       },
       noLimit: false,
       loading: false,
@@ -114,9 +123,6 @@ export default {
         return item.id
       })
       this.$refs.form.validate(valid => {
-        if (!this.noLimit && !this.form.maxLimit) {
-          this.$refs.form.fields[3].error = '请正确输入次数限制'
-        }
         if (valid) {
           this.loading = true
           this.typeObj.api(this.form).then(res => {
