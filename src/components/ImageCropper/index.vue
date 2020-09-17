@@ -734,7 +734,7 @@ export default {
       canvas.height = this.height
       ctx.clearRect(0, 0, this.width, this.height)
       // 将透明区域设置为白色底边
-      ctx.fillStyle = '#fff'
+      ctx.fillStyle = 'transparent'
       ctx.fillRect(0, 0, this.width, this.height)
       ctx.translate(this.width * 0.5, this.height * 0.5)
       ctx.rotate((Math.PI * degree) / 180)
