@@ -38,7 +38,7 @@
       <!--      </div>-->
       <!--      <div class="bottom">-->
       <div class="title">参数</div>
-      <el-table ref="table" :height="tableHeight" :data="tableData" :border="showTable" style="width: 100%">
+      <el-table ref="table" :height="tableHeight" :data="tableData" :border="showTable" style="width: 100%" :row-class-name="errorStyle">
         <el-table-column
           v-for="(item) in tableHeader"
           :key="item.id"
@@ -122,6 +122,13 @@ export default {
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
       })
+    },
+    errorStyle(row, rowIndex) {
+      if (row.row.fieldDesc) {
+        return 'markRed'
+      } else {
+        return ''
+      }
     }
   }
 }
@@ -151,5 +158,10 @@ export default {
         font-size: 18px;
       }
     }
+  }
+</style>
+<style>
+  .markRed {
+    color: red !important;
   }
 </style>
