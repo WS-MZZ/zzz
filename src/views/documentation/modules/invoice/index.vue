@@ -217,7 +217,7 @@ export default {
       this.getInvoiceList(this.searchCondition)
     },
     handleCurrentChange(currentPage) {
-      this.searchCondition.page = currentPage
+      this.searchCondition.page = currentPage - 1
       this.getInvoiceList(this.searchCondition)
     },
     search() {

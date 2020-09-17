@@ -186,7 +186,7 @@ export default {
       this.getInterfaceRecordList(this.searchCondition)
     },
     handleCurrentChange(currentPage) {
-      this.searchCondition.page = currentPage
+      this.searchCondition.page = currentPage - 1
       this.getInterfaceRecordList(this.searchCondition)
     },
     search() {

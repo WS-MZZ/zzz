@@ -143,7 +143,7 @@ export default {
     },
     handleCurrentChange(currentPage) {
       console.log(currentPage)
-      this.searchCondition.page = currentPage
+      this.searchCondition.page = currentPage - 1
       this.getSystemList(this.searchCondition)
     },
     search() {
