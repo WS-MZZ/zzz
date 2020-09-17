@@ -25,7 +25,7 @@
           <span>建议尺寸：1920*800</span>
         </el-form-item>
         <el-form-item label="网页标题：" prop="title">
-          <el-input v-model="form.title" size="middle" style="width: 300px" />
+          <el-input v-model="form.title" size="middle" style="width: 300px" maxlength="50" />
         </el-form-item>
         <el-form-item label="favicon：">
           <ImgUpload
@@ -41,7 +41,7 @@
           <span>建议尺寸：20*20</span>
         </el-form-item>
         <el-form-item label="footer：" prop="footer">
-          <el-input v-model="form.footer" size="middle" />
+          <el-input v-model="form.footer" size="middle" maxlength="100" />
         </el-form-item>
         <div class="but">
           <el-button :loading="loading" type="primary" size="middle" @click="submit">提交</el-button>

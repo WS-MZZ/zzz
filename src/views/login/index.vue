@@ -54,6 +54,7 @@
 
     </el-form>
     <forget-password v-else v-on:showLoginForm="showLoginForm" />
+    <div class="license">license有效期: 2022年12月31日</div>
   </div>
 </template>
 
@@ -287,6 +288,15 @@ $cursor: #fff;
   }
   .kg-icon {
     color: #ffffff;
+  }
+  .license {
+    position: fixed;
+    bottom: 0;
+    height: 30px;
+    color: #ffffff;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
   }
 }
 
