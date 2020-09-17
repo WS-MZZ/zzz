@@ -144,8 +144,8 @@ export default {
     box-shadow: initial;
   }
   .pan-thumb-style2 {
-    border-radius: initial;
-    border: 1px solid #c0ccda;
+    border-radius: 2px;
+    border: 1px dashed #c0ccda;
   }
   .pan-info2 {
     width: 100%;
