@@ -10,7 +10,7 @@
         </el-form-item>
         <el-form-item label="Appsecret：" prop="appSecret">
           <el-button @click="getAppsecret">生成密钥</el-button>
-          <el-input v-if="isGenerated" disabled v-model="form.appSecret" size="small" />
+          <el-input v-if="isGenerated" v-model="form.appSecret" disabled size="small" />
         </el-form-item>
         <el-form-item label="账套配置：">
           <div>
@@ -18,7 +18,7 @@
           </div>
           <el-button @click="configEnterprise">配置</el-button>
         </el-form-item>
-        <el-form-item label="每分钟访问限制：">
+        <el-form-item label="每分钟访问限制：" prop="maxLimit">
           <el-input v-model="form.maxLimit" :disabled="noLimit" size="middle" />
           <el-checkbox v-model="noLimit" @change="tickNolimit">无限制</el-checkbox>
         </el-form-item>
@@ -70,7 +70,7 @@ export default {
         name: [{ required: true, message: '请输入应用名称', trigger: 'blur' }],
         appId: [{ required: true, message: '请输入appId', trigger: 'blur' }],
         appSecret: [{ required: true, message: '请获取appSecret', trigger: 'blur' }],
-        maxLimit: [{ pattern: regexps.maxLimit, required: true, message: '请输入次数限制', trigger: 'blur' }]
+        maxLimit: [{ pattern: regexps.maxLimit, message: '请正确输入次数限制', trigger: 'blur' }]
       },
       noLimit: false,
       loading: false,
@@ -96,7 +96,8 @@ export default {
         console.log(res.data)
         this.form = res
         this.id = res.id
-        this.sysEnterpriseIdList = this.form.sysEnterpriseIdList
+        this.sysEnterpriseIdList = this.form.sysEnterpriseIdList ? this.form.sysEnterpriseIdList : []
+        this.noLimit = !this.form.maxLimit
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
       })
@@ -113,6 +114,9 @@ export default {
         return item.id
       })
       this.$refs.form.validate(valid => {
+        if (!this.noLimit && !this.form.maxLimit) {
+          this.$refs.form.fields[3].error = '请正确输入次数限制'
+        }
         if (valid) {
           this.loading = true
           this.typeObj.api(this.form).then(res => {
@@ -122,6 +126,9 @@ export default {
               message: this.typeObj.msg,
               type: 'success'
             })
+          }).catch(err => {
+            console.log(err)
+            this.loading = false
           })
         } else {
           console.log('error submit!!')
@@ -147,11 +154,25 @@ export default {
     tickNolimit(val) {
       if (val) {
         this.form.maxLimit = ''
+        const _field = this.$refs.form.fields /* 当然，你可以打印一下fields*/
+        _field.map(i => {
+          if (i.prop === 'maxLimit') { // 通过prop属性值相同来判断是哪个输入框，比如：要移除prop为'user'
+            i.resetField()
+            return false
+          }
+        })
       }
     },
     getAppsecret() {
       if (this.form.appId) {
         getAppsecret(this.form.appId).then(res => {
+          const _field = this.$refs.form.fields
+          _field.map(i => {
+            if (i.prop === 'appSecret') { // 通过prop属性值相同来判断是哪个输入框
+              i.resetField()
+              return false
+            }
+          })
           this.isGenerated = true
           this.form.appSecret = res
         })
