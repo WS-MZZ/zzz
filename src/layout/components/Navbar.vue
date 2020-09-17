@@ -156,6 +156,9 @@ export default {
               message: '修改成功',
               type: 'success'
             })
+          }).catch(error => {
+            console.log(error)
+            this.loading = false
           })
         } else {
           console.log('error submit!!')
