@@ -130,29 +130,29 @@ export const constantRoutes = [
       }
     ]
   },
-  {
-    path: '/documentation',
-    component: Layout,
-    name: 'documentation',
-    redirect: '/documentation/list',
-    alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
-    meta: { title: '文档管理', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'list',
-        name: 'documentationList',
-        meta: { title: '文档列表', icon: 'el-icon-s-help' },
-        component: () => import('@/views/documentation/index')
-      },
-      {
-        path: 'detail',
-        name: 'documentationDetail',
-        meta: { title: '文档详情', icon: 'el-icon-s-help' },
-        component: () => import('@/views/documentation/modules/details'),
-        hidden: true
-      }
-    ]
-  },
+  // {
+  //   path: '/documentation',
+  //   component: Layout,
+  //   name: 'documentation',
+  //   redirect: '/documentation/list',
+  //   alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
+  //   meta: { title: '文档管理', icon: 'el-icon-s-help' },
+  //   children: [
+  //     {
+  //       path: 'list',
+  //       name: 'documentationList',
+  //       meta: { title: '文档列表', icon: 'el-icon-s-help' },
+  //       component: () => import('@/views/documentation/index')
+  //     },
+  //     {
+  //       path: 'detail',
+  //       name: 'documentationDetail',
+  //       meta: { title: '文档详情', icon: 'el-icon-s-help' },
+  //       component: () => import('@/views/documentation/modules/details'),
+  //       hidden: true
+  //     }
+  //   ]
+  // },
   {
     path: '/system',
     component: Layout,

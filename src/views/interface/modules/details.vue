@@ -12,7 +12,7 @@
               <span>{{ form.appId }}</span>
             </el-form-item>
             <el-form-item label="每分钟访问限制：">
-              <span>{{ form.maxLimit }}</span>
+              <span>{{ form.maxLimit ? form.maxLimit : '无限制' }}</span>
             </el-form-item>
             <el-form-item label="状态：">
               <span>{{ form.account }}</span>
@@ -100,7 +100,7 @@ export default {
     },
     getSysApplication(id) {
       getSysApplication(id).then(res => {
-        this.form = res.data
+        this.form = res
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
       })
