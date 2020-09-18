@@ -18,10 +18,10 @@
               <span>{{ form.maxLimit ? form.maxLimit : '无限制' }}</span>
             </el-form-item>
             <el-form-item label="状态：">
-              <span>{{ form.account }}</span>
+              <span>{{ form.statusDesc }}</span>
             </el-form-item>
             <el-form-item label="创建时间：">
-              <span>{{ form.account }}</span>
+              <span>{{ form.createdDate }}</span>
             </el-form-item>
           </el-form>
         </div>
