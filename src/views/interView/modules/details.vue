@@ -17,7 +17,7 @@
                 <span>{{ form.resultDesc }}</span>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8"> 
               <el-form-item label="访问时间：">
                 <span>{{ form.createTime }}</span>
               </el-form-item>
