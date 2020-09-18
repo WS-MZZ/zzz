@@ -100,7 +100,7 @@ export default {
           // width: '160'
         },
         {
-          prop: 'result',
+          prop: 'resultDesc',
           label: '访问结果'
           // width: '160'
         },
