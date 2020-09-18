@@ -7,7 +7,9 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="访问应用：">
-                <span>{{ form.sysApplicationName }}</span>
+                <span style="color:#66b1ff;cursor: pointer" @click="detail(form.sysApplicationId)">
+                  {{ form.sysApplicationName }}
+                </span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -129,6 +131,14 @@ export default {
       } else {
         return ''
       }
+    },
+    detail(enterPriseId) {
+      this.$router.push({
+        path: '/inter/interfaceDetail',
+        query: {
+          id: enterPriseId
+        }
+      })
     }
   }
 }
