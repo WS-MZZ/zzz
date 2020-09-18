@@ -11,6 +11,9 @@
             <el-form-item label="Appid：">
               <span>{{ form.appId }}</span>
             </el-form-item>
+            <el-form-item label="AppSerect：" class="lg-1">
+              <span class="appSec">{{ form.appSecret }}</span>
+            </el-form-item>
             <el-form-item label="每分钟访问限制：">
               <span>{{ form.maxLimit ? form.maxLimit : '无限制' }}</span>
             </el-form-item>
@@ -121,7 +124,7 @@ export default {
       /*display: flex;*/
       height: 100%;
       .top{
-        height: 45%;
+        height: 55%;
         width: 100%;
         margin-bottom: 5px;
         display: flex;
@@ -215,5 +218,11 @@ export default {
   }
   .el-form-item{
     margin-bottom: 0px;
+  }
+  .appSec {
+    word-break: break-all;
+  }
+  ::v-deep.lg-1 .el-form-item__content {
+    line-height: 1.5;
   }
 </style>
