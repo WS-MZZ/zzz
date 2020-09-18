@@ -48,7 +48,8 @@ export default {
         this.data = res.allEnterpriseIdList.map((item, index) => {
           return {
             key: item.id,
-            label: item.name
+            label: item.name,
+            disabled: item.status !== 'NORMAL'
           }
         })
         if (res.selectEnterpriseIdList) {
