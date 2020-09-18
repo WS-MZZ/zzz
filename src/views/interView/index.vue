@@ -57,6 +57,9 @@
                 <span v-if="item.prop == 'recordId'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
+                <span v-else-if="item.prop == 'sysApplicationName'" style="color:#66b1ff;cursor: pointer" @click="detail2(scope.row)">
+                  {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+                </span>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
             </el-table-column>
@@ -159,6 +162,14 @@ export default {
         path: '/inter/interViewDetails',
         query: {
           id: data.recordId
+        }
+      })
+    },
+    detail2(row) {
+      this.$router.push({
+        path: '/inter/interfaceDetail',
+        query: {
+          id: row.sysApplicationId
         }
       })
     },
