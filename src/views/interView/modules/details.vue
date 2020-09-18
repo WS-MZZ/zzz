@@ -14,7 +14,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item label="访问结果：">
-                <span>{{ form.result }}</span>
+                <span>{{ form.resultDesc }}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
