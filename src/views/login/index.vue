@@ -55,6 +55,7 @@
     </el-form>
     <forget-password v-else v-on:showLoginForm="showLoginForm" />
     <div class="license">license有效期: 2022年12月31日</div>
+    <div class="mask"></div>
   </div>
 </template>
 
@@ -207,15 +208,23 @@ $cursor: #fff;
     position: relative;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
+    padding: 230px 35px 0;
     margin: 0 auto;
     overflow: hidden;
     background: rgba(255, 255, 255, 0);
+    z-index: 999;
+    ::v-deep.el-form-item {
+      margin-bottom: 30px;
+    }
+    ::v-deep.el-form-item__content {
+      line-height: 48px;
+    }
     ::v-deep .el-input {
       display: inline-block;
       background: rgba(255, 255, 255, 0.1);
       .el-input__inner {
         color: #FFFFFF;
+        height: 48px;
       }
       .el-input__inner:focus {
         border-color: initial;
@@ -297,7 +306,15 @@ $cursor: #fff;
     text-align: center;
     width: 100%;
     font-size: 14px;
+    z-index: 999;
   }
+}
+.mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
 }
 
 </style>

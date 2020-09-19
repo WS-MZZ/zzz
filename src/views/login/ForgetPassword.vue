@@ -253,10 +253,11 @@ export default {
   position: relative;
   width: 520px;
   max-width: 100%;
-  padding: 160px 35px 0;
+  padding: 230px 35px 0;
   margin: 0 auto;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0)
+  background: rgba(255, 255, 255, 0);
+  z-index: 999;
 }
 .fp-form-wrapper {
   background: rgba(255, 255, 255, 1);
