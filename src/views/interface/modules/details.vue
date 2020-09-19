@@ -223,6 +223,6 @@ export default {
     word-break: break-all;
   }
   ::v-deep.lg-1 .el-form-item__content {
-    line-height: 1.5;
+    // line-height: 1.5;
   }
 </style>
