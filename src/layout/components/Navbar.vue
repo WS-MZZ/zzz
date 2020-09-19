@@ -27,7 +27,7 @@
           <router-link to="/personalInfo">
             <el-dropdown-item>个人信息</el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+          <a target="_blank" href="">
             <el-dropdown-item>更换皮肤</el-dropdown-item>
           </a>
           <a @click="showChangePass">
