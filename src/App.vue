@@ -17,4 +17,11 @@ export default {
 .fg1 {
   flex-grow: 1;
 }
+.sec-develop {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
 </style>

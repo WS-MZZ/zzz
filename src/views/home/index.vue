@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">
+    <div class="dashboard-text" style="display: none">
       <div class="head">
         <div class="companyName">sajksjdfkasjdflkasjdl <span @click="edit">编辑</span></div>
         <div class="companyDetail">
@@ -76,6 +76,7 @@
       </div>
     </div>
     <companyDialog ref="companyDialog" :corp-info="form" :visible.sync="visible"/>
+    <div class="sec-develop">二期功能开发中</div>
   </div>
 </template>
 
