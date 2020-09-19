@@ -65,6 +65,9 @@ export default {
       position: fixed;
       top: 0;
     }
+    .main-container {
+      min-width: 1200px;
+    }
   }
   .drawer-bg {
     background: #000;
