@@ -54,7 +54,7 @@ service.interceptors.response.use(
   error => {
     if (/^4/.test(String(error.response.status)) || /^5/.test(String(error.response.status))) {
       Message({
-        message: error.response.data.detail || '连接错误请重试',
+        message: error.response.data.title === 'Unauthorized' ? '账号异常，请重新登录' : error.response.data.detail || '连接错误请重试',
         type: 'error',
         duration: 3 * 1000,
         onClose() {
