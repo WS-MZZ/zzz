@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">
+    <div class="dashboard-text" style="display: none">
       <div class="top">
         <div class="top-left">
           <div class="title">基础信息</div>
@@ -58,6 +58,7 @@
         <lineChart ref="lineChart" class="line" />
       </div>
     </div>
+    <div class="sec-develop">二期功能开发中</div>
   </div>
 </template>
 
