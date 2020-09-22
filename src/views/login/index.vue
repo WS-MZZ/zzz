@@ -43,7 +43,7 @@
           </span>
         </el-form-item>
 
-        <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:22px;" @click.native.prevent="handleLogin">登录</el-button>
+        <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:22px;height:48px;" @click.native.prevent="handleLogin">登录</el-button>
         <div style="text-align: center">
           <a type="primary" class="tips" @click="gotoForgetPassword">
             忘记密码?
