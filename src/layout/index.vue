@@ -4,7 +4,7 @@
     <sidebar class="sidebar-container" />
     <div class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
-        <navbar />
+        <navbar style="border-bottom: 1px solid #eeeeee" />
       </div>
       <app-main />
       <Footer />
