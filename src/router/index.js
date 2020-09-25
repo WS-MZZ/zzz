@@ -83,7 +83,7 @@ export const constantRoutes = [
         component: () => import('@/views/company/companyHome'),
         meta: { title: '企业管理 / 企业详情', icon: 'dashboard' },
         hidden: true
-      },
+      }
 
     ]
   },
@@ -114,6 +114,12 @@ export const constantRoutes = [
         component: () => import('@/views/interface/modules/addDetail'),
         meta: { title: '应用授权管理 / 新增应用', icon: 'table' },
         hidden: true
+      },
+      {
+        path: 'interfaceDocumentation',
+        name: 'interfaceDocumentation',
+        component: () => import('@/views/interfaceDocumentation'),
+        meta: { title: '接口文档', icon: 'table' }
       },
       {
         path: 'interView',
