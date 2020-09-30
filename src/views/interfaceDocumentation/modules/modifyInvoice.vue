@@ -22,7 +22,7 @@
         <div class="tableModule-border">
           <div class="tablemodule-borderTop">
             <div class="bordertop-left">URL</div>
-            <div class="bordertop-right">/api/document/invoiceDocument</div>
+            <div class="bordertop-right">https://api.saas.copeople.demo.aks.chilunyc.com/api/document/invoiceDocument</div>
           </div>
           <div class="tablemodule-borderBottom">
             <div class="bordertop-left">请求方式</div>
