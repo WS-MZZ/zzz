@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text" style="display: none">
+    <div class="dashboard-text">
       <div class="top">
         <div class="top-left">
           <div class="title">基础信息</div>
@@ -18,7 +18,7 @@
               <span>{{ form.maxLimit ? form.maxLimit : '无限制' }}</span>
             </el-form-item>
             <el-form-item label="状态：">
-              <span>{{ form.statusDesc }}</span>
+              <span>{{ form.status }}</span>
             </el-form-item>
             <el-form-item label="创建时间：">
               <span>{{ form.createdDate }}</span>
@@ -58,7 +58,7 @@
         <lineChart ref="lineChart" class="line" />
       </div>
     </div>
-    <div class="sec-develop">二期功能开发中</div>
+    <!-- <div class="sec-develop">二期功能开发中</div> -->
   </div>
 </template>
 
@@ -67,11 +67,11 @@ import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
 import { getSysApplication } from '@/api/applications'
 
-const defaultForm = {
-  name: '',
-  appId: '',
-  maxLimit: ''
-}
+// const defaultForm = {
+//   name: '',
+//   appId: '',
+//   maxLimit: ''
+// }
 
 export default {
   name: 'PersonalInfo',
@@ -81,7 +81,7 @@ export default {
   },
   data() {
     return {
-      form: { ...defaultForm },
+      form: {},
       isSelect: true,
       id: null
     }
@@ -104,7 +104,8 @@ export default {
     },
     getSysApplication(id) {
       getSysApplication(id).then(res => {
-        this.form = res
+        this.form = res.data
+        console.log('应用详情', this.form)
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
       })

@@ -4,17 +4,22 @@ const { param2Obj } = require('./utils')
 const user = require('./user')
 const table = require('./table')
 const company = require('./company')
+const homeVisit = require('./homeVisit')
 const appInterface = require('./interface')
 const system = require('./system')
 const documentation = require('./documentation')
-
+const roleManagement = require('./roleManagement')
+const applications = require('./applications')
 const mocks = [
   ...user,
   ...table,
   ...company,
+  ...homeVisit,
+  ...applications,
   ...appInterface,
   ...system,
-  ...documentation
+  ...documentation,
+  ...roleManagement
 ]
 
 // for front mock

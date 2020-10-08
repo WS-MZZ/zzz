@@ -87,6 +87,8 @@ module.exports = [
           'maxLimit': 44995801,
           'name': 'mollit nostrud',
           'remark': 'et dolor eu ex ad',
+          'status': 'NORMAL',
+          'createdDate': '2020/12/21 12:22',
           'sysEnterpriseIdList': [
             {
               'id': 30460664,

@@ -1,72 +1,48 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text" style="display: none">
-      <div class="head">
-        <div class="companyName">sajksjdfkasjdflkasjdl <span @click="edit">编辑</span></div>
-        <div class="companyDetail">
-          <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt="">
-          <div class="form">
-            <el-form ref="form" :model="form" label-width="100px">
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item label="账号：">
-                    <span>{{ form.logoUrl }}</span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="状态：">
-                    <span>{{ form.name }}</span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item label="联系人：">
-                    <span>{{ form.contact }}</span>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item label="到期时间：">
-                    <span>{{ form.d }}</span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-form>
+    <div class="dashboard-text">
+      <div class="dashboard-modlue">
+        <div class="statistic-Left">
+          <div class="top-center">
+            <div class="center">
+              <div class="title">今日访问量
+                <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
+              <p class="num">{{ visitList.count }}</p>
+              <p>成功 <span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+            </div>
+            <div class="center">
+              <div class="title">累计访问量
+                <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
+              <p class="num">{{ cumlua.count }}</p>
+              <p>成功<span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+            </div>
+          </div>
+          <div class="top-right">
+            <div class="title">文档类型分布
+              <div class="con">
+                <p v-for="(item,index) of distr" :key="index">{{ item.key }}：<span>{{ item.count }}</span>，占比：<span>{{ item.percent }}%</span></p>
+              </div></div>
+            <div class="pie"><pieChart ref="pieChart" /></div>
+          </div>
+        </div>
+        <div class="top">
+          <div class="top-left">
+            <div class="title">应用访问量排名</div>
+            <div v-for="(item,index) in applicat" :key="index">
+              <p><span>{{ index+1 }}</span><span>{{ item.key }}</span><span style="float: right;padding-right: 30px;">{{ item.count }}</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="top">
+          <div class="top-left">
+            <div class="title">企业访问量排名</div>
+            <div v-for="(item,index) in enterprice" :key="index">
+              <p><span>{{ index+1 }}</span><span>{{ item.key }}</span><span style="float: right;padding-right: 30px;">{{ item.count }}</span></p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="top">
-        <div class="top-center">
-          <div class="center">
-            <div class="title">今日访问量
-              <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
-            <p class="num">5134513454</p>
-            <p>成功 <span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
-          </div>
-          <div class="center" style="margin-top:2%">
-            <div class="title">累计访问量
-              <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
-            <p class="num">1234513451</p>
-            <p>成功<span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
-          </div>
-        </div>
-        <div class="top-right">
-          <div class="title">文档类型分布
-            <div class="con">
-              <p>发票：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
-              <p>合同：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
-              <p>订单：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
-            </div></div>
-          <div class="pie"><pieChart ref="pieChart" /></div>
-        </div>
-        <div class="top-left">
-          <div class="title">应用访问量排名</div>
-          <div v-for="item in list">
-            <p><span>{{item.sort}}</span><span>{{item.name}}</span><span style="float: right;padding-right: 30px;">{{item.num}}</span></p>
-          </div>
-        </div>
-      </div>
-
+      <!--  -->
       <div class="bottom">
         <div class="time">
           <div :class="[{ select: isSelect }, 'time1']" style="border-bottom-left-radius: 5px;border-top-left-radius: 5px;" @click="click(1)">今日</div>
@@ -75,8 +51,8 @@
         <lineChart ref="lineChart" class="line" />
       </div>
     </div>
-    <companyDialog ref="companyDialog" :corp-info="form" :visible.sync="visible"/>
-    <div class="sec-develop">二期功能开发中</div>
+    <companyDialog ref="companyDialog" :corp-info="form" :visible.sync="visible" />
+    <!-- <div class="sec-develop">二期功能开发中</div> -->
   </div>
 </template>
 
@@ -84,7 +60,7 @@
 import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
 import companyDialog from './companyDialog'
-
+import { todayVist, cumulative, applicationRank, enterpriceRank, distribution } from '@/api/homeVisit'
 export default {
   name: 'Home',
   components: {
@@ -103,12 +79,22 @@ export default {
           num: 134789234789
         }
       ],
+      visitList: [],
+      cumlua: [],
+      applicat: [],
+      enterprice: [],
+      distr: [],
       visible: false
     }
   },
   computed: {},
   created() {
     this.getCorpInfo()
+    this.todayVisit()
+    this.cumulatives()
+    this.applicationRanks()
+    this.enterpriceRanks()
+    this.distributions()
   },
   methods: {
     getCorpInfo() {
@@ -121,11 +107,46 @@ export default {
       this.visible = true
     },
     click(data) {
-      if (data == 1) {
+      if (data === 1) {
         this.isSelect = true
       } else {
         this.isSelect = false
       }
+    },
+    // 今日访问
+    todayVisit() {
+      todayVist().then(res => {
+        console.log('今日访问', res)
+        this.visitList = res[0]
+      })
+    },
+    // 累计访问
+    cumulatives() {
+      cumulative().then(res => {
+        console.log('累计访问', res)
+        this.cumlua = res[0]
+      })
+    },
+    // 应用访问量排名
+    applicationRanks() {
+      applicationRank().then(res => {
+        console.log('应用访问量排名', res)
+        this.applicat = res
+      })
+    },
+    // 企业访问量排名
+    enterpriceRanks() {
+      enterpriceRank().then(res => {
+        console.log('企业访问量排名', res)
+        this.enterprice = res
+      })
+    },
+    // 文档类型分布
+    distributions() {
+      distribution().then(res => {
+        console.log('文档类型分布', res)
+        this.distr = res
+      })
     }
   }
 }
@@ -143,7 +164,7 @@ export default {
       font-size: 30px;
       line-height: 46px;
       /*display: flex;*/
-      height: 100%;
+      // height: 100%;
       .head{
         height: 35%;
         width: 100%;
@@ -176,16 +197,18 @@ export default {
         }
       }
       .top{
-        height: 45%;
+        // height: 100%;
         width: 100%;
-        margin-bottom: 5px;
+        // margin-bottom: 10px;
         display: flex;
+        max-height: 504px;
         &-left{
           height: 100%;
-          width: 34%;
+          width: 100%;
           background-color: #fff;
           border-radius: 5px;
-          margin-left: 0.5%;
+          margin-left:10px;
+          min-width: 350px;
           p{
             font-size: 16px;
             margin: 0;
@@ -196,13 +219,17 @@ export default {
           }
         }
         &-center{
-          height: 100%;
-          width: 25%;
+          // height: 100%;
+          width: 100%;
+          margin-bottom: 10px;
+          min-width: 640px; 
           .center{
             width: 100%;
-            height: 49%;
+            height: 30%;
             background-color: #fff;
             border-radius: 5px;
+            min-width: 315px;
+            margin-right: 10px;
             p{
               font-size: 16px;
               margin: 0;
@@ -217,11 +244,14 @@ export default {
         }
         &-right{
           display: flex;
-          height: 100%;
-          width: 40%;
+          // height: 100%;
+          width: 100%;
           background-color: #fff;
           border-radius: 5px;
-          margin-left: 0.5%;
+          max-width: 640px;
+          min-width: 640px;
+          justify-content: space-between;
+          // margin-left: 0.5%;
           .con{
             margin-top: 50px;
             p{
@@ -231,7 +261,8 @@ export default {
           }
           .pie{
             width: 50%;
-            margin-left: 20px;
+            // margin-left: 20px;
+            margin-right: 50px;
             margin-top: -50px;
           }
         }
@@ -241,6 +272,7 @@ export default {
         width: 100%;
         background-color: #fff;
         border-radius: 5px;
+        margin-top: 10px;
         .time{
           margin-left: 80%;
           margin-bottom: -30px;
@@ -279,5 +311,12 @@ export default {
   }
   .el-form-item{
     margin-bottom: 0px;
+  }
+  .top-center{
+    display: flex;
+    min-width: 335px;
+  }
+  .dashboard-modlue{
+    display: flex;
   }
 </style>

@@ -83,8 +83,7 @@ export const constantRoutes = [
         component: () => import('@/views/company/companyHome'),
         meta: { title: '企业管理 / 企业详情', icon: 'dashboard' },
         hidden: true
-      },
-
+      }
     ]
   },
 
@@ -116,6 +115,12 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        path: 'interfaceDocumentation',
+        name: 'interfaceDocumentation',
+        component: () => import('@/views/interfaceDocumentation'),
+        meta: { title: '接口文档', icon: 'table' }
+      },
+      {
         path: 'interView',
         name: 'interView',
         component: () => import('@/views/interView/index'),
@@ -127,6 +132,42 @@ export const constantRoutes = [
         component: () => import('@/views/interView/modules/details'),
         meta: { title: '接口访问记录 / 应用详情', icon: 'table' },
         hidden: true
+      }
+    ]
+  },
+  {
+    path: '/translation',
+    component: Layout,
+    alwaysShow: true,
+    redirect: '/translation/userAdminstration',
+    name: 'translation',
+    meta: { title: '权限管理', icon: 'el-icon-s-help' },
+    children: [
+      {
+        path: 'userAdminstration',
+        name: 'userAdminstration',
+        component: () => import('@/views/userAdminstration'),
+        meta: { title: '系统用户管理', icon: 'table' }
+      },
+      {
+        path: 'addUserAdminstration',
+        name: 'addUserAdminstration',
+        component: () => import('@/views/userAdminstration/modules/addUserAdminstration'),
+        meta: { title: '新增用户', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'editDetail',
+        name: 'editDetail',
+        component: () => import('@/views/userAdminstration/modules/editDetail'),
+        meta: { title: '新增用户', icon: 'table' },
+        hidden: true
+      },
+      {
+        path: 'roleManagement',
+        name: 'roleManagement',
+        component: () => import('@/views/roleManagement'),
+        meta: { title: '角色管理', icon: 'dashboard' }
       }
     ]
   },

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { distribution } from '@/api/homeVisit'
 const elementResizeDetectorMaker = require('element-resize-detector')
 
 export default {
@@ -22,8 +23,8 @@ export default {
           {
             type: 'pie',
             radius: [30, 110],
-            center: ['75%', '50%'],
-            roseType: 'area',
+            center: ['60%', '50%'],
+            // roseType: 'area',
             label: {
               show: false
             },
@@ -49,7 +50,8 @@ export default {
             }
           }
         ]
-      }
+      },
+      dataList: []
     }
   },
   mounted() {
@@ -61,6 +63,21 @@ export default {
         that.$refs.chart.resize()
       })
     })
+    this.distributions()
+  },
+  methods: {
+    distributions() {
+      distribution().then(res => {
+        console.log('扇形图', res)
+        res.forEach(item => {
+          this.dataList.push({
+            value: item.count,
+            name: item.key
+          })
+          this.options.series[0].data = this.dataList
+        })
+      })
+    }
   }
 }
 </script>

@@ -91,6 +91,7 @@
 </template>
 
 <script>
+
 import KgTable from '@/components/KgComponents/KgTable'
 import { getSassEnterpriseList, activateEnterprise, freezeEnterprise, deleteEnterprise, resetEnterprisePass } from '@/api/enterprise'
 
