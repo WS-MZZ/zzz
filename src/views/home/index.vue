@@ -1,47 +1,75 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">
-      <div class="dashboard-modlue">
-        <div class="statistic-Left">
-          <div class="top-center">
-            <div class="center">
-              <div class="title">今日访问量
-                <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
-              <p class="num">{{ visitList.count }}</p>
-              <p>成功 <span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+      <el-row :gutter="10">
+        <div class="dashboard-modlue">
+          <el-col :span="6">
+            <div class="statistic-Left">
+              <div class="top-center">
+                <div class="center">
+                  <div>
+                    <div class="title">今日访问量
+                    </div>
+                    <p class="num">{{ visitList.count }}</p>
+                    <p>成功 <span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+                  </div>
+                  <div class="top-center-pic">
+                    <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt="">
+                  </div>
+                </div>
+                <div class="center">
+                  <div>
+                    <div class="title">累计访问量
+                    </div>
+                    <p class="num">{{ cumlua.count }}</p>
+                    <p>成功<span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+                  </div>
+                  <div class="top-center-pic">
+                    <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt="">
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="center">
-              <div class="title">累计访问量
-                <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
-              <p class="num">{{ cumlua.count }}</p>
-              <p>成功<span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+          </el-col>
+          <el-col :span="6">
+            <div class="top">
+              <div class="top-left">
+                <div class="title">应用访问量排名</div>
+                <div v-for="(item,index) in applicat" :key="index">
+                  <div class="applicationVist">
+                    <div style="overflow: hidden; text-overflow:ellipsis; white-space: nowrap;"><span>{{ index+1 }}</span><span>{{ item.key }}</span></div>
+                    <div style="padding-right: 30px;">{{ item.count }}</div>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="top-right">
-            <div class="title">文档类型分布
-              <div class="con">
-                <p v-for="(item,index) of distr" :key="index">{{ item.key }}：<span>{{ item.count }}</span>，占比：<span>{{ item.percent }}%</span></p>
-              </div></div>
-            <div class="pie"><pieChart ref="pieChart" /></div>
-          </div>
+          </el-col>
+          <el-col :span="6">
+            <div class="top">
+              <div class="top-left">
+                <div class="title">企业访问量排名</div>
+                <div v-for="(item,index) in enterprice" :key="index">
+                  <div class="applicationVist">
+                    <div style="overflow: hidden; text-overflow:ellipsis; white-space: nowrap;"><span>{{ index+1 }}</span><span>{{ item.key }}</span></div>
+                    <div style="padding-right: 30px;">{{ item.count }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <!-- bar图表 -->
+            <div class="top-right">
+              <div class="title">文档类型分布
+                <!-- <div class="con">
+                  <p v-for="(item,index) of distr" :key="index">{{ item.key }}：<span>{{ item.count }}</span>，占比：<span>{{ item.percent }}%</span></p>
+                </div> -->
+              </div>
+              <div class="pie"><pieChart ref="pieChart" /></div>
+            </div>
+          </el-col>
         </div>
-        <div class="top">
-          <div class="top-left">
-            <div class="title">应用访问量排名</div>
-            <div v-for="(item,index) in applicat" :key="index">
-              <p><span>{{ index+1 }}</span><span>{{ item.key }}</span><span style="float: right;padding-right: 30px;">{{ item.count }}</span></p>
-            </div>
-          </div>
-        </div>
-        <div class="top">
-          <div class="top-left">
-            <div class="title">企业访问量排名</div>
-            <div v-for="(item,index) in enterprice" :key="index">
-              <p><span>{{ index+1 }}</span><span>{{ item.key }}</span><span style="float: right;padding-right: 30px;">{{ item.count }}</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
+      </el-row>
       <!--  -->
       <div class="bottom">
         <div class="time">
@@ -197,18 +225,17 @@ export default {
         }
       }
       .top{
-        // height: 100%;
+        height: 100%;
         width: 100%;
         // margin-bottom: 10px;
         display: flex;
-        max-height: 504px;
+        max-height: 310px;
         &-left{
           height: 100%;
           width: 100%;
           background-color: #fff;
           border-radius: 5px;
-          margin-left:10px;
-          min-width: 350px;
+          // margin-left:10px;
           p{
             font-size: 16px;
             margin: 0;
@@ -222,14 +249,17 @@ export default {
           // height: 100%;
           width: 100%;
           margin-bottom: 10px;
-          min-width: 640px; 
+          // min-width: 640px;
           .center{
             width: 100%;
-            height: 30%;
+            height: 150px;
             background-color: #fff;
             border-radius: 5px;
-            min-width: 315px;
+            display: flex;
+            justify-content: space-between;
+            // min-width: 315px;
             margin-right: 10px;
+            margin-bottom: 10px;
             p{
               font-size: 16px;
               margin: 0;
@@ -243,14 +273,14 @@ export default {
           }
         }
         &-right{
-          display: flex;
+          // display: flex;
           // height: 100%;
           width: 100%;
           background-color: #fff;
           border-radius: 5px;
-          max-width: 640px;
-          min-width: 640px;
-          justify-content: space-between;
+          height: 310px;
+          max-height: 310px;
+          // justify-content: space-between;
           // margin-left: 0.5%;
           .con{
             margin-top: 50px;
@@ -260,10 +290,10 @@ export default {
             }
           }
           .pie{
-            width: 50%;
-            // margin-left: 20px;
-            margin-right: 50px;
-            margin-top: -50px;
+            width: 68%;
+            margin-left: -40px;
+            // margin-right: 50px;
+            margin-top: -60px;
           }
         }
       }
@@ -312,11 +342,20 @@ export default {
   .el-form-item{
     margin-bottom: 0px;
   }
-  .top-center{
-    display: flex;
-    min-width: 335px;
+  .top-center-pic{
+    line-height: 200px;
+    margin-right: 30px;
   }
   .dashboard-modlue{
     display: flex;
+  }
+  .applicationVist{
+    display: flex;
+    font-size: 16px;
+    padding-left: 30px;
+    justify-content: space-between;
+    span {
+      margin-right: 20px;
+    }
   }
 </style>

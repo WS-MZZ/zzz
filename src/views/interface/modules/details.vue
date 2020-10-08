@@ -29,13 +29,13 @@
           <div class="center">
             <div class="title">今日访问量
               <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
-            <p class="num">5134513454</p>
+            <p class="num">{{ todayVisit.count }}</p>
             <p>成功 <span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
           </div>
           <div class="center" style="margin-top:2%">
             <div class="title">累计访问量
               <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
-            <p class="num">1234513451</p>
+            <p class="num">{{ Cumulat.count }}</p>
             <p>成功<span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
           </div>
         </div>
@@ -45,7 +45,8 @@
               <p>发票：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
               <p>合同：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
               <p>订单：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
-            </div></div>
+            </div>
+          </div>
           <div class="pie"><pieChart ref="pieChart" /></div>
         </div>
       </div>
@@ -65,7 +66,7 @@
 <script>
 import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
-import { getSysApplication } from '@/api/applications'
+import { getSysApplication, getTodayStatic, getCumulative } from '@/api/applications'
 
 // const defaultForm = {
 //   name: '',
@@ -83,7 +84,9 @@ export default {
     return {
       form: {},
       isSelect: true,
-      id: null
+      id: null,
+      todayVisit: [],
+      Cumulat: []
     }
   },
   computed: {},
@@ -92,11 +95,13 @@ export default {
     if (this.$route.query.id) {
       this.id = this.$route.query.id
       this.getSysApplication(this.id)
+      this.getTodayVist(this.id)
+      this.getCumulatives(this.id)
     }
   },
   methods: {
     click(data) {
-      if (data == 1) {
+      if (data === 1) {
         this.isSelect = true
       } else {
         this.isSelect = false
@@ -104,10 +109,24 @@ export default {
     },
     getSysApplication(id) {
       getSysApplication(id).then(res => {
-        this.form = res.data
+        this.form = res
         console.log('应用详情', this.form)
       }).catch(error => {
         console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
+      })
+    },
+    // 今日访问量
+    getTodayVist(id) {
+      getTodayStatic(id).then(res => {
+        console.log('今日访问量', res)
+        this.todayVisit = res[0]
+      })
+    },
+    // 累计访问量
+    getCumulatives(id) {
+      getCumulative(id).then(res => {
+        console.log('累计访问量', res)
+        this.Cumulat = res[0]
       })
     }
   }

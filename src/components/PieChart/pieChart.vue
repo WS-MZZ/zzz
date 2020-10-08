@@ -22,7 +22,7 @@ export default {
         series: [
           {
             type: 'pie',
-            radius: [30, 110],
+            radius: [30, 80],
             center: ['60%', '50%'],
             // roseType: 'area',
             label: {

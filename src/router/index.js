@@ -136,11 +136,11 @@ export const constantRoutes = [
     ]
   },
   {
-    path: '/translation',
+    path: '/user',
     component: Layout,
     alwaysShow: true,
-    redirect: '/translation/userAdminstration',
-    name: 'translation',
+    redirect: '/user/userAdminstration',
+    name: 'user',
     meta: { title: '权限管理', icon: 'el-icon-s-help' },
     children: [
       {

@@ -81,3 +81,21 @@ export function getAppsecret(appkey) {
     method: 'get'
   })
 }
+
+// 今日访问量
+export function getTodayStatic(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/pvCountByCurrentDay',
+    method: 'get',
+    params
+  })
+}
+
+// 累计访问量
+export function getCumulative(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/pvCount',
+    method: 'get',
+    params
+  })
+}
