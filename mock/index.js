@@ -9,6 +9,7 @@ const appInterface = require('./interface')
 const system = require('./system')
 const documentation = require('./documentation')
 const roleManagement = require('./roleManagement')
+const userAdminstration = require('./userAdminstration')
 const mocks = [
   ...user,
   ...table,
@@ -17,7 +18,8 @@ const mocks = [
   ...appInterface,
   ...system,
   ...documentation,
-  ...roleManagement
+  ...roleManagement,
+  ...userAdminstration
 ]
 
 // for front mock

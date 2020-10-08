@@ -102,7 +102,8 @@ export default {
         status: '',
         size: 5,
         page: '',
-        sort: 'DESC'
+        sort: 'DESC',
+        sysRoleId: ''
       },
       loading: false,
       status: [

@@ -15,7 +15,7 @@
               <span class="appSec">{{ form.appSecret }}</span>
             </el-form-item>
             <el-form-item label="每分钟访问限制：">
-              <span>{{ form.maxLimit ? form.maxLimit : '无限制' }}</span>
+              <span>{{ form.maxLimit ? form.maxLimit : "无限制" }}</span>
             </el-form-item>
             <el-form-item label="状态：">
               <span>{{ form.status }}</span>
@@ -27,24 +27,47 @@
         </div>
         <div class="top-center">
           <div class="center">
-            <div class="title">今日访问量
-              <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
+            <div class="title">
+              今日访问量
+              <img
+                src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+                alt=""
+              >
+            </div>
             <p class="num">{{ todayVisit.count }}</p>
-            <p>成功 <span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+            <p>
+              成功 <span>{{ form.account }}</span> 失败
+              <span>{{ form.account }}</span>
+            </p>
           </div>
-          <div class="center" style="margin-top:2%">
-            <div class="title">累计访问量
-              <img src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80" alt=""></div>
+          <div class="center" style="margin-top: 2%">
+            <div class="title">
+              累计访问量
+              <img
+                src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+                alt=""
+              >
+            </div>
             <p class="num">{{ Cumulat.count }}</p>
-            <p>成功<span>{{ form.account }}</span>  失败 <span>{{ form.account }}</span></p>
+            <p>
+              成功<span>{{ form.account }}</span> 失败
+              <span>{{ form.account }}</span>
+            </p>
           </div>
         </div>
         <div class="top-right">
-          <div class="title">文档类型分布
+          <div class="title">
+            文档类型分布
             <div class="con">
-              <p>发票：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
-              <p>合同：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
-              <p>订单：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span></p>
+              <p>
+                发票：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span>
+              </p>
+              <p>
+                合同：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span>
+              </p>
+              <p>
+                订单：<span>{{ form.account }}</span>，占比<span>{{ form.account }}</span>
+              </p>
             </div>
           </div>
           <div class="pie"><pieChart ref="pieChart" /></div>
@@ -53,8 +76,23 @@
 
       <div class="bottom">
         <div class="time">
-          <div :class="[{ select: isSelect }, 'time1']" style="border-bottom-left-radius: 5px;border-top-left-radius: 5px;" @click="click(1)">今日</div>
-          <div :class="[{ select: !isSelect }, 'time1']" style="border-bottom-right-radius: 5px;border-top-right-radius: 5px;" @click="click(30)">近30日</div>
+          <div
+            :class="[{ select: isSelect }, 'time1']"
+            style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
+            @click="click(1)"
+          >
+            今日
+          </div>
+          <div
+            :class="[{ select: !isSelect }, 'time1']"
+            style="
+              border-bottom-right-radius: 5px;
+              border-top-right-radius: 5px;
+            "
+            @click="click(30)"
+          >
+            近30日
+          </div>
         </div>
         <lineChart ref="lineChart" class="line" />
       </div>
@@ -66,7 +104,11 @@
 <script>
 import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
-import { getSysApplication, getTodayStatic, getCumulative } from '@/api/applications'
+import {
+  getSysApplication,
+  getTodayStatic,
+  getCumulative
+} from '@/api/applications'
 
 // const defaultForm = {
 //   name: '',
@@ -108,23 +150,25 @@ export default {
       }
     },
     getSysApplication(id) {
-      getSysApplication(id).then(res => {
-        this.form = res
-        console.log('应用详情', this.form)
-      }).catch(error => {
-        console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
-      })
+      getSysApplication(id)
+        .then((res) => {
+          this.form = res
+          console.log('应用详情', this.form)
+        })
+        .catch((error) => {
+          console.log(error) // 这里catch虽然不做什么提示上的动作，但是为了要把loading去掉，也还是需要的
+        })
     },
     // 今日访问量
     getTodayVist(id) {
-      getTodayStatic(id).then(res => {
+      getTodayStatic(id).then((res) => {
         console.log('今日访问量', res)
         this.todayVisit = res[0]
       })
     },
     // 累计访问量
     getCumulatives(id) {
-      getCumulative(id).then(res => {
+      getCumulative(id).then((res) => {
         console.log('累计访问量', res)
         this.Cumulat = res[0]
       })
@@ -134,116 +178,116 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .dashboard {
-    &-container {
-      /*padding: 15px;*/
-      height: 100%;
-    }
-    &-text {
-      font-size: 30px;
-      line-height: 46px;
-      /*display: flex;*/
-      height: 100%;
-      .top{
-        height: 55%;
-        width: 100%;
-        margin-bottom: 5px;
-        display: flex;
-        &-left{
-          height: 100%;
-          width: 34%;
-          background-color: #fff;
-          border-radius: 5px;
-          margin-right: 0.5%;
-        }
-        &-center{
-          height: 100%;
-          width: 25%;
-          .center{
-            width: 100%;
-            height: 49%;
-            background-color: #fff;
-            border-radius: 5px;
-            p{
-              font-size: 16px;
-              margin: 0;
-              padding-left: 30px;
-              color: #999999;
-            }
-            .num{
-              font-size: 22px;
-              color: #20a0ff;
-            }
-          }
-        }
-        &-right{
-          display: flex;
-          height: 100%;
-          width: 40%;
-          background-color: #fff;
-          border-radius: 5px;
-          margin-left: 0.5%;
-          .con{
-            margin-top: 50px;
-            p{
-              font-size: 16px;
-              margin: 0;
-            }
-          }
-          .pie{
-            width: 50%;
-            margin-left: 20px;
-            margin-top: -50px;
-          }
-        }
-      }
-      .bottom{
-        height: 55%;
-        width: 100%;
+.dashboard {
+  &-container {
+    /*padding: 15px;*/
+    height: 100%;
+  }
+  &-text {
+    font-size: 30px;
+    line-height: 46px;
+    /*display: flex;*/
+    // height: 100%;
+    .top {
+      height: 55%;
+      width: 100%;
+      margin-bottom: 5px;
+      display: flex;
+      &-left {
+        height: 100%;
+        width: 34%;
         background-color: #fff;
         border-radius: 5px;
-        .time{
-          position: fixed;
-          right: 100px;
-          z-index: 99;
-          cursor: pointer;
-          .time1{
-            display: inline-block;
-            font-size: 18px;
-            width: 100px;
-            line-height: 36px;
-            text-align: center;
-            background-color: #f2f2f2;
+        margin-right: 0.5%;
+      }
+      &-center {
+        height: 100%;
+        width: 25%;
+        .center {
+          width: 100%;
+          height: 49%;
+          background-color: #fff;
+          border-radius: 5px;
+          p {
+            font-size: 16px;
+            margin: 0;
+            padding-left: 30px;
+            color: #999999;
           }
-          .select{
+          .num {
+            font-size: 22px;
             color: #20a0ff;
           }
         }
-        .line{
-          padding-top: 20px;
-          padding-left: 1%;
+      }
+      &-right {
+        display: flex;
+        height: 291px;
+        width: 40%;
+        background-color: #fff;
+        border-radius: 5px;
+        margin-left: 0.5%;
+        .con {
+          margin-top: 50px;
+          p {
+            font-size: 16px;
+            margin: 0;
+          }
+        }
+        .pie {
+          width: 50%;
+          margin-left: 20px;
+          margin-top: -50px;
         }
       }
     }
-  }
-  .title{
-    font-size: 18px;
-    margin-left: 30px;
-    padding-top: 5px;
-    img{
-      position: absolute;
-      margin-left: 100px;
-      margin-top: 20px;
-      width: 60px;
+    .bottom {
+      height: 55%;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 5px;
+      .time {
+        position: fixed;
+        right: 100px;
+        z-index: 99;
+        cursor: pointer;
+        .time1 {
+          display: inline-block;
+          font-size: 18px;
+          width: 100px;
+          line-height: 36px;
+          text-align: center;
+          background-color: #f2f2f2;
+        }
+        .select {
+          color: #20a0ff;
+        }
+      }
+      .line {
+        padding-top: 20px;
+        padding-left: 1%;
+      }
     }
   }
-  .el-form-item{
-    margin-bottom: 0px;
+}
+.title {
+  font-size: 18px;
+  margin-left: 30px;
+  padding-top: 5px;
+  img {
+    position: absolute;
+    margin-left: 100px;
+    margin-top: 20px;
+    width: 60px;
   }
-  .appSec {
-    word-break: break-all;
-  }
-  ::v-deep.lg-1 .el-form-item__content {
-    // line-height: 1.5;
-  }
+}
+.el-form-item {
+  margin-bottom: 0px;
+}
+.appSec {
+  word-break: break-all;
+}
+::v-deep.lg-1 .el-form-item__content {
+  // line-height: 1.5;
+}
 </style>
