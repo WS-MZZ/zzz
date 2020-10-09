@@ -208,8 +208,8 @@ export default {
     // 表格列表
     roleList() {
       roleLists(this.searchCondition).then(response => {
-        this.tableData = response.data
-        this.total = response.total
+        this.tableData = response
+        this.total = response.length
       })
     },
     // 页码

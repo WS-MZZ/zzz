@@ -15,11 +15,8 @@
                       <span>{{ form.account }}</span>
                     </p>
                   </div>
-                  <div class="top-center-pic">
-                    <img
-                      src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
-                      alt=""
-                    >
+                  <div class="homeChart">
+                    <homeChart ref="homeChart" />
                   </div>
                 </div>
                 <div class="center">
@@ -133,6 +130,7 @@
 <script>
 import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
+import homeChart from '@/components/LineChart/homeLineChart'
 import companyDialog from './companyDialog'
 import {
   todayVist,
@@ -146,6 +144,7 @@ export default {
   components: {
     pieChart,
     lineChart,
+    homeChart,
     companyDialog
   },
   data() {
@@ -174,6 +173,8 @@ export default {
     this.cumulatives()
     this.applicationRanks()
     this.enterpriceRanks()
+  },
+  mounted() {
     this.distributions()
   },
   methods: {
@@ -196,37 +197,32 @@ export default {
     // 今日访问
     todayVisit() {
       todayVist().then((res) => {
-        console.log('今日访问', res)
         this.visitList = res[0]
       })
     },
     // 累计访问
     cumulatives() {
       cumulative().then((res) => {
-        console.log('累计访问', res)
         this.cumlua = res[0]
       })
     },
     // 应用访问量排名
     applicationRanks() {
       applicationRank().then((res) => {
-        console.log('应用访问量排名', res)
         this.applicat = res
       })
     },
     // 企业访问量排名
     enterpriceRanks() {
       enterpriceRank().then((res) => {
-        console.log('企业访问量排名', res)
         this.enterprice = res
       })
     },
     // 文档类型分布
-    distributions() {
-      distribution().then((res) => {
-        console.log('文档类型分布', res)
-        this.distr = res
-      })
+    async distributions() {
+      const distrList = await distribution()
+      console.log('文档类型分布', distrList)
+      this.distr = distrList
     }
   }
 }
@@ -410,5 +406,9 @@ export default {
   span {
     margin-right: 20px;
   }
+}
+.homeChart{
+  margin-top: 10px;
+  margin-right: 20px;
 }
 </style>

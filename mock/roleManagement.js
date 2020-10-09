@@ -3,9 +3,8 @@ module.exports = [
     url: `/api/sysRole/page`,
     type: 'get',
     response: config => {
-      return {
-        total: 2,
-        data: [{
+      return [
+        {
           createdBy: '1111',
           createdDate: '2020-1-1',
           description: 'hhhh',
@@ -21,8 +20,7 @@ module.exports = [
           name: '卢本伟',
           userCount: '888'
         }
-        ]
-      }
+      ]
     }
   },
   {

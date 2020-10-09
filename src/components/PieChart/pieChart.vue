@@ -29,11 +29,6 @@ export default {
           formatter: '{b} : {c} ({d}%)',
           transitionDuration: 0 // echart防止tooltip的抖动
         },
-        legend: {
-          orient: 'vertical',
-          right: 10,
-          data: []
-        },
         series: [
           {
             type: 'pie',
@@ -57,8 +52,12 @@ export default {
           }
         ]
       },
-      dataList: []
+      dataList: [],
+      distrList: []
     }
+  },
+  created() {
+    this.distrList = this.distr
   },
   mounted() {
     const erd = elementResizeDetectorMaker()
@@ -73,15 +72,14 @@ export default {
   },
   methods: {
     distributions() {
-      this.distr.forEach((item) => {
+      this.distrList.forEach((item) => {
         this.dataList.push({
           value: item.count,
           name: item.key
         })
         this.options.series[0].data = this.dataList
-        this.options.legend.data = this.dataList
       })
-      console.log('hhh', this.dataList)
+      console.log('hhh', this.distrList)
     }
   }
 }

@@ -1,23 +1,23 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">
-      <el-form :model="form" :inline="true" class="demo-form-inline" label-width="100px" :label-position="labelPosition">
-        <el-form-item label="账号">
+      <el-form :model="form" :inline="true" :rules="rules" class="demo-form-inline" label-width="100px" :label-position="labelPosition">
+        <el-form-item label="账号" prop="user">
           <el-input v-model="form.user" size="middle" />
         </el-form-item>
-        <el-form-item label="角色">
+        <el-form-item label="角色" prop="role">
           <el-select v-model="form.role" placeholder="请选择角色" class="selectStyle">
             <el-option label="角色一" value="shanghai" />
             <el-option label="角色二" value="beijing" />
           </el-select>
         </el-form-item>
-        <el-form-item label="登录密码">
+        <el-form-item label="登录密码" prop="password">
           <el-input v-model="form.password" size="middle" />
         </el-form-item>
         <el-form-item label="部门">
           <el-input v-model="form.department" size="middle" />
         </el-form-item>
-        <el-form-item label="姓名">
+        <el-form-item label="姓名" prop="username">
           <el-input v-model="form.username" size="middle" />
         </el-form-item>
         <el-form-item label="工号">
@@ -29,7 +29,7 @@
         <el-form-item label="英文名">
           <el-input v-model="form.englishName" size="middle" />
         </el-form-item>
-        <el-form-item label="邮件">
+        <el-form-item label="邮件" prop="email">
           <el-input v-model="form.email" size="middle" />
         </el-form-item>
         <div class="btnStyle">
@@ -61,15 +61,27 @@ export default {
         department: '',
         jobNumber: ''
       },
+      rules: {
+        user: [
+          { required: true, message: '请输入账号名称', trigger: 'blur' },
+          { min: 3, max: 5, message: '长度在 6 到 20 个字母', trigger: 'blur' }
+        ],
+        password: { required: true, message: '请输入登录密码', trigger: 'blur' },
+        username: { required: true, message: '请输入姓名', trigger: 'blur' },
+        email: { required: true, message: '请输入邮箱', trigger: 'blur' },
+        role: { required: true, message: '请选择角色', trigger: 'change' }
+      },
       labelPosition: 'right'
     }
   },
   created() {
     this.id = this.$route.query.id
-    this.userEditDetail()
+    if (this.$route.query.types === 'edit') {
+      this.userEditDetails()
+    }
   },
   methods: {
-    userEditDetail() {
+    userEditDetails() {
       userEditDetail(this.id).then(response => {
         console.log('编辑详情', response)
       })

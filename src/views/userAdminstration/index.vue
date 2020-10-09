@@ -185,7 +185,7 @@ export default {
     },
     // 新增用户
     add() {
-      this.$router.push('/translation/addUserAdminstration')
+      this.$router.push('/user/addUserAdminstration')
     },
     // 监听当前分页
     handleCurrentChange(current) {
@@ -201,16 +201,16 @@ export default {
     // 用户列表
     userList() {
       getApplicationList(this.searchCondition).then(response => {
-        console.log('用户列表', response.data)
-        const res = response.data
-        this.total = parseInt(response.total)
+        console.log('用户列表', response)
+        const res = response
+        this.total = response.length
         this.tableData = res
       })
     },
     // 编辑
     handleClick(row) {
       this.$router.push({
-        path: '/translation/editDetail',
+        path: '/user/editDetail',
         query: {
           types: 'edit',
           id: row.id
