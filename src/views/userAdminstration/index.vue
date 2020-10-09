@@ -67,17 +67,22 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <div>
-                  <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                <div v-if="checkIfAdmin(scope.row)">
+                  <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                  <div>
+                    <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                  </div>
+                  <div>
+                    <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                  </div>
+                  <div>
+                    <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
+                  </div>
+                  <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
                 </div>
-                <div>
-                  <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                <div v-else>
+                  -
                 </div>
-                <div>
-                  <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
-                </div>
-                <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -89,7 +94,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { getApplicationList, delUser, resetEnterprisePass, freezeEnterprise } from '@/api/userAdminstration'
+import { getApplicationList, delUser, resetEnterprisePass, freezeEnterprise, freeThaw, getRoleSelect } from '@/api/userAdminstration'
 export default {
   name: 'UserAdminstration',
   components: {
@@ -107,12 +112,10 @@ export default {
       },
       loading: false,
       status: [
-        { label: '管理员', value: 1 },
-        { label: '用户', value: 2 }
+        { label: '正常', value: 'NORMAL' },
+        { label: '冻结', value: 'FREEZE' }
       ],
       userRole: [
-        { label: '管理员', value: 1 },
-        { label: '用户', value: 2 }
       ],
       tableData: [],
       tableHeader: [
@@ -172,6 +175,7 @@ export default {
   },
   created() {
     this.userList()
+    this.roleSelect()
   },
   methods: {
     // 查询
@@ -183,9 +187,27 @@ export default {
       this.searchCondition.userRole = ''
       this.searchCondition.status = ''
     },
+    // 角色下拉框
+    roleSelect() {
+      getRoleSelect({ size: 1000 }).then(res => {
+        console.log('角色', res)
+        res.data.forEach(item => {
+          this.userRole.push({
+            label: item.name,
+            value: item.id
+          })
+        })
+        // this.status = res.data
+      })
+    },
     // 新增用户
     add() {
-      this.$router.push('/user/addUserAdminstration')
+      this.$router.push({
+        path: '/user/editDetail',
+        query: {
+          types: 'add'
+        }
+      })
     },
     // 监听当前分页
     handleCurrentChange(current) {
@@ -200,11 +222,15 @@ export default {
     },
     // 用户列表
     userList() {
+      this.loading = true
       getApplicationList(this.searchCondition).then(response => {
+        this.loading = false
         console.log('用户列表', response)
-        const res = response
-        this.total = response.length
-        this.tableData = res
+        this.total = parseInt(response.total)
+        this.tableData = response.data
+      }).catch(error => {
+        console.log(error)
+        this.loading = false
       })
     },
     // 编辑
@@ -271,6 +297,32 @@ export default {
           this.userList(this.searchCondition)
         })
       })
+    },
+    // 解冻
+    freeThaws(id) {
+      this.$confirm('是否确认解冻?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        freeThaw(id).then(res => {
+          console.log(res)
+          this.$message({
+            type: 'success',
+            message: '解冻成功!'
+          })
+          this.userList(this.searchCondition)
+        })
+      })
+    },
+    checkIfAdmin(row) {
+      let isadmin = false
+      row.sysRoleDetailVMList.forEach(item => {
+        if (item.name === '超级管理员') {
+          isadmin = true
+        }
+      })
+      return isadmin
     }
   }
 }

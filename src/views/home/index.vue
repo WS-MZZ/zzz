@@ -9,10 +9,10 @@
                 <div class="center">
                   <div>
                     <div class="title">今日访问量</div>
-                    <p class="num">{{ visitList.count }}</p>
+                    <p class="num">{{ visitList.totalCount }}</p>
                     <p>
-                      成功 <span>{{ form.account }}</span> 失败
-                      <span>{{ form.account }}</span>
+                      成功 <span>{{ visitList.successCount }}</span> 失败
+                      <span>{{ visitList.failCount }}</span>
                     </p>
                   </div>
                   <div class="homeChart">
@@ -22,10 +22,10 @@
                 <div class="center">
                   <div>
                     <div class="title">累计访问量</div>
-                    <p class="num">{{ cumlua.count }}</p>
+                    <p class="num">{{ cumlua.totalCount }}</p>
                     <p>
-                      成功<span>{{ form.account }}</span> 失败
-                      <span>{{ form.account }}</span>
+                      成功<span>{{ cumlua.successCount }}</span> 失败
+                      <span>{{ cumlua.failCount }}</span>
                     </p>
                   </div>
                   <div class="top-center-pic">
@@ -158,8 +158,8 @@ export default {
           num: 134789234789
         }
       ],
-      visitList: [],
-      cumlua: [],
+      visitList: {},
+      cumlua: {},
       applicat: [],
       enterprice: [],
       distr: [],
@@ -197,13 +197,13 @@ export default {
     // 今日访问
     todayVisit() {
       todayVist().then((res) => {
-        this.visitList = res[0]
+        this.visitList = res
       })
     },
     // 累计访问
     cumulatives() {
       cumulative().then((res) => {
-        this.cumlua = res[0]
+        this.cumlua = res
       })
     },
     // 应用访问量排名

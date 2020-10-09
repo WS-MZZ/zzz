@@ -114,32 +114,32 @@ export default {
     },
     // 监听账号联级
     changeInfo() {
-      // if (this.$route.query.types === 'add') {
-      //   this.AccountnoInfo(this.form.accountNo)
-      // }
+      if (this.$route.query.types === 'add') {
+        this.AccountnoInfo(this.form.accountNo)
+      }
     },
-    // AccountnoInfo(accountNo) {
-    //   if (accountNo === '' || null) {
-    //     return
-    //   } else {
-    //     getAccountnoInfo(accountNo).then(res => {
-    //       if (res === '' || null) {
-    //         this.disabled = true
-    //         this.showPassword = true
-    //       } else {
-    //         this.showPassword = false
-    //         this.form = res
-    //         console.log('hhh', res)
-    //         this.form.sysRoleIdList = []
-    //         this.form.sysRoleIdList.push(res.sysRoleDetailVMList[0].id)
-    //         this.disabled = true
-    //       }
-    //     }).catch(err => {
-    //       console.log(err)
-    //       this.showPassword = true
-    //     })
-    //   }
-    // },
+    AccountnoInfo(accountNo) {
+      if (accountNo === '' || null) {
+        return
+      } else {
+        getAccountnoInfo(accountNo).then(res => {
+          if (res === '' || null) {
+            this.disabled = true
+            this.showPassword = true
+          } else {
+            this.showPassword = false
+            this.form = res
+            console.log('hhh', res)
+            this.form.sysRoleIdList = []
+            this.form.sysRoleIdList.push(res.sysRoleDetailVMList[0].id)
+            this.disabled = true
+          }
+        }).catch(err => {
+          console.log(err)
+          this.showPassword = true
+        })
+      }
+    },
     // 角色下拉框
     roleSelect() {
       getRoleSelect({ size: 1000 }).then(res => {
@@ -152,6 +152,8 @@ export default {
     },
     // 提交
     onSubmit() {
+      debugger
+      this.form.password = ''
       if (this.showPassword === false) {
         this.$refs.form.rules = {
           user: [
@@ -176,12 +178,21 @@ export default {
           sysRoleIdList: { required: true, message: '请选择角色', trigger: 'change' }
         }
       }
+      // if (this.$route.query.types === 'edit') {
+      //   const validateFieldsForEdit = ['accountNo', 'username', 'email', 'sysRoleIdList']
+      // }
       this.$refs.form.validate((valid) => {
         if (valid) {
           let changeRequest
           if (this.$route.query.types === 'edit') {
+            console.log('编辑提交')
             changeRequest = editUserInfo
+          } else if (this.showPassword === false) {
+            console.log('老员工')
+            changeRequest = addOldUser
+            this.form.userId = this.form.id
           } else {
+            console.log('新增用户')
             changeRequest = addUser
           }
           changeRequest(this.form).then(res => {

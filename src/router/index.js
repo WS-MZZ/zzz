@@ -160,7 +160,7 @@ export const constantRoutes = [
         path: 'editDetail',
         name: 'editDetail',
         component: () => import('@/views/userAdminstration/modules/editDetail'),
-        meta: { title: '新增用户', icon: 'table' },
+        meta: { title: '编辑用户', icon: 'table' },
         hidden: true
       },
       {
