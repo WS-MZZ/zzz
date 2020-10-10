@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <chart ref="chart" :options="options" auto-resize @legendselectchanged="legendselectchanged" />
+    <chart ref="chart" :options="options" auto-resize />
   </div>
 </template>
 
@@ -9,6 +9,12 @@ const elementResizeDetectorMaker = require('element-resize-detector')
 
 export default {
   name: 'LineChart',
+  props: {
+    todaylist: {
+      type: Array,
+      default: null
+    }
+  },
   data() {
     return {
       selected: {},
@@ -56,7 +62,7 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+          data: []
         },
         yAxis: {
           type: 'value'
@@ -69,17 +75,22 @@ export default {
           {
             name: '访问次数',
             type: 'line',
-            data: [120, 132, 101, 134, 90, 230, 210],
+            data: [],
             smooth: true
           },
           {
             name: '失败次数',
             type: 'line',
-            data: [220, 182, 191, 234, 290, 330, 310],
+            data: [],
             smooth: true
           }
         ]
       }
+    }
+  },
+  watch: {
+    todaylist() {
+      this.visitContent()
     }
   },
   mounted() {
@@ -91,51 +102,67 @@ export default {
         that.$refs.chart.resize()
       })
     })
+    this.visitContent()
   },
   methods: {
-    legendselectchanged(params) {
-      // console.log(params);
-      if (params.name == '全选') {
-        for (const key in params.selected) {
-          if (params.selected[params.name] == false) {
-            const selected = params.selected
-            selected[key] = false
-            this.options.legend.selected = selected
-            this.$refs.chart.mergeOptions(this.options, true)
-          } else {
-            const selected = params.selected
-            selected[key] = true
-            this.options.legend.selected = selected
-            this.$refs.chart.mergeOptions(this.options, true)
-          }
-        }
-      } else {
-        if (params.selected[params.name] == false) {
-          const selected = params.selected
-          selected['全选'] = false
-          this.options.legend.selected = selected
-          this.$refs.chart.mergeOptions(this.options, true)
-        } else {
-          let list = []
-          for (const key in params.selected) {
-            if (params.selected[key] == true) {
-              list = list.concat(params.selected[key])
-            }
-          }
-          const len = this.options.series.length
-          if (list.length == len - 1) {
-            const selected = params.selected
-            selected['全选'] = true
-            this.options.legend.selected = selected
-            this.$refs.chart.mergeOptions(this.options, true)
-          }
-        }
-      }
-    }
+    // legendselectchanged(params) {
+    //   // console.log(params);
+    //   if (params.name === '全选') {
+    //     for (const key in params.selected) {
+    //       if (params.selected[params.name] === false) {
+    //         const selected = params.selected
+    //         selected[key] = false
+    //         this.options.legend.selected = selected
+    //         this.$refs.chart.mergeOptions(this.options, true)
+    //       } else {
+    //         const selected = params.selected
+    //         selected[key] = true
+    //         this.options.legend.selected = selected
+    //         this.$refs.chart.mergeOptions(this.options, true)
+    //       }
+    //     }
+    //   } else {
+    //     if (params.selected[params.name] == false) {
+    //       const selected = params.selected
+    //       selected['全选'] = false
+    //       this.options.legend.selected = selected
+    //       this.$refs.chart.mergeOptions(this.options, true)
+    //     } else {
+    //       let list = []
+    //       for (const key in params.selected) {
+    //         if (params.selected[key] == true) {
+    //           list = list.concat(params.selected[key])
+    //         }
+    //       }
+    //       const len = this.options.series.length
+    //       if (list.length == len - 1) {
+    //         const selected = params.selected
+    //         selected['全选'] = true
+    //         this.options.legend.selected = selected
+    //         this.$refs.chart.mergeOptions(this.options, true)
+    //       }
+    //     }
+    //   }
+    // },
     // setOption (params) {
     //     this.options.series = params;
     //     this.$refs.chart.mergeOptions(this.options, true);
     // }
+    visitContent() {
+      this.options.xAxis.data = []
+      this.options.series[0].data = []
+      this.options.series[1].data = []
+      this.todaylist.forEach(item => {
+        if (item.key.split('')[0] === '0') {
+          item.key = item.key.split('')[1] + ':00'
+        } else {
+          item.key = item.key + ':00'
+        }
+        this.options.xAxis.data.push(item.key)
+        this.options.series[0].data.push(item.totalCount)
+        this.options.series[1].data.push(item.failCount)
+      })
+    }
   }
 }
 </script>

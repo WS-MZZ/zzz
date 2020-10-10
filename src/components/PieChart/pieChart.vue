@@ -29,6 +29,7 @@ export default {
           formatter: '{b} : {c} ({d}%)',
           transitionDuration: 0 // echart防止tooltip的抖动
         },
+        color: ['#F57A71', '#5CAFFF', '#FFEE7B'],
         series: [
           {
             type: 'pie',
@@ -52,12 +53,13 @@ export default {
           }
         ]
       },
-      dataList: [],
-      distrList: []
+      dataList: []
     }
   },
-  created() {
-    this.distrList = this.distr
+  watch: {
+    distr() {
+      this.distributions()
+    }
   },
   mounted() {
     const erd = elementResizeDetectorMaker()
@@ -68,18 +70,19 @@ export default {
         that.$refs.chart.resize()
       })
     })
-    this.distributions()
+    if (this.distr) {
+      this.distributions()
+    }
   },
   methods: {
     distributions() {
-      this.distrList.forEach((item) => {
+      this.distr.forEach((item) => {
         this.dataList.push({
           value: item.count,
           name: item.key
         })
         this.options.series[0].data = this.dataList
       })
-      console.log('hhh', this.distrList)
     }
   }
 }

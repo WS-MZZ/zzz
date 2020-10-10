@@ -152,7 +152,7 @@ export default {
     },
     // 提交
     onSubmit() {
-      debugger
+      // debugger
       this.form.password = ''
       if (this.showPassword === false) {
         this.$refs.form.rules = {

@@ -8,6 +8,16 @@
 const elementResizeDetectorMaker = require('element-resize-detector')
 export default {
   name: 'HomeLineChart',
+  props: {
+    toptraffice: {
+      type: Array,
+      default: null
+    },
+    cumulativelist: {
+      type: Array,
+      default: null
+    }
+  },
   data() {
     return {
       options: {
@@ -33,7 +43,7 @@ export default {
             type: 'category',
             boundaryGap: false,
             show: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+            data: []
           }
         ],
         yAxis: [
@@ -43,13 +53,34 @@ export default {
           }
         ],
         series: {
-          name: '邮件营销',
+          name: '访问量',
           type: 'line',
           stack: '总量',
-          areaStyle: {},
-          data: [120, 132, 101, 134, 90, 230, 210]
+          areaStyle: {
+            color: {
+              type: 'linear',
+              x: 0,
+              y: 0,
+              x2: 0,
+              y2: 1,
+              colorStops: [{
+                offset: 0, color: 'rgb(246, 126, 131)' // 0% 处的颜色
+              }, {
+                offset: 1, color: 'rgb(253, 236, 237)' // 100% 处的颜色
+              }]
+            }
+          },
+          data: []
         }
       }
+    }
+  },
+  watch: {
+    toptraffice() {
+      this.homeVisit()
+    },
+    cumulativelist() {
+      this.cumulVistit()
     }
   },
   mounted() {
@@ -61,6 +92,37 @@ export default {
         that.$refs.chart.resize()
       })
     })
+    if (this.toptraffice) {
+      this.homeVisit()
+    } else {
+      this.cumulVistit()
+    }
+  },
+  methods: {
+    // 今日访问量
+    homeVisit() {
+      this.options.xAxis[0].data = []
+      this.options.series.data = []
+      this.toptraffice.forEach(item => {
+        if (item.key.split('')[0] === '0') {
+          item.key = item.key.split('')[1] + ':00'
+        } else {
+          item.key = item.key + ':00'
+        }
+        this.options.xAxis[0].data.push(item.key)
+        this.options.series.data.push(item.totalCount)
+      })
+    },
+    // 累计访问
+    cumulVistit() {
+      console.log('累计访问', this.cumulativelist)
+      this.options.xAxis[0].data = []
+      this.options.series.data = []
+      this.cumulativelist.forEach(item => {
+        this.options.xAxis[0].data.push(item.key)
+        this.options.series.data.push(item.totalCount)
+      })
+    }
   }
 }
 </script>

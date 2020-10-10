@@ -36,3 +36,20 @@ export function distribution() {
     method: 'get'
   })
 }
+
+// 接口访问统计每天
+export function ContentTodayVist() {
+  return request({
+    url: '/api/interfaceRecordStatic/groupByCurrentDate',
+    method: 'get'
+  })
+}
+
+// 接口访问统计时间区域
+export function contentTodayTotal(day) {
+  return request({
+    url: '/api/interfaceRecordStatic/groupByDate',
+    method: 'get',
+    params: day
+  })
+}

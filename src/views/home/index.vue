@@ -16,7 +16,7 @@
                     </p>
                   </div>
                   <div class="homeChart">
-                    <homeChart ref="homeChart" />
+                    <homeChart ref="homeChart" :toptraffice="toptraffice" />
                   </div>
                 </div>
                 <div class="center">
@@ -28,11 +28,8 @@
                       <span>{{ cumlua.failCount }}</span>
                     </p>
                   </div>
-                  <div class="top-center-pic">
-                    <img
-                      src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
-                      alt=""
-                    >
+                  <div class="homeChart">
+                    <homeChart :cumulativelist="cumulativelist" />
                   </div>
                 </div>
               </div>
@@ -51,7 +48,7 @@
                         white-space: nowrap;
                       "
                     >
-                      <span>{{ index + 1 }}</span><span>{{ item.key }}</span>
+                      <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
                     </div>
                     <div style="padding-right: 30px">{{ item.count }}</div>
                   </div>
@@ -72,7 +69,7 @@
                         white-space: nowrap;
                       "
                     >
-                      <span>{{ index + 1 }}</span><span>{{ item.key }}</span>
+                      <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
                     </div>
                     <div style="padding-right: 30px">{{ item.count }}</div>
                   </div>
@@ -89,7 +86,15 @@
                   <p v-for="(item,index) of distr" :key="index">{{ item.key }}：<span>{{ item.count }}</span>，占比：<span>{{ item.percent }}%</span></p>
                 </div> -->
               </div>
-              <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
+              <div class="pieModule">
+                <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
+                <div class="pieFont">
+                  <div v-for="(item,index) of distr" :key="index" class="pieContent">
+                    <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
+                    <div><span>{{ item.key }}:</span> {{ item.count }}</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </el-col>
         </div>
@@ -115,7 +120,7 @@
             近30日
           </div>
         </div>
-        <lineChart ref="lineChart" class="line" />
+        <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
       </div>
     </div>
     <companyDialog
@@ -137,7 +142,9 @@ import {
   cumulative,
   applicationRank,
   enterpriceRank,
-  distribution
+  distribution,
+  ContentTodayVist,
+  contentTodayTotal
 } from '@/api/homeVisit'
 export default {
   name: 'Home',
@@ -163,7 +170,21 @@ export default {
       applicat: [],
       enterprice: [],
       distr: [],
-      visible: false
+      visible: false,
+      setColor: [
+        'setRed',
+        'setYello',
+        'setBlue'
+      ],
+      todaylist: [],
+      toptraffice: [
+        { key: '01', totalCount: 60 },
+        { key: '02', totalCount: 150 },
+        { key: '03', totalCount: 180 },
+        { key: '04', totalCount: 360 },
+        { key: '05', totalCount: 310 }
+      ],
+      cumulativelist: []
     }
   },
   computed: {},
@@ -173,9 +194,9 @@ export default {
     this.cumulatives()
     this.applicationRanks()
     this.enterpriceRanks()
-  },
-  mounted() {
+    this.contentVist()
     this.distributions()
+    this.contentTop(30)
   },
   methods: {
     getCorpInfo() {
@@ -190,8 +211,10 @@ export default {
     click(data) {
       if (data === 1) {
         this.isSelect = true
+        this.contentVist()
       } else {
         this.isSelect = false
+        this.contentTodayTotals(30)
       }
     },
     // 今日访问
@@ -223,6 +246,29 @@ export default {
       const distrList = await distribution()
       console.log('文档类型分布', distrList)
       this.distr = distrList
+    },
+    // 接口访问统计
+    contentVist() {
+      ContentTodayVist().then(res => {
+        this.todaylist = [
+          { key: '01', failCount: 50, totalCount: 60 },
+          { key: '02', failCount: 130, totalCount: 150 },
+          { key: '03', failCount: 110, totalCount: 180 },
+          { key: '04', failCount: 240, totalCount: 360 },
+          { key: '05', failCount: 261, totalCount: 310 }
+        ]
+        res = this.todaylist
+      })
+    },
+    contentTodayTotals(day) {
+      contentTodayTotal(day).then(res => {
+        this.todaylist = res
+      })
+    },
+    contentTop(day) {
+      contentTodayTotal(day).then(res => {
+        this.cumulativelist = res
+      })
     }
   }
 }
@@ -338,7 +384,7 @@ export default {
           }
         }
         .pie {
-          width: 100%;
+          width: 200px;
           height: 300px;
           margin-left: -30px;
           // margin-right: 50px;
@@ -410,5 +456,48 @@ export default {
 .homeChart{
   margin-top: 10px;
   margin-right: 20px;
+}
+.pieModule{
+  display: flex;
+  // justify-content: space-between;
+  align-items: center;
+}
+.pieFont{
+  font-size: 14px;
+  margin-right: 30px;
+  margin-left: 20px;
+}
+.pieContent{
+  display: flex;
+  align-items: center;
+}
+.pieRoundLeft{
+  width:10px;
+  height: 10px;
+  // background: #F57A71;
+  border-radius: 5px;
+}
+.setRed{
+  background: #F57A71;
+}
+.setYello {
+  background: #FFEE7B;
+}
+.setBlue {
+  background: #5CAFFF;
+}
+.applicatClass{
+  width: 25px;
+height: 25px;
+background: #EAF0FF;
+display: inline-block;
+text-align: center;
+line-height: 25px;
+border-radius: 50%;
+color: #2161FD;
+}
+.applicatClassSelect {
+  background-color: #2161FD;
+  color: white;
 }
 </style>
