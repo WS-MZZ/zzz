@@ -8,10 +8,11 @@ export function roleLists(params) {
   })
 }
 // 新增角色
-export function addRole() {
+export function addRole(data) {
   return request({
     url: '/api/sysRole',
-    method: 'POST'
+    method: 'POST',
+    data
   })
 }
 
@@ -42,5 +43,14 @@ export function roleSelect(id) {
   return request({
     url: `/api/sysRole/sysPermissionSelectBox/${id}`,
     method: 'get'
+  })
+}
+
+// 确认设置权限
+export function confirmSetRole(data) {
+  return request({
+    url: '/api/sysRole/assignRolePermission',
+    method: 'post',
+    data
   })
 }

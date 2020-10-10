@@ -17,7 +17,7 @@
     <!-- 表格 -->
     <div class="block-wrapper company-list">
       <div class="add">
-        <el-button size="medium" type="primary" @click="dialogFormVisible = true">新增角色</el-button>
+        <el-button size="medium" type="primary" @click="addRoleSelect">新增角色</el-button>
       </div>
       <KgTable
         :total="total"
@@ -69,7 +69,7 @@
       </KgTable>
     </div>
     <!-- 新增角色 -->
-    <el-dialog title="新增角色" :visible.sync="dialogFormVisible" width="500px">
+    <el-dialog :title="addName" :visible.sync="dialogFormVisible" width="500px">
       <el-form :model="addForm">
         <el-form-item label="角色名称" :label-width="formLabelWidth">
           <el-input v-model="addForm.name" autocomplete="off" class="addinput" />
@@ -85,7 +85,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button @click="unadd">取 消</el-button>
         <el-button type="primary" @click="add">确定</el-button>
       </div>
     </el-dialog>
@@ -129,7 +129,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { roleLists, addRole, delRole, setRole, roleSelect } from '@/api/roleManagement'
+import { roleLists, addRole, delRole, setRole, roleSelect, editRole, confirmSetRole } from '@/api/roleManagement'
 // import role from 'mock/roleManagement'
 export default {
   name: 'RoleManagement',
@@ -173,14 +173,15 @@ export default {
       addForm: {
         name: '',
         description: '',
-        id: this.userInfo
+        id: this.$store.getters.userInfo.id
       },
       dialogFormVisible: false,
       dialogFormRole: false,
       formLabelWidth: '120px',
       textarea: '',
       userid: this.userInfo,
-      menuNavigation: false
+      menuNavigation: false,
+      addName: '新增角色'
     }
   },
   computed: {
@@ -189,17 +190,24 @@ export default {
     }
   },
   watch: {
+    dialogFormVisible() {
+      if (this.dialogFormVisible === false) {
+        this.addForm.name = ''
+        this.addForm.description = ''
+      }
+    },
     permissionIdList() {
-
+      console.log(this.permissionIdList)
     }
   },
   created() {
     this.roleList()
-    this.roleSelect()
+    // this.roleSelect()
   },
   methods: {
     // 查询
     search() {
+      this.roleList()
     },
     // 重置
     resetSearchCondition() {
@@ -208,26 +216,65 @@ export default {
     // 表格列表
     roleList() {
       roleLists(this.searchCondition).then(response => {
-        this.tableData = response
-        this.total = response.length
+        this.tableData = response.data
+        this.total = parseInt(response.total)
       })
     },
     // 页码
-    handleCurrentChange() {},
+    handleCurrentChange(current) {
+      this.searchCondition.page = current - 1
+      this.roleList()
+    },
     // 页码单页数量
-    handleSizeChange() {},
+    handleSizeChange(size) {
+      this.searchCondition.size = size
+    },
+    // 添加角色按钮弹窗
+    addRoleSelect() {
+      this.dialogFormVisible = true
+      this.addName = '添加角色'
+    },
     // 添加角色
     add() {
-      this.dialogFormVisible = false
-      addRole(this.addForm).then(res => {
-        this.$message.success('添加成功')
-      })
+      if (this.addName === '添加角色') {
+        addRole(this.addForm).then(res => {
+          this.dialogFormVisible = false
+          this.$message.success('添加成功')
+          this.roleList()
+        })
+      } else {
+        this.editRoleSelect()
+      }
     },
     // 编辑角色
-    handleClick() {},
+    editRoleSelect() {
+      editRole(this.addForm).then(res => {
+        this.dialogFormVisible = false
+        console.log('编辑角色', res)
+      })
+    },
+    // 取消添加角色
+    unadd() {
+      this.dialogFormVisible = false
+      this.addForm.name = ''
+      this.addForm.description = ''
+    },
+    // 编辑按钮
+    handleClick(row) {
+      this.dialogFormVisible = true
+      this.addName = '编辑角色'
+      console.log(row)
+      this.addForm.name = row.name
+      this.addForm.description = row.description
+    },
     // 设置权限
-    setJurisdiction() {
+    setJurisdiction(id) {
       this.dialogFormRole = true
+      roleSelect(id).then(res => {
+        console.log('权限', res)
+        this.roledata = res.data.all
+        this.permissionIdList = res.data.selected
+      })
     },
     // 删除角色
     del(row) {
@@ -250,18 +297,45 @@ export default {
         })
       })
     },
+    // child权限
     handleCheckChange(id, event, row, item) {
       console.log(row)
       console.log(id)
-      if (id === row.parentId) {
-        if (event) {
+      if (event) {
+        if (id === 1 || id === 4 || id === 7 || id === 10) {
           row.child.forEach(items => {
             items.ischeck = false
           })
+          this.permissionIdList.push(id)
+          debugger
         } else {
+          this.permissionIdList.push(id)
+          // row.child.forEach(items => {
+          //   items.ischeck = true
+          //   item.ischeck = false
+          //   this.permissionIdList.forEach((seleceId, index) => {
+          //     if (items.id === seleceId) {
+          //       this.permissionIdList.splice(index, 1)
+          //     }
+          //   })
+          // })
+        }
+      } else {
+        if (id === 1 || id === 4 || id === 7 || id === 10) {
           row.child.forEach(items => {
             items.ischeck = true
             item.ischeck = false
+            this.permissionIdList.forEach((seleceId, index) => {
+              if (items.id === seleceId) {
+                this.permissionIdList.splice(index, 1)
+              }
+            })
+          })
+        } else {
+          this.permissionIdList.forEach((seleceId, index) => {
+            if (id === seleceId) {
+              this.permissionIdList.splice(index, 1)
+            }
           })
         }
       }
@@ -269,6 +343,7 @@ export default {
     // 全选
     handleCheckAllChange(value, event, ischeck) {
       console.log('value', value)
+      console.log('event', event)
       console.log('ischeck', ischeck)
       if (event === true) {
         value.child.filter(item => {
@@ -292,29 +367,22 @@ export default {
       }
       // this.isIndeterminate = false
     },
-    // 修改权限
+    // 确认修改权限
     addSetRole() {
       setRole().then(res => {})
     },
     // 系统权限选择
     roleSelect() {
-      roleSelect(this.userid).then(res => {
-        this.roledata = res.data.all
-        this.permissionIdList = res.data.selected
-        console.log('zz', res.data)
-        this.roledata.forEach(item => {
-          // if (this.permissionIdList.includes(item.id)) {
-          //   item.ischeck = false
-          // } else {
-          //   item.ischeck = true
-          // }
-          console.log('item', item)
-          // item.child.forEach(items => {
-          //   items.ischeck = false
-          // })
-        })
-      })
     }
+    // checkIfAdmin(row) {
+    //   let isadmin = false
+    //   row.sysRoleDetailVMList.forEach(item => {
+    //     if (item.name === '超级管理员') {
+    //       isadmin = true
+    //     }
+    //   })
+    //   return isadmin
+    // }
   }
 }
 </script>
