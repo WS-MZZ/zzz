@@ -41,6 +41,7 @@ router.beforeEach(async(to, from, next) => {
           // get user info
           await store.dispatch('user/getInfo')
           await store.dispatch('user/getAuth')
+          store.dispatch('settings/getTheme')
           console.log(constantRoutes1, 'routeArray')
           generateRoutes(store.getters.auth)
           resetRouter()
