@@ -59,7 +59,7 @@
               <template slot-scope="scope">
                 <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
                 <div>
-                  <el-button class="mgr" type="text" size="small" @click="setJurisdiction(scope.row.id)">设置权限</el-button>
+                  <el-button class="mgr" type="text" size="small" @click="setJurisdiction(scope.row)">设置权限</el-button>
                 </div>
                 <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
               </template>
@@ -105,7 +105,7 @@
         >
           <template slot-scope="scope">
             <el-checkbox-group v-model="permissionIdList">
-              <el-checkbox :checked="menuNavigation" :label="scope.row.id" @change="handleCheckAllChange(scope.row,$event,scope.row.ischeck)">{{ scope.row.name }}</el-checkbox>
+              <el-checkbox :checked="menuNavigation" :label="scope.row.id" @change="handleCheckAllChange(scope.row,$event)">{{ scope.row.name }}</el-checkbox>
             </el-checkbox-group>
           </template>
         </el-table-column>
@@ -114,7 +114,7 @@
         >
           <template slot-scope="scope">
             <el-checkbox-group v-model="permissionIdList">
-              <el-checkbox v-for="(item,index) of scope.row.child" :key="index" :disabled="item.ischeck" :label="item.id" @change="handleCheckChange(item.id, $event, scope.row, item)">{{ item.name }}</el-checkbox>
+              <el-checkbox v-for="(item,index) of scope.row.child" :key="index" :disabled="item.disabled" :label="item.id" @change="handleCheckChange(item.id, $event, scope.row, item)">{{ item.name }}</el-checkbox>
             </el-checkbox-group>
           </template>
         </el-table-column>
@@ -129,7 +129,7 @@
 
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
-import { roleLists, addRole, delRole, setRole, roleSelect, editRole, confirmSetRole } from '@/api/roleManagement'
+import { roleLists, addRole, delRole, roleSelect, editRole, confirmSetRole } from '@/api/roleManagement'
 // import role from 'mock/roleManagement'
 export default {
   name: 'RoleManagement',
@@ -181,7 +181,9 @@ export default {
       textarea: '',
       userid: this.userInfo,
       menuNavigation: false,
-      addName: '新增角色'
+      addName: '新增角色',
+      addSetRoleID: Number,
+      fatherRoleList: [1, 4, 7, 10]
     }
   },
   computed: {
@@ -205,6 +207,10 @@ export default {
     // this.roleSelect()
   },
   methods: {
+    // 加载判断是否选中
+    judgeSelect() {
+
+    },
     // 查询
     search() {
       this.roleList()
@@ -268,12 +274,49 @@ export default {
       this.addForm.description = row.description
     },
     // 设置权限
-    setJurisdiction(id) {
+    setJurisdiction(row) {
       this.dialogFormRole = true
-      roleSelect(id).then(res => {
-        console.log('权限', res)
+      this.addSetRoleID = row.id
+      roleSelect(row.id).then(res => {
         this.roledata = res.data.all
         this.permissionIdList = res.data.selected
+        this.roledata.forEach(item => {
+          if (this.permissionIdList.indexOf(item.id) !== -1) {
+            item.child.forEach((childItem, index) => {
+              if (index === 0 && this.permissionIdList.indexOf(childItem.id) !== -1) {
+                item.child.forEach((childItem2, index2) => {
+                  if (index2 !== 0) {
+                    childItem2.disabled = false
+                  }
+                })
+              } else if (index === 0 && this.permissionIdList.indexOf(childItem.id) === -1) {
+                item.child.forEach((childItem3, index3) => {
+                  if (index3 !== 0) {
+                    childItem3.disabled = true
+                  }
+                })
+              }
+            })
+          } else {
+            item.child.forEach((childItem, index) => {
+              if (index !== 0) {
+                childItem.disabled = true
+              }
+            })
+          }
+          // item.child.forEach((childItem, index) => {
+          //   console.log('childitem', childItem)
+          //   this.fatherRoleList.forEach(fatherId => {
+          //     console.log(fatherId)
+          //     if (fatherId === childItem.id) {
+          //       childItem.ischeck = false
+          //     } else {
+          //       // item.child[index].ischeck = true
+          //     }
+          //   })
+          // })
+        })
+        console.log(this.roledata, 'roldata')
       })
     },
     // 删除角色
@@ -304,61 +347,49 @@ export default {
       if (event) {
         if (id === 1 || id === 4 || id === 7 || id === 10) {
           row.child.forEach(items => {
-            items.ischeck = false
+            items.disabled = false
           })
-          this.permissionIdList.push(id)
-          debugger
-        } else {
-          this.permissionIdList.push(id)
-          // row.child.forEach(items => {
-          //   items.ischeck = true
-          //   item.ischeck = false
-          //   this.permissionIdList.forEach((seleceId, index) => {
-          //     if (items.id === seleceId) {
-          //       this.permissionIdList.splice(index, 1)
-          //     }
-          //   })
-          // })
         }
       } else {
         if (id === 1 || id === 4 || id === 7 || id === 10) {
           row.child.forEach(items => {
-            items.ischeck = true
-            item.ischeck = false
+            items.disabled = true
+            item.disabled = false
             this.permissionIdList.forEach((seleceId, index) => {
               if (items.id === seleceId) {
                 this.permissionIdList.splice(index, 1)
               }
             })
           })
-        } else {
-          this.permissionIdList.forEach((seleceId, index) => {
-            if (id === seleceId) {
-              this.permissionIdList.splice(index, 1)
-            }
-          })
         }
       }
     },
     // 全选
-    handleCheckAllChange(value, event, ischeck) {
+    handleCheckAllChange(value, event) {
       console.log('value', value)
       console.log('event', event)
-      console.log('ischeck', ischeck)
       if (event === true) {
         value.child.filter(item => {
           this.permissionIdList.push(item.id)
           this.permissionIdList.push(value.id)
           this.permissionIdList = Array.from(new Set(this.permissionIdList))
         })
-        ischeck = false
-        value.ischeck = ischeck
+        value.child.forEach((item, index) => {
+          if (index !== 0) {
+            item.disabled = false
+          }
+        })
+        // this.ischeck = false
+        // value.ischeck = ischeck
       } else {
         const indexItem = []
-        ischeck = true
-        value.ischeck = ischeck
-        value.child.filter(item => {
+        // this.ischeck = true
+        // value.ischeck = ischeck
+        value.child.forEach((item, index) => {
           indexItem.push(item.id)
+          if (index !== 0) {
+            item.disabled = true
+          }
         })
         const indexList = this.permissionIdList.filter(items => {
           return !indexItem.includes(items)
@@ -369,7 +400,11 @@ export default {
     },
     // 确认修改权限
     addSetRole() {
-      setRole().then(res => {})
+      confirmSetRole({ id: this.addSetRoleID, permissionIdList: this.permissionIdList }).then(res => {
+        this.dialogFormRole = false
+        this.$message.success('添加成功')
+        console.log('修改成功')
+      })
     },
     // 系统权限选择
     roleSelect() {

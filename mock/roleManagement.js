@@ -52,5 +52,12 @@ module.exports = [
         }
       }
     }
+  },
+  {
+    url: '/api/sysRole/assignRolePermission',
+    type: 'post',
+    response: config => {
+      return 'OK'
+    }
   }
 ]
