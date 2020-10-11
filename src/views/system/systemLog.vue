@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="authMap.system.sysLog.show">
     <div class="company-search block-wrapper">
       <div class="search-para">
         <el-select v-model="searchCondition.operateName" filterable placeholder="全部操作人" size="medium">
@@ -64,7 +64,7 @@
 import KgTable from '@/components/KgComponents/KgTable'
 import { getSystemList } from '@/api/system'
 import { getUsers } from '@/api/user'
-
+import { mapGetters } from 'vuex'
 const defaultForm = {
   operateName: '',
   page: '',
@@ -110,6 +110,12 @@ export default {
       searchCondition: { ...defaultForm },
       total: 0
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
   },
   created() {
     this.getSystemList(this.searchCondition)

@@ -1,5 +1,5 @@
 <template>
-  <div class="app-main">
+  <div v-if="authMap.interfaceDoc.interfaceDocList.show" class="app-main">
     <div class="layout-module">
       <div class="menu-nav block-wrapper">
         <el-row class="tac">
@@ -36,6 +36,7 @@
 <script>
 import InterfaceContent from '@/views/interfaceDocumentation/modules/interfaceContent'
 import ModifyInvoice from '@/views/interfaceDocumentation/modules/modifyInvoice'
+import { mapGetters } from 'vuex'
 export default {
   name: 'InterfaceDocumentation',
   components: {
@@ -47,6 +48,12 @@ export default {
       zz: sessionStorage.getItem('interComponentName') || 'InterfaceContent',
       defaultActive: sessionStorage.getItem('interIndex') || '1'
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
   },
   methods: {
     handleSelect(index) {

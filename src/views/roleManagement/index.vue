@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="authMap.roleManagement.roleList.show">
     <div class="table-search block-wrapper">
       <div class="search-para">
         <el-input
@@ -57,11 +57,17 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
                 <div>
-                  <el-button class="mgr" type="text" size="small" @click="setJurisdiction(scope.row)">设置权限</el-button>
+                  <div v-if="authMap.roleManagement.roleMange.show">
+                    <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                    <div>
+                      <el-button class="mgr" type="text" size="small" @click="setJurisdiction(scope.row)">设置权限</el-button>
+                    </div>
+                  </div>
+                  <div v-if="authMap.roleManagement.roleDelete.show">
+                    <el-button v-if="authMap.roleManagement.roleDelete.show" class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
+                  </div>
                 </div>
-                <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -130,6 +136,7 @@
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
 import { roleLists, addRole, delRole, roleSelect, editRole, confirmSetRole } from '@/api/roleManagement'
+import { mapGetters } from 'vuex'
 // import role from 'mock/roleManagement'
 export default {
   name: 'RoleManagement',
@@ -187,6 +194,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ]),
     userInfo() {
       return this.$store.getters.userInfo.id
     }
@@ -203,7 +214,9 @@ export default {
     }
   },
   created() {
-    this.roleList()
+    if (this.authMap.roleManagement.roleList.show) {
+      this.roleList()
+    }
     // this.roleSelect()
   },
   methods: {

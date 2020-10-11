@@ -185,8 +185,8 @@ export default {
       this.getCumulatives(this.id)
       this.distributions(this.id)
       this.contentVist(this.id)
-      this.contentTop(30)
-      this.enterpriseRanks(0)
+      this.contentTop({ day: 30 })
+      this.enterpriseRanks({ day: 0 })
     }
   },
   methods: {
@@ -263,9 +263,11 @@ export default {
     },
     // 企业排名
     enterpriseRanks(data) {
+      this.enterpiselist = []
       enterpriseRank(data).then(res => {
         console.log('企业排名', res)
         this.enterpiselist = res
+        console.log('enterpiselist', this.enterpiselist)
       })
     }
   }
@@ -289,7 +291,7 @@ export default {
       margin-bottom: 5px;
       display: flex;
       &-left {
-        height: 100%;
+        // height: 100%;
         width: 34%;
         background-color: #fff;
         border-radius: 5px;

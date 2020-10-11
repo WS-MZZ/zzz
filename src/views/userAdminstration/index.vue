@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="authMap.userManagement.userList.show">
     <div class="table-search block-wrapper">
       <div class="search-para">
         <el-select v-model="searchCondition.userRole" placeholder="角色" size="medium" class="roleK">
@@ -68,17 +68,21 @@
             >
               <template slot-scope="scope">
                 <div v-if="checkIfAdmin(scope.row)">
-                  <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                  <div>
-                    <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                  <div v-if="authMap.userManagement.userMange.show">
+                    <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                    <div>
+                      <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                    </div>
+                    <div>
+                      <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                    </div>
+                    <div>
+                      <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
+                    </div>
                   </div>
-                  <div>
-                    <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                  <div v-if="authMap.userManagement.userDelete.show">
+                    <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
                   </div>
-                  <div>
-                    <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
-                  </div>
-                  <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
                 </div>
                 <div v-else>
                   -
@@ -95,6 +99,7 @@
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
 import { getApplicationList, delUser, resetEnterprisePass, freezeEnterprise, freeThaw, getRoleSelect } from '@/api/userAdminstration'
+import { mapGetters } from 'vuex'
 export default {
   name: 'UserAdminstration',
   components: {
@@ -172,6 +177,12 @@ export default {
       ],
       total: 0
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
   },
   created() {
     this.userList()
@@ -354,4 +365,3 @@ export default {
     }
   }
 </style>
-

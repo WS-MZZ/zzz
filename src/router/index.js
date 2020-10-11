@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 Vue.use(Router)
 
 /* Layout */
@@ -36,17 +35,19 @@ export const constantRoutes = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
-
   {
     path: '/404',
     component: () => import('@/views/404'),
     hidden: true
-  },
+  }
+]
+export const constantRoutes1 = [
   {
     path: '/',
     component: Layout,
     redirect: '/home',
     children: [{
+      authId: 1100,
       path: 'home',
       name: 'home',
       meta: { title: '首页', icon: 'el-icon-s-help' },
@@ -95,6 +96,7 @@ export const constantRoutes = [
     meta: { title: '接口管理', icon: 'el-icon-s-help' },
     children: [
       {
+        authId: 1300,
         path: 'interface',
         name: 'interface',
         component: () => import('@/views/interface/index'),
@@ -115,12 +117,14 @@ export const constantRoutes = [
         hidden: true
       },
       {
+        authId: 1400,
         path: 'interfaceDocumentation',
         name: 'interfaceDocumentation',
         component: () => import('@/views/interfaceDocumentation'),
         meta: { title: '接口文档', icon: 'table' }
       },
       {
+        authId: 1500,
         path: 'interView',
         name: 'interView',
         component: () => import('@/views/interView/index'),
@@ -195,6 +199,7 @@ export const constantRoutes = [
   //   ]
   // },
   {
+    authId: 1800,
     path: '/system',
     component: Layout,
     redirect: '/system/systemConfig',

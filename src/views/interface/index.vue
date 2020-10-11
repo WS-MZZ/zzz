@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="authMap.interface.applicationList.show">
     <div class="table-search block-wrapper">
       <div class="search-para">
         <el-select v-model="searchCondition.status" placeholder="状态" size="medium">
@@ -53,7 +53,7 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <el-link v-if="item.prop == 'name'" style="color:#66b1ff" @click="detail(scope.row)">
+                <el-link v-if="item.prop == 'name' && authMap.interface.applicationDetail.show " style="color:#66b1ff" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <el-link v-else-if="item.prop == 'sysEnterpriseCount'" style="color:#66b1ff" @click="company(scope.row)">
@@ -89,7 +89,7 @@
 import KgTable from '@/components/KgComponents/KgTable'
 import { getApplicationList, freezeApplication, unfreezeApplication, deleteApplication } from '@/api/applications'
 import BuyDialog from './modules/buyDialog'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'Interface',
   components: {
@@ -160,11 +160,12 @@ export default {
       visible: false
     }
   },
-  // computed: {
-  //   ...mapGetters([
-  //     'corpId'
-  //   ])
-  // },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
   watch: {
     corpId: val => {
       this.searchCondition.sysEnterpriseId = val
@@ -172,7 +173,9 @@ export default {
     }
   },
   created() {
-    this.getApplicationList(this.searchCondition)
+    if (this.authMap.interface.applicationList.show) {
+      this.getApplicationList(this.searchCondition)
+    }
   },
   mounted() {
   },

@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <div class="dashboard-text">
       <el-row :gutter="10">
-        <div class="dashboard-modlue">
+        <div v-if="authMap.index.statistic.show" class="dashboard-modlue">
           <el-col :span="6">
             <div class="statistic-Left">
               <div class="top-center">
@@ -100,7 +100,7 @@
         </div>
       </el-row>
       <!--  -->
-      <div class="bottom">
+      <div v-if="authMap.index.statistic.show" class="bottom">
         <div class="time">
           <div
             :class="[{ select: isSelect }, 'time1']"
@@ -137,6 +137,7 @@ import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
 import homeChart from '@/components/LineChart/homeLineChart'
 import companyDialog from './companyDialog'
+import { mapGetters } from 'vuex'
 import {
   todayVist,
   cumulative,
@@ -187,7 +188,12 @@ export default {
       cumulativelist: []
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
   created() {
     this.getCorpInfo()
     this.todayVisit()
@@ -196,7 +202,7 @@ export default {
     this.enterpriceRanks()
     this.contentVist()
     this.distributions()
-    this.contentTop(30)
+    this.contentTop({ day: 30 })
   },
   methods: {
     getCorpInfo() {
@@ -214,12 +220,13 @@ export default {
         this.contentVist()
       } else {
         this.isSelect = false
-        this.contentTodayTotals(30)
+        this.contentTodayTotals({ day: 30 })
       }
     },
     // 今日访问
     todayVisit() {
       todayVist().then((res) => {
+        console.log('今日', res)
         this.visitList = res
       })
     },

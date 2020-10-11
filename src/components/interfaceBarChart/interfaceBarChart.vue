@@ -75,9 +75,9 @@ export default {
     }
   },
   watch: {
-    enterpiselist() {
-      this.enterpriseContent()
-    }
+    // enterpiselist() {
+    //   this.enterpriseContent()
+    // }
   },
   mounted() {
     const erd = elementResizeDetectorMaker()
@@ -92,7 +92,6 @@ export default {
   },
   methods: {
     enterpriseContent() {
-      console.log(this.enterpiselist)
       this.enterpiselist.forEach(item => {
         console.log(item)
         this.options.yAxis.data.push(item.key)

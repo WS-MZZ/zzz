@@ -15,6 +15,14 @@ export function getInfo(token) {
     params: { token }
   })
 }
+export function getAuth(token) {
+  return request({
+    // url: '/api/console/currentUserAuth',
+    url: '/api/sysRole/allSysPermission',
+    method: 'get',
+    params: { token }
+  })
+}
 
 export function updateUserInfo(data) {
   return request({

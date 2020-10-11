@@ -115,7 +115,6 @@ export default {
     },
     // 累计访问
     cumulVistit() {
-      console.log('累计访问', this.cumulativelist)
       this.options.xAxis[0].data = []
       this.options.series.data = []
       this.cumulativelist.forEach(item => {

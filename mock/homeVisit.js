@@ -1,16 +1,6 @@
 
 module.exports = [
   {
-    url: '/api/interfaceRecordStatic/pvCountByCurrentDay',
-    type: 'get',
-    response: config => {
-      return [{
-        count: 54321,
-        key: 1
-      }]
-    }
-  },
-  {
     url: '/api/interfaceRecordStatic/pvCount',
     type: 'get',
     response: config => {
@@ -75,6 +65,18 @@ module.exports = [
           percent: 5
         }
       ]
+    }
+  },
+  {
+    url: '/api/interfaceRecordStatic/pvCountByCurrentDay',
+    type: 'get',
+    response: config => {
+      return {
+        failCount: 30,
+        key: '1',
+        successCount: 60,
+        totalCount: 80
+      }
     }
   }
 ]
