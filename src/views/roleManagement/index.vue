@@ -57,7 +57,7 @@
               width=""
             >
               <template slot-scope="scope">
-                <div>
+                <div v-if="!checkIfAdmin(scope.row)">
                   <div v-if="authMap.roleManagement.roleMange.show">
                     <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
                     <div>
@@ -67,6 +67,9 @@
                   <div v-if="authMap.roleManagement.roleDelete.show">
                     <el-button v-if="authMap.roleManagement.roleDelete.show" class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
                   </div>
+                </div>
+                <div v-else>
+                  -
                 </div>
               </template>
             </el-table-column>
@@ -180,7 +183,7 @@ export default {
       addForm: {
         name: '',
         description: '',
-        id: this.$store.getters.userInfo.id
+        id: ''
       },
       dialogFormVisible: false,
       dialogFormRole: false,
@@ -189,8 +192,7 @@ export default {
       userid: this.userInfo,
       menuNavigation: false,
       addName: '新增角色',
-      addSetRoleID: Number,
-      fatherRoleList: [1, 4, 7, 10]
+      addSetRoleID: ''
     }
   },
   computed: {
@@ -270,6 +272,8 @@ export default {
       editRole(this.addForm).then(res => {
         this.dialogFormVisible = false
         console.log('编辑角色', res)
+        this.$message.success('编辑成功')
+        this.roleList()
       })
     },
     // 取消添加角色
@@ -282,7 +286,7 @@ export default {
     handleClick(row) {
       this.dialogFormVisible = true
       this.addName = '编辑角色'
-      console.log(row)
+      this.addForm.id = row.id
       this.addForm.name = row.name
       this.addForm.description = row.description
     },
@@ -291,8 +295,9 @@ export default {
       this.dialogFormRole = true
       this.addSetRoleID = row.id
       roleSelect(row.id).then(res => {
-        this.roledata = res.data.all
-        this.permissionIdList = res.data.selected
+        console.log('设置权限', res)
+        this.roledata = res.all
+        this.permissionIdList = res.selected
         this.roledata.forEach(item => {
           if (this.permissionIdList.indexOf(item.id) !== -1) {
             item.child.forEach((childItem, index) => {
@@ -358,13 +363,13 @@ export default {
       console.log(row)
       console.log(id)
       if (event) {
-        if (id === 1 || id === 4 || id === 7 || id === 10) {
+        if (id === 101 || id === 201 || id === 301 || id === 401 || id === 501 || id === 601 || id === 701 || id === 801) {
           row.child.forEach(items => {
             items.disabled = false
           })
         }
       } else {
-        if (id === 1 || id === 4 || id === 7 || id === 10) {
+        if (id === 101 || id === 201 || id === 301 || id === 401 || id === 501 || id === 601 || id === 701 || id === 801) {
           row.child.forEach(items => {
             items.disabled = true
             item.disabled = false
@@ -421,16 +426,14 @@ export default {
     },
     // 系统权限选择
     roleSelect() {
+    },
+    checkIfAdmin(row) {
+      let isadmin = false
+      if (row.name === '超级管理员') {
+        isadmin = true
+      }
+      return isadmin
     }
-    // checkIfAdmin(row) {
-    //   let isadmin = false
-    //   row.sysRoleDetailVMList.forEach(item => {
-    //     if (item.name === '超级管理员') {
-    //       isadmin = true
-    //     }
-    //   })
-    //   return isadmin
-    // }
   }
 }
 </script>

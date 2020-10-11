@@ -2,7 +2,7 @@
   <div v-if="authMap.userManagement.userList.show">
     <div class="table-search block-wrapper">
       <div class="search-para">
-        <el-select v-model="searchCondition.userRole" placeholder="角色" size="medium" class="roleK">
+        <el-select v-model="searchCondition.sysRoleId" placeholder="角色" size="medium" class="roleK">
           <el-option
             v-for="item in userRole"
             :key="item.value"
@@ -67,7 +67,7 @@
               width=""
             >
               <template slot-scope="scope">
-                <div v-if="checkIfAdmin(scope.row)">
+                <div v-if="!checkIfAdmin(scope.row)">
                   <div v-if="authMap.userManagement.userMange.show">
                     <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
                     <div>
@@ -108,12 +108,13 @@ export default {
   data() {
     return {
       searchCondition: {
-        userRole: '',
+        // userRole: '',
         status: '',
         size: 5,
         page: '',
         sort: 'DESC',
-        sysRoleId: ''
+        sysRoleId: '',
+        name: ''
       },
       loading: false,
       status: [
@@ -152,11 +153,6 @@ export default {
         {
           prop: 'email',
           label: '邮箱'
-          // width: '160'
-        },
-        {
-          prop: 'department',
-          label: '部门'
           // width: '160'
         },
         {
@@ -329,6 +325,7 @@ export default {
     checkIfAdmin(row) {
       let isadmin = false
       row.sysRoleDetailVMList.forEach(item => {
+        console.log('名字', item.name)
         if (item.name === '超级管理员') {
           isadmin = true
         }

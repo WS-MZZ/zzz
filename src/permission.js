@@ -42,7 +42,7 @@ router.beforeEach(async(to, from, next) => {
           await store.dispatch('user/getInfo')
           await store.dispatch('user/getAuth')
           console.log(constantRoutes1, 'routeArray')
-          generateRoutes(mockuserauth)
+          generateRoutes(store.getters.auth)
           resetRouter()
           router.options.routes = constantRoutes1
           router.addRoutes(constantRoutes1)

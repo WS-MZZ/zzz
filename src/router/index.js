@@ -47,7 +47,7 @@ export const constantRoutes1 = [
     component: Layout,
     redirect: '/home',
     children: [{
-      authId: 1100,
+      authId: 100,
       path: 'home',
       name: 'home',
       meta: { title: '首页', icon: 'el-icon-s-help' },
@@ -66,6 +66,7 @@ export const constantRoutes1 = [
     component: Layout,
     children: [
       {
+        authId: 200,
         path: 'company',
         name: 'company',
         component: () => import('@/views/company/index'),
@@ -96,7 +97,7 @@ export const constantRoutes1 = [
     meta: { title: '接口管理', icon: 'el-icon-s-help' },
     children: [
       {
-        authId: 1300,
+        authId: 300,
         path: 'interface',
         name: 'interface',
         component: () => import('@/views/interface/index'),
@@ -117,14 +118,14 @@ export const constantRoutes1 = [
         hidden: true
       },
       {
-        authId: 1400,
+        authId: 400,
         path: 'interfaceDocumentation',
         name: 'interfaceDocumentation',
         component: () => import('@/views/interfaceDocumentation'),
         meta: { title: '接口文档', icon: 'table' }
       },
       {
-        authId: 1500,
+        authId: 500,
         path: 'interView',
         name: 'interView',
         component: () => import('@/views/interView/index'),
@@ -148,6 +149,7 @@ export const constantRoutes1 = [
     meta: { title: '权限管理', icon: 'el-icon-s-help' },
     children: [
       {
+        authId: 600,
         path: 'userAdminstration',
         name: 'userAdminstration',
         component: () => import('@/views/userAdminstration'),
@@ -168,6 +170,7 @@ export const constantRoutes1 = [
         hidden: true
       },
       {
+        authId: 700,
         path: 'roleManagement',
         name: 'roleManagement',
         component: () => import('@/views/roleManagement'),
@@ -199,7 +202,7 @@ export const constantRoutes1 = [
   //   ]
   // },
   {
-    authId: 1800,
+    authId: 800,
     path: '/system',
     component: Layout,
     redirect: '/system/systemConfig',

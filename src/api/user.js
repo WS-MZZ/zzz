@@ -17,8 +17,8 @@ export function getInfo(token) {
 }
 export function getAuth(token) {
   return request({
-    // url: '/api/console/currentUserAuth',
-    url: '/api/sysRole/allSysPermission',
+    url: '/api/console/currentUserAuth',
+    // url: '/api/sysRole/allSysPermission',
     method: 'get',
     params: { token }
   })

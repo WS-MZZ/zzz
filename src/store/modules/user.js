@@ -72,11 +72,11 @@ const actions = {
   // get user info
   getAuth({ commit, state }) {
     return new Promise((resolve, reject) => {
-      getAuth(state.token).then(response => {
+      getAuth().then(response => {
         commit('SET_AUTH', response)
         const authIds = []
         if (response.length) {
-          mockuserauth.map(item => {
+          response.map(item => {
             authIds.push(item.id)
             if (item.child && item.child.length) {
               item.child.map(item2 => {

@@ -6,7 +6,7 @@
           <el-input v-model="form.accountNo" size="middle" @blur="changeInfo" />
         </el-form-item>
         <el-form-item label="角色" prop="sysRoleIdList">
-          <el-select v-model="form.sysRoleIdList" multiple placeholder="请选择角色" class="selectStyle">
+          <el-select v-model="form.sysRoleIdList" multiple placeholder="请选择角色" class="selectStyle" @change="$forceUpdate()">
             <el-option v-for="(item,index) of formRole" :key="index" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
@@ -108,7 +108,12 @@ export default {
         console.log('编辑详情', response)
         this.form = response
         this.form.sysRoleIdList = []
-        this.form.sysRoleIdList.push(response.sysRoleDetailVMList[0].id)
+        const testList = []
+        response.sysRoleDetailVMList.forEach(item => {
+          testList.push(item.id)
+        })
+        this.form.sysRoleIdList = testList
+        // this.form.sysRoleIdList.push(response.sysRoleDetailVMList[0].id)
         // this.form.sysRoleIdList = response.sysRoleDetailVMList[0].id
       })
     },
@@ -202,6 +207,10 @@ export default {
           return false
         }
       })
+    },
+    // 监听下拉
+    test(val) {
+      console.log('val', val)
     }
   }
 }

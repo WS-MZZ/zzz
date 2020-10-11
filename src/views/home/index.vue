@@ -50,7 +50,7 @@
                     >
                       <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
                     </div>
-                    <div style="padding-right: 30px">{{ item.count }}</div>
+                    <div style="padding-right: 30px">{{ item.totalCount }}</div>
                   </div>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                     >
                       <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
                     </div>
-                    <div style="padding-right: 30px">{{ item.count }}</div>
+                    <div style="padding-right: 30px">{{ item.totalCount }}</div>
                   </div>
                 </div>
               </div>
@@ -239,6 +239,7 @@ export default {
     // 应用访问量排名
     applicationRanks() {
       applicationRank().then((res) => {
+        console.log('应用', res)
         this.applicat = res
       })
     },
@@ -264,7 +265,8 @@ export default {
           { key: '04', failCount: 240, totalCount: 360 },
           { key: '05', failCount: 261, totalCount: 310 }
         ]
-        res = this.todaylist
+        this.todaylist = res
+        this.toptraffice = res
       })
     },
     contentTodayTotals(day) {
@@ -366,6 +368,7 @@ export default {
             margin: 0;
             padding-left: 30px;
             color: #999999;
+            min-width:140px;
           }
           .num {
             font-size: 22px;
@@ -477,6 +480,7 @@ export default {
 .pieContent{
   display: flex;
   align-items: center;
+  min-width: 100px;
 }
 .pieRoundLeft{
   width:10px;

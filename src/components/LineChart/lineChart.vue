@@ -152,16 +152,20 @@ export default {
       this.options.xAxis.data = []
       this.options.series[0].data = []
       this.options.series[1].data = []
-      this.todaylist.forEach(item => {
-        if (item.key.split('')[0] === '0') {
-          item.key = item.key.split('')[1] + ':00'
-        } else {
-          item.key = item.key + ':00'
-        }
-        this.options.xAxis.data.push(item.key)
-        this.options.series[0].data.push(item.totalCount)
-        this.options.series[1].data.push(item.failCount)
-      })
+      if (this.todaylist === '' || null) {
+        return
+      } else {
+        this.todaylist.forEach(item => {
+          if (item.key.split('')[0] === '0') {
+            item.key = item.key.split('')[1] + ':00'
+          } else {
+            item.key = item.key + ':00'
+          }
+          this.options.xAxis.data.push(item.key)
+          this.options.series[0].data.push(item.totalCount)
+          this.options.series[1].data.push(item.failCount)
+        })
+      }
     }
   }
 }

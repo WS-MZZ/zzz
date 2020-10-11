@@ -1,49 +1,47 @@
 export const perMissionMap = {
   index: {
-    enterpriseInfo: { id: 1101, show: false },
-    editEnterprise: { id: 1102, show: false },
-    statistic: { id: 1103, show: false }
+    statistic: { id: 101, show: false }
   },
   document: {
-    invoiceList: { id: 1201, show: false },
-    invoiceDetail: { id: 1202, show: false },
-    invoiceDelete: { id: 1203, show: false },
-    purchaseList: { id: 1204, show: false },
-    purchaseDetail: { id: 1205, show: false },
-    purchaseDelete: { id: 1206, show: false },
-    salesList: { id: 1207, show: false },
-    salesDetail: { id: 1208, show: false },
-    salesDelete: { id: 1209, show: false },
-    purchaseOrderList: { id: 1211, show: false },
-    purchaseOrderDetail: { id: 1212, show: false },
-    purchaseOrderDelete: { id: 1213, show: false },
-    salesOrderList: { id: 1214, show: false },
-    salesOrderDetail: { id: 1215, show: false },
-    salesOrderDelete: { id: 1216, show: false }
+    invoiceList: { id: 201, show: false },
+    invoiceDetail: { id: 202, show: false },
+    invoiceDelete: { id: 203, show: false },
+    purchaseList: { id: 204, show: false },
+    purchaseDetail: { id: 205, show: false },
+    purchaseDelete: { id: 206, show: false },
+    salesList: { id: 207, show: false },
+    salesDetail: { id: 208, show: false },
+    salesDelete: { id: 209, show: false },
+    purchaseOrderList: { id: 211, show: false },
+    purchaseOrderDetail: { id: 212, show: false },
+    purchaseOrderDelete: { id: 213, show: false },
+    salesOrderList: { id: 214, show: false },
+    salesOrderDetail: { id: 215, show: false },
+    salesOrderDelete: { id: 216, show: false }
   },
   interface: {
-    applicationList: { id: 1301, show: false },
-    applicationDetail: { id: 1302, show: false }
+    applicationList: { id: 301, show: false },
+    applicationDetail: { id: 302, show: false }
   },
   interfaceDoc: {
-    interfaceDocList: { id: 1401, show: false }
+    interfaceDocList: { id: 401, show: false }
   },
   interfaceRecord: {
-    recordList: { id: 1501, show: false },
-    recordDetail: { id: 1502, show: false }
+    recordList: { id: 501, show: false },
+    recordDetail: { id: 502, show: false }
   },
   userManagement: {
-    userList: { id: 1601, show: false },
-    userMange: { id: 1601, show: false },
-    userDelete: { id: 1601, show: false }
+    userList: { id: 601, show: false },
+    userMange: { id: 601, show: false },
+    userDelete: { id: 601, show: false }
   },
   roleManagement: {
-    roleList: { id: 1701, show: false },
-    roleMange: { id: 1701, show: false },
-    roleDelete: { id: 1701, show: false }
+    roleList: { id: 701, show: false },
+    roleMange: { id: 701, show: false },
+    roleDelete: { id: 701, show: false }
   },
   system: {
-    sysLog: { id: 1802, show: false }
+    sysLog: { id: 802, show: false }
   }
 }
 
@@ -55,6 +53,7 @@ export function loadAuthInfo(authIds) {
       }
     }
   }
+  debugger
   return perMissionMap
 }
 

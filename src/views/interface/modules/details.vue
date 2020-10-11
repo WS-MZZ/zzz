@@ -181,11 +181,11 @@ export default {
     if (this.$route.query.id) {
       this.id = this.$route.query.id
       this.getSysApplication(this.id)
-      this.getTodayVist(this.id)
-      this.getCumulatives(this.id)
-      this.distributions(this.id)
-      this.contentVist(this.id)
-      this.contentTop({ day: 30 })
+      this.getTodayVist({ sysApplicationId: this.id })
+      this.getCumulatives({ sysApplicationId: this.id })
+      this.distributions({ sysApplicationId: this.id })
+      this.contentVist({ sysApplicationId: this.id })
+      this.contentTop({ sysApplicationId: this.id, day: 30 })
       this.enterpriseRanks({ day: 0 })
     }
   },
@@ -247,7 +247,8 @@ export default {
           { key: '04', failCount: 240, totalCount: 360 },
           { key: '05', failCount: 261, totalCount: 310 }
         ]
-        res = this.todaylist
+        this.todaylist = res
+        this.toptraffice = res
       })
     },
     contentTodayTotals(day) {
