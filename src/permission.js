@@ -1,4 +1,6 @@
 import router from './router'
+import { constantRoutes1, constantRoutes, resetRouter } from './router'
+import { mockuserauth, generateRoutes } from './router/accessRoutes'
 import store from './store'
 import { Message } from 'element-ui'
 import NProgress from 'nprogress' // progress bar
@@ -31,14 +33,21 @@ router.beforeEach(async(to, from, next) => {
       NProgress.done()
     } else {
       const hasGetUserInfo = store.getters.name
-      if (hasGetUserInfo) {
+      const hasAuthInfo = store.getters.auth
+      if (hasGetUserInfo && hasAuthInfo) {
         next()
       } else {
         try {
           // get user info
           await store.dispatch('user/getInfo')
-
-          next()
+          await store.dispatch('user/getAuth')
+          store.dispatch('settings/getTheme')
+          console.log(constantRoutes1, 'routeArray')
+          generateRoutes(store.getters.auth)
+          resetRouter()
+          router.options.routes = constantRoutes1
+          router.addRoutes(constantRoutes1)
+          next({ ...to, replace: true })
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')

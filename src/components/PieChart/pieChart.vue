@@ -1,6 +1,11 @@
 <template>
   <div id="chart">
-    <chart ref="chart" :options="options" auto-resize style="width:auto;" />
+    <chart
+      ref="chart"
+      :options="options"
+      auto-resize
+      style="width: auto; height: 300px"
+    />
   </div>
 </template>
 
@@ -10,36 +15,34 @@ const elementResizeDetectorMaker = require('element-resize-detector')
 export default {
   name: 'PieChart',
   components: {},
+  props: {
+    distr: {
+      type: Array,
+      default: null
+    }
+  },
   data() {
     return {
       options: {
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)',
-          transitionDuration: 0// echart防止tooltip的抖动
+          transitionDuration: 0 // echart防止tooltip的抖动
         },
+        color: ['#F57A71', '#5CAFFF', '#FFEE7B'],
         series: [
           {
             type: 'pie',
-            radius: [30, 110],
-            center: ['75%', '50%'],
-            roseType: 'area',
+            radius: [30, 65],
+            center: ['60%', '50%'],
+            // roseType: 'area',
             label: {
               show: false
             },
             labelLine: {
               length: 1
             },
-            data: [
-              { value: 10, name: 'rose1' },
-              { value: 5, name: 'rose2' },
-              { value: 15, name: 'rose3' },
-              { value: 25, name: 'rose4' },
-              { value: 20, name: 'rose5' },
-              { value: 35, name: 'rose6' },
-              { value: 30, name: 'rose7' },
-              { value: 40, name: 'rose8' }
-            ],
+            data: [],
             itemStyle: {
               emphasis: {
                 shadowBlur: 10,
@@ -49,7 +52,13 @@ export default {
             }
           }
         ]
-      }
+      },
+      dataList: []
+    }
+  },
+  watch: {
+    distr() {
+      this.distributions()
     }
   },
   mounted() {
@@ -61,10 +70,23 @@ export default {
         that.$refs.chart.resize()
       })
     })
+    if (this.distr) {
+      this.distributions()
+    }
+  },
+  methods: {
+    distributions() {
+      this.distr.forEach((item) => {
+        this.dataList.push({
+          value: item.count,
+          name: item.key
+        })
+        this.options.series[0].data = this.dataList
+      })
+    }
   }
 }
 </script>
 
 <style scoped>
-
 </style>

@@ -417,7 +417,9 @@ export default {
         defaultValue: ''
       }],
       tableDetail: [
-        { date: 'ok', name: '', addressz: `` }
+        { date: 'status', name: '反回状态', addressz: `值为0或者1  1：成功;0：失败` },
+        { date: 'status', name: '反回状态', addressz: `值为0或者1  1：成功;0：失败` },
+        { date: 'status', name: '反回状态', addressz: `值为0或者1  1：成功;0：失败` }
       ]
     }
   }

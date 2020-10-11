@@ -16,6 +16,7 @@
     </div>
 
     <div class="right-menu">
+      <theme-picker style="float: right;height: 26px;margin: 5px 10px 0px 0px;" @change="themeChange" />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img v-if="avatar" :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -65,15 +66,18 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import ThemePicker from '@/components/ThemePicker'
 import { getEnterpriseList, changeEnterprise } from '@/api/enterprise'
 import { changePassword } from '@/api/user'
 import { setToken } from '@/utils/auth'
 import { validPassword } from '@/utils/validate'
+import { updateThemeColor } from '@/api/theme'
 
 export default {
   components: {
     Breadcrumb,
-    Hamburger
+    Hamburger,
+    ThemePicker
   },
   data() {
     const validatePassword = (rule, value, callback) => {
@@ -173,6 +177,15 @@ export default {
     cancel() {
       this.showChangePassForm = false
       this.resetForm('changePassword')
+    },
+    themeChange(val) {
+      this.$store.dispatch('settings/changeSetting', {
+        key: 'theme',
+        value: val
+      })
+      updateThemeColor({ theme: val }).then(res => {
+        console.log(res, 'color')
+      })
     }
   }
 }

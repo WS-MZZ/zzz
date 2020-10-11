@@ -80,30 +80,30 @@ module.exports = [
     type: 'get',
     response: config => {
       return {
-        data: {
-          'appId': 'commodo culpa id in',
-          'appSecret': 'Duis occaecat velit nisi',
-          'id': 74182410,
-          'maxLimit': 44995801,
-          'name': 'mollit nostrud',
-          'remark': 'et dolor eu ex ad',
-          'sysEnterpriseIdList': [
-            {
-              'id': 30460664,
-              'name': 'occaecat',
-              'isExpired': false,
-              'status': 'Exce',
-              'statusDesc': 'elit nulla incididunt'
-            },
-            {
-              'id': -88493571,
-              'name': 'tempor aliqua esse aliquip Excepteur',
-              'isExpired': true,
-              'status': 'nulla ea esse anim',
-              'statusDesc': 'ullamco cupidatat'
-            }
-          ]
-        }
+        'appId': 'commodo culpa id in',
+        'appSecret': 'Duis occaecat velit nisi',
+        'id': 74182410,
+        'maxLimit': 44995801,
+        'name': 'mollit nostrud',
+        'remark': 'et dolor eu ex ad',
+        'status': 'NORMAL',
+        'createdDate': '2020/12/21 12:22',
+        'sysEnterpriseIdList': [
+          {
+            'id': 30460664,
+            'name': 'occaecat',
+            'isExpired': false,
+            'status': 'Exce',
+            'statusDesc': 'elit nulla incididunt'
+          },
+          {
+            'id': -88493571,
+            'name': 'tempor aliqua esse aliquip Excepteur',
+            'isExpired': true,
+            'status': 'nulla ea esse anim',
+            'statusDesc': 'ullamco cupidatat'
+          }
+        ]
       }
     }
   },
@@ -220,5 +220,18 @@ module.exports = [
         'name': 'non sed magna'
       }
     }
+  },
+  {
+    url: '/api/interfaceRecordStatic/pvCountByCurrentDay',
+    type: 'get',
+    response: config => {
+      return [
+        {
+          count: 323312,
+          key: '1'
+        }
+      ]
+    }
   }
 ]
+

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="authMap.interfaceRecord.recordList.show">
     <div class="table-search block-wrapper">
       <div class="search-para">
         <el-select v-model="searchCondition.sysApplicationId" placeholder="所属应用" size="medium">
@@ -54,7 +54,7 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <span v-if="item.prop == 'recordId'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
+                <span v-if="item.prop == 'recordId' && authMap.interfaceRecord.recordDetail.show" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
                 <span v-else-if="item.prop == 'sysApplicationName'" style="color:#66b1ff;cursor: pointer" @click="detail2(scope.row)">
@@ -73,7 +73,7 @@
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
 import { getInterfaceRecordList, getApplicationList } from '@/api/applications'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'InterView',
   components: {
@@ -138,6 +138,12 @@ export default {
       applicationList: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
   watch: {
     timeRange(val) {
       if (val && val.length > 0) {
@@ -152,8 +158,10 @@ export default {
   created() {
     this.getAllApplications()
     this.getInterfaceRecordList(this.searchCondition)
-  },
-  mounted() {
+    if (this.authMap.interfaceRecord.recordList.show) {
+      this.getAllApplications()
+      this.getInterfaceRecordList(this.searchCondition)
+    }
   },
   methods: {
     detail(data) {

@@ -81,3 +81,57 @@ export function getAppsecret(appkey) {
     method: 'get'
   })
 }
+
+// 今日访问量
+export function getTodayStatic(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/pvCountByCurrentDay',
+    method: 'get',
+    params
+  })
+}
+
+// 累计访问量
+export function getCumulative(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/pvCount',
+    method: 'get',
+    params
+  })
+}
+
+// 文档分布类型
+export function distribution(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/groupByType',
+    method: 'get',
+    params
+  })
+}
+
+// 访问量统计每天
+export function ContentTodayVist(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/groupByCurrentDate',
+    method: 'get',
+    params
+  })
+}
+
+// 接口访问统计时间区域
+export function contentTodayTotal(day) {
+  return request({
+    url: '/api/interfaceRecordStatic/groupByDate',
+    method: 'get',
+    params: day
+  })
+}
+
+// 企业排行榜
+export function enterpriseRank(params) {
+  return request({
+    url: '/api/interfaceRecordStatic/groupByEnterpriseId',
+    method: 'get',
+    params
+  })
+}

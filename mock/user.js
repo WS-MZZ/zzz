@@ -45,7 +45,13 @@ module.exports = [
       }
     }
   },
-
+  {
+    url: '/api/sysRole/allSysPermission',
+    type: 'get',
+    response: config => {
+      return [1]
+    }
+  },
   // updateUserInfo
   {
     url: '/api/console/editUser',

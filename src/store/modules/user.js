@@ -1,13 +1,16 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, getAuth } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import { loadAuthInfo } from '@/utils/permissionMap'
 import { resetRouter } from '@/router'
-
+import { mockuserauth } from '@/router/accessRoutes'
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
     avatar: '',
-    userInfo: ''
+    userInfo: '',
+    auth: '',
+    authMap: ''
   }
 }
 
@@ -28,6 +31,12 @@ const mutations = {
   },
   SET_USERINFO: (state, userInfo) => {
     state.userInfo = userInfo
+  },
+  SET_AUTH: (state, auth) => {
+    state.auth = auth
+  },
+  SET_AUTH_MAP: (state, authMap) => {
+    state.authMap = authMap
   }
 }
 
@@ -60,7 +69,30 @@ const actions = {
       })
     })
   },
+  // get user info
+  getAuth({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getAuth().then(response => {
+        commit('SET_AUTH', response)
+        const authIds = []
+        if (response.length) {
+          response.map(item => {
+            authIds.push(item.id)
+            if (item.child && item.child.length) {
+              item.child.map(item2 => {
+                authIds.push(item2.id)
+              })
+            }
+          })
+        }
+        commit('SET_AUTH_MAP', loadAuthInfo(authIds))
 
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // user logout
   logout({ commit, state }) {
     return new Promise((resolve, reject) => {

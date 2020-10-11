@@ -1,9 +1,13 @@
+import variables from '@/styles/element-variables.scss'
 import defaultSettings from '@/settings'
+import { getThemeColor } from '@/api/theme'
 
-const { showSettings, fixedHeader, sidebarLogo } = defaultSettings
+const { showSettings, tagsView, fixedHeader, sidebarLogo } = defaultSettings
 
 const state = {
+  theme: variables.theme,
   showSettings: showSettings,
+  tagsView: tagsView,
   fixedHeader: fixedHeader,
   sidebarLogo: sidebarLogo
 }
@@ -20,6 +24,18 @@ const mutations = {
 const actions = {
   changeSetting({ commit }, data) {
     commit('CHANGE_SETTING', data)
+  },
+
+  // get user info
+  getTheme({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      getThemeColor().then(response => {
+        commit('CHANGE_SETTING', { key: 'theme', value: response.theme })
+        resolve(response)
+      }).catch(error => {
+        reject(error)
+      })
+    })
   }
 }
 

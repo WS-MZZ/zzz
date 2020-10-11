@@ -38,5 +38,18 @@ module.exports = [
         ]
       }
     }
+  },
+  {
+    url: '/api/console/systemConfig',
+    type: 'get',
+    response: config => {
+      return {
+        backgroundUrl: '',
+        favicon: 'https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1/72958a95acdf4d069c90ab62a11e0828.png',
+        footer: '科广信息咨询（上海）有限公司  |  沪ICP备13047089号',
+        logo: 'https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1/a3651e01f0df47368bc2a7772c3e7bc5.png',
+        title: '科广数据管理系统'
+      }
+    }
   }
 ]
