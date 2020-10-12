@@ -259,11 +259,11 @@ export default {
     contentVist() {
       ContentTodayVist().then(res => {
         this.todaylist = [
-          { key: '01', failCount: 50, totalCount: 60 },
-          { key: '02', failCount: 130, totalCount: 150 },
-          { key: '03', failCount: 110, totalCount: 180 },
-          { key: '04', failCount: 240, totalCount: 360 },
-          { key: '05', failCount: 261, totalCount: 310 }
+          // { key: '01', failCount: 50, totalCount: 60 },
+          // { key: '02', failCount: 130, totalCount: 150 },
+          // { key: '03', failCount: 110, totalCount: 180 },
+          // { key: '04', failCount: 240, totalCount: 360 },
+          // { key: '05', failCount: 261, totalCount: 310 }
         ]
         this.todaylist = res
         this.toptraffice = res

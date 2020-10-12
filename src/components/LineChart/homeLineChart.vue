@@ -33,6 +33,7 @@ export default {
         grid: {
           left: '10px',
           right: '10px',
+          top: '10px',
           bottom: '0%',
           width: 'auto',
           height: '100%'
