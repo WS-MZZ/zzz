@@ -101,14 +101,14 @@ export default {
     return {
       tableData: [{
         dateName: 'agentInfo',
-        meaning: '办理人',
+        meaning: '经办人信息',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
 
       }, {
         dateName: 'agentInfo2',
-        meaning: '经办人2',
+        meaning: '经办人信息2',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
@@ -137,7 +137,7 @@ export default {
       },
       {
         dateName: 'auditor',
-        meaning: '审核人',
+        meaning: '复核人',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
@@ -224,7 +224,7 @@ export default {
         dateName: 'customerBankAddressAndNo',
         meaning: '客户开户行和账号',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -232,7 +232,7 @@ export default {
         dateName: 'customerID',
         meaning: '纳税人识别号',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -240,7 +240,7 @@ export default {
         dateName: 'customerName',
         meaning: '客户名称',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -294,7 +294,7 @@ export default {
       },
       {
         dateName: 'invoiceUrl',
-        meaning: '发票url	',
+        meaning: '电子发票pdfurl',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
@@ -304,7 +304,7 @@ export default {
         dateName: 'makeOutDate',
         meaning: '开票日期	',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -318,7 +318,7 @@ export default {
       },
       {
         dateName: 'notTaxAmount',
-        meaning: '不含税额	',
+        meaning: '不含税金额(元)',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
@@ -334,7 +334,7 @@ export default {
       },
       {
         dateName: 'remark',
-        meaning: '备注	',
+        meaning: '发票备注',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
@@ -352,7 +352,7 @@ export default {
         dateName: 'saleBankAndNo',
         meaning: '销方银行及账号	',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -360,7 +360,7 @@ export default {
         dateName: 'saleId',
         meaning: '销方纳税人识别号	',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -384,7 +384,7 @@ export default {
         dateName: 'status',
         meaning: '发票状态	',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
 
       },
@@ -418,30 +418,30 @@ export default {
       },
       {
         dateName: 'taxAmount',
-        meaning: '税额',
+        meaning: '税额(元)',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
       },
       {
         dateName: 'taxBureau',
-        meaning: '税务局',
+        meaning: '开票税局',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
       },
       {
         dateName: 'taxRate',
-        meaning: '税率',
+        meaning: '开票税率',
         rule: '',
         confirm: '非必须',
         defaultValue: ''
       },
       {
         dateName: 'totalAmount',
-        meaning: '价税合计',
+        meaning: '价税合计(元)',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
       },
       {
@@ -453,16 +453,14 @@ export default {
       },
       {
         dateName: 'validCode',
-        meaning: '发育校验码',
+        meaning: '发票校验码',
         rule: '',
-        confirm: '非必须',
+        confirm: '必须',
         defaultValue: ''
       }
       ],
       tableDetail: [
-        { dataName: 'Content-Type', name: '反回状态', addressz: `值为0或者1  1：成功;0：失败` },
-        { date: 'status', name: '反回状态', addressz: `值为0或者1  1：成功;0：失败` },
-        { date: 'status', name: '反回状态', addressz: `值为0或者1  1：成功;0：失败` }
+        { date: 'ok', name: '', addressz: `` }
       ]
     }
   }
