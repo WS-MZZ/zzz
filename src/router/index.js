@@ -118,12 +118,6 @@ export const constantRoutes1 = [
         hidden: true
       },
       {
-        path: 'interfaceDocumentation',
-        name: 'interfaceDocumentation',
-        component: () => import('@/views/interfaceDocumentation'),
-        meta: { title: '接口文档', icon: 'table' }
-      },
-      {
         authId: 400,
         path: 'interfaceDocumentation',
         name: 'interfaceDocumentation',
