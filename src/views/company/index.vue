@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="table-search block-wrapper">
+    <div v-if="authMap.company.companyList.show" class="table-search block-wrapper">
       <div class="search-para">
         <el-select v-model="searchCondition.status" placeholder="状态" size="medium">
           <el-option
@@ -24,7 +24,9 @@
     </div>
     <div class="block-wrapper company-list">
       <div class="add">
-        <el-button size="medium" type="primary" @click="add">新增企业</el-button>
+        <div v-if="authMap.company.companyAdd.show">
+          <el-button size="medium" type="primary" @click="add">新增企业</el-button>
+        </div>
       </div>
       <KgTable
         :total="total"
@@ -56,9 +58,9 @@
             >
               <template slot-scope="scope">
                 <div v-if="item.prop == 'status'">
-                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' :  scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
+                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
                 </div>
-                <el-link v-else-if="item.prop == 'name'" style="color:#66b1ff" @click="detail(scope.row)">
+                <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" style="color:#66b1ff" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <el-image
@@ -76,11 +78,15 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button class="mgr" v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
-                <el-button class="mgr" v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
-                <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
-                <el-button class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
+                <div v-if="authMap.company.companyEdit.show">
+                  <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                </div>
+                <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                <el-button v-if="authMap.company.companyEdit.show" class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                <div v-if="authMap.company.companyEdit.show">
+                  <el-button class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
+                </div>
               </template>
             </el-table-column>
           </el-table>
@@ -98,7 +104,7 @@ import Cookies from 'js-cookie'
 export default {
   name: 'Company',
   components: {
-    KgTable      
+    KgTable
   },
   data() {
     return {

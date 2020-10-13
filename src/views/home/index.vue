@@ -511,4 +511,8 @@ color: #2161FD;
   background-color: #2161FD;
   color: white;
 }
+.top-left{
+  overflow-y: auto;
+  overflow-x:hidden;
+}
 </style>
