@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div class="dashboard-container" style="width: 100%;overflow-y: auto;">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
         <el-form-item label="企业名称：" prop="name">
@@ -167,10 +167,11 @@ export default {
       line-height: 46px;
       background-color: #fff;
       display: flex;
-      height: 100%;
+      // height: 100%;
       border-radius: 5px;
       padding-left: 50px;
       padding-top: 20px;
+      padding-bottom: 20px;
       .but{
         margin-left: 120px;
       }

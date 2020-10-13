@@ -34,7 +34,7 @@ export default {
           left: '10px',
           right: '10px',
           top: '10px',
-          bottom: '0%',
+          bottom: '0px',
           width: 'auto',
           height: '100%'
         //   containLabel: true
