@@ -12,7 +12,7 @@ export const perMissionMap = {
     companyAdd: { id: 207, show: false }
   },
   interface: {
-    applicationList: { id: 301, show: false },
+    applicationList: { id: 30, show: false },
     applicationDetail: { id: 302, show: false }
   },
   interfaceDoc: {

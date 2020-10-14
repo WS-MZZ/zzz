@@ -7,7 +7,10 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="访问应用：">
-                <span style="color:#66b1ff;cursor: pointer" @click="detail(form.sysApplicationId)">
+                <span v-if="authMap.interface.applicationList.show" style="color:#66b1ff;cursor: pointer" @click="detail(form.sysApplicationId)">
+                  {{ form.sysApplicationName }}
+                </span>
+                <span v-else>
                   {{ form.sysApplicationName }}
                 </span>
               </el-form-item>
@@ -17,7 +20,7 @@
                 <span>{{ form.resultDesc }}</span>
               </el-form-item>
             </el-col>
-            <el-col :span="8"> 
+            <el-col :span="8">
               <el-form-item label="访问时间：">
                 <span>{{ form.createTime }}</span>
               </el-form-item>
@@ -64,7 +67,7 @@
 <script>
 
 import { getInterfaceRecord } from '@/api/applications'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'InterViewDetails',
   components: { },
@@ -95,7 +98,12 @@ export default {
       showTable: false
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
   created() {
     window.onresize = () => {
       this.tableHeight = this.calculateTableHeight()
