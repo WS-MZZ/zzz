@@ -79,8 +79,8 @@
             >
               <template slot-scope="scope">
                 <el-button v-if="authMap.company.companyEdit.show" class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
-                <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                <el-button v-if="scope.row.status==='FREEZE' && authMap.company.compayEnable.show " class="mgr" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL' && authMap.company.compayEnable.show " class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
                 <el-button v-if="authMap.company.companyReset.show" class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
                 <el-button v-if="authMap.company.companyDelete.show" class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
               </template>

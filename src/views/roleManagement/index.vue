@@ -60,13 +60,11 @@
                 <div v-if="!checkIfAdmin(scope.row)">
                   <div v-if="authMap.roleManagement.roleMange.show">
                     <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                    <div>
+                    <div v-if="authMap.roleManagement.roleMange.show">
                       <el-button class="mgr" type="text" size="small" @click="setJurisdiction(scope.row)">设置权限</el-button>
                     </div>
                   </div>
-                  <div v-if="authMap.roleManagement.roleDelete.show">
-                    <el-button v-if="authMap.roleManagement.roleDelete.show" class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
-                  </div>
+                  <el-button v-if="authMap.roleManagement.roleDelete.show" class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
                 </div>
                 <div v-else>
                   -

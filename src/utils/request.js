@@ -56,6 +56,8 @@ service.interceptors.response.use(
       if (error.response.data.detail === '没有用户') {
         return Promise.reject(error.response.data || 'Error')
       }
+      // else if (error.response.data.detail === 'Access is denied') {
+      // }
       Message({
         message: error.response.data.title === 'Unauthorized' ? '账号异常，请重新登录' : error.response.data.detail || '连接错误请重试',
         type: 'error',

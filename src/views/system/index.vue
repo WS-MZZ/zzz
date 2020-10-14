@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container">
+  <div v-if="authMap.system.sysConfiguration.show" class="dashboard-container">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
         <el-form-item label="logo：">
@@ -83,7 +83,9 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'systemConfig'
+      'systemConfig',
+      'userInfo',
+      'authMap'
     ])
   },
   created() {

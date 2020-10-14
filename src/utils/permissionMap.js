@@ -24,15 +24,16 @@ export const perMissionMap = {
   },
   userManagement: {
     userList: { id: 601, show: false },
-    userMange: { id: 601, show: false },
-    userDelete: { id: 601, show: false }
+    userMange: { id: 602, show: false },
+    userDelete: { id: 603, show: false }
   },
   roleManagement: {
     roleList: { id: 701, show: false },
-    roleMange: { id: 701, show: false },
-    roleDelete: { id: 701, show: false }
+    roleMange: { id: 702, show: false },
+    roleDelete: { id: 703, show: false }
   },
   system: {
+    sysConfiguration: { id: 801, show: false },
     sysLog: { id: 802, show: false }
   }
 }
