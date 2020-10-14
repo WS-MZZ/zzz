@@ -433,4 +433,10 @@ export default {
 ::v-deep .app-main{
   height: 100%;
 }
+.top-right {
+  overflow-y: hidden;
+}
+.top-right:hover {
+  overflow-y: scroll;
+}
 </style>
