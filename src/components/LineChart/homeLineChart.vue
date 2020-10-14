@@ -33,7 +33,8 @@ export default {
         grid: {
           left: '10px',
           right: '10px',
-          bottom: '0%',
+          top: '10px',
+          bottom: '0px',
           width: 'auto',
           height: '100%'
         //   containLabel: true

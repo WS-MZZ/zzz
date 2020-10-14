@@ -2,22 +2,14 @@ export const perMissionMap = {
   index: {
     statistic: { id: 101, show: false }
   },
-  document: {
-    invoiceList: { id: 201, show: false },
-    invoiceDetail: { id: 202, show: false },
-    invoiceDelete: { id: 203, show: false },
-    purchaseList: { id: 204, show: false },
-    purchaseDetail: { id: 205, show: false },
-    purchaseDelete: { id: 206, show: false },
-    salesList: { id: 207, show: false },
-    salesDetail: { id: 208, show: false },
-    salesDelete: { id: 209, show: false },
-    purchaseOrderList: { id: 211, show: false },
-    purchaseOrderDetail: { id: 212, show: false },
-    purchaseOrderDelete: { id: 213, show: false },
-    salesOrderList: { id: 214, show: false },
-    salesOrderDetail: { id: 215, show: false },
-    salesOrderDelete: { id: 216, show: false }
+  company: {
+    companyList: { id: 201, show: false },
+    companyMockLogin: { id: 202, show: false },
+    companyEdit: { id: 203, show: false },
+    compayEnable: { id: 204, show: false },
+    companyReset: { id: 205, show: false },
+    companyDelete: { id: 206, show: false },
+    companyAdd: { id: 207, show: false }
   },
   interface: {
     applicationList: { id: 301, show: false },
@@ -53,7 +45,6 @@ export function loadAuthInfo(authIds) {
       }
     }
   }
-  debugger
   return perMissionMap
 }
 

@@ -70,3 +70,10 @@ export function resetEnterprisePass(id) {
     method: 'put'
   })
 }
+
+export function getEnterToken(id) {
+  return request({
+    url: `/api/sysEnterprise/login/${id}`,
+    method: 'post'
+  })
+}
