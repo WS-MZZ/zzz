@@ -247,17 +247,6 @@ export default {
     enterpriceRanks() {
       enterpriceRank().then((res) => {
         this.enterprice = res
-        this.enterprice = [
-          { key: 1 },
-          { key: 2 },
-          { key: 3 },
-          { key: 4 },
-          { key: 5 },
-          { key: 6 },
-          { key: 7 },
-          { key: 8 },
-          { key: 9 }
-        ]
       })
     },
     // 文档类型分布
@@ -289,12 +278,6 @@ export default {
       contentTodayTotal(day).then(res => {
         this.cumulativelist = res
       })
-    },
-    enter($event) {
-      $event.currentTarget.className = 'top-leftMouse'
-    },
-    leave($event) {
-      $event.currentTarget.className = 'top-left'
     }
   }
 }
@@ -531,7 +514,7 @@ color: #2161FD;
 .top-left{
   overflow-y: hidden;
 }
-.top-leftMouse {
+.top-left:hover {
   overflow-y: scroll;
 }
 </style>
