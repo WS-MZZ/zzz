@@ -37,7 +37,7 @@
           </el-col>
           <el-col :span="6">
             <div class="top">
-              <div class="top-left" @mouseenter="enter($event)" @mouseout="leave($event)">
+              <div class="top-left">
                 <div class="title">应用访问量排名</div>
                 <div v-for="(item, index) in applicat" :key="index">
                   <div class="applicationVist">

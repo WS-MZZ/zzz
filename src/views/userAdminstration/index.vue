@@ -197,7 +197,6 @@ export default {
     // 角色下拉框
     roleSelect() {
       getRoleSelect({ size: 1000 }).then(res => {
-        console.log('角色', res)
         res.data.forEach(item => {
           this.userRole.push({
             label: item.name,
@@ -218,13 +217,11 @@ export default {
     },
     // 监听当前分页
     handleCurrentChange(current) {
-      console.log('分页', current)
       this.searchCondition.page = current - 1
       this.userList(this.searchCondition)
     },
     // 监听当前数量
     handleSizeChange(size) {
-      console.log('数量', size)
       this.searchCondition.size = size
     },
     // 用户列表
@@ -232,7 +229,6 @@ export default {
       this.loading = true
       getApplicationList(this.searchCondition).then(response => {
         this.loading = false
-        console.log('用户列表', response)
         this.total = parseInt(response.total)
         this.tableData = response.data
       }).catch(error => {
@@ -252,14 +248,12 @@ export default {
     },
     // 删除
     del(row) {
-      console.log(row)
       this.$confirm('确定要删除' + row.username + ' 吗?', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         delUser(row.id).then(response => {
-          console.log(response)
           this.$message({
             type: 'success',
             message: '删除成功'
@@ -296,7 +290,6 @@ export default {
         type: 'warning'
       }).then(() => {
         freezeEnterprise(id).then(res => {
-          console.log(res)
           this.$message({
             type: 'success',
             message: '冻结成功!'
@@ -313,7 +306,6 @@ export default {
         type: 'warning'
       }).then(() => {
         freeThaw(id).then(res => {
-          console.log(res)
           this.$message({
             type: 'success',
             message: '解冻成功!'
@@ -325,7 +317,6 @@ export default {
     checkIfAdmin(row) {
       let isadmin = false
       row.sysRoleDetailVMList.forEach(item => {
-        console.log('名字', item.name)
         if (item.name === '超级管理员') {
           isadmin = true
         }

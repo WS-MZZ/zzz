@@ -100,7 +100,7 @@
     </el-dialog>
     <!-- 设置权限 -->
     <el-dialog :visible.sync="dialogFormRole">
-      <div class="setRoleTitStyle">当前角色:运营</div>
+      <div class="setRoleTitStyle">当前角色:{{ roleName }}</div>
       <el-table
         :data="roledata"
         :header-cell-style="{ background:'rgb(85, 85, 85)',color:'#ffffff','border-right':'1px solid #ffffff'}"
@@ -154,6 +154,7 @@ export default {
         page: '',
         sort: 'DESC'
       },
+      roleName: '',
       loading: false,
       tableData: [
       ],
@@ -292,6 +293,7 @@ export default {
     },
     // 设置权限
     setJurisdiction(row) {
+      this.roleName = row.name
       this.dialogFormRole = true
       this.addSetRoleID = row.id
       roleSelect(row.id).then(res => {
@@ -422,7 +424,7 @@ export default {
     addSetRole() {
       confirmSetRole({ id: this.addSetRoleID, permissionIdList: this.permissionIdList }).then(res => {
         this.dialogFormRole = false
-        this.$message.success('添加成功')
+        this.$message.success('修改权限成功')
         console.log('修改成功')
       })
     },
