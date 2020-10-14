@@ -37,7 +37,7 @@
           </el-col>
           <el-col :span="6">
             <div class="top">
-              <div class="top-left">
+              <div class="top-left" @mouseenter="enter($event)" @mouseout="leave($event)">
                 <div class="title">应用访问量排名</div>
                 <div v-for="(item, index) in applicat" :key="index">
                   <div class="applicationVist">
@@ -247,6 +247,17 @@ export default {
     enterpriceRanks() {
       enterpriceRank().then((res) => {
         this.enterprice = res
+        this.enterprice = [
+          { key: 1 },
+          { key: 2 },
+          { key: 3 },
+          { key: 4 },
+          { key: 5 },
+          { key: 6 },
+          { key: 7 },
+          { key: 8 },
+          { key: 9 }
+        ]
       })
     },
     // 文档类型分布
@@ -278,6 +289,12 @@ export default {
       contentTodayTotal(day).then(res => {
         this.cumulativelist = res
       })
+    },
+    enter($event) {
+      $event.currentTarget.className = 'top-leftMouse'
+    },
+    leave($event) {
+      $event.currentTarget.className = 'top-left'
     }
   }
 }
@@ -512,7 +529,9 @@ color: #2161FD;
   color: white;
 }
 .top-left{
-  overflow-y: auto;
-  overflow-x:hidden;
+  overflow-y: hidden;
+}
+.top-leftMouse {
+  overflow-y: scroll;
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="authMap.company.companyList.show" class="table-search block-wrapper">
+  <div v-if="authMap.company.companyList.show">
+    <div class="table-search block-wrapper">
       <div class="search-para">
         <el-select v-model="searchCondition.status" placeholder="状态" size="medium">
           <el-option
@@ -67,8 +67,8 @@
                   v-else-if="item.prop == 'logoUrl'"
                   style="width: 100px; height: 50px"
                   :src="scope.row[item.prop]"
-                  :fit="fit"
                 />
+                <!--     :fit="fit" -->
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
             </el-table-column>
@@ -78,15 +78,11 @@
               width=""
             >
               <template slot-scope="scope">
-                <div v-if="authMap.company.companyEdit.show">
-                  <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                </div>
+                <el-button v-if="authMap.company.companyEdit.show" class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
                 <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
                 <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
-                <el-button v-if="authMap.company.companyEdit.show" class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
-                <div v-if="authMap.company.companyEdit.show">
-                  <el-button class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
-                </div>
+                <el-button v-if="authMap.company.companyReset.show" class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                <el-button v-if="authMap.company.companyDelete.show" class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -101,6 +97,7 @@
 import KgTable from '@/components/KgComponents/KgTable'
 import { getSassEnterpriseList, activateEnterprise, freezeEnterprise, deleteEnterprise, resetEnterprisePass, getEnterToken } from '@/api/enterprise'
 import Cookies from 'js-cookie'
+import { mapGetters } from 'vuex'
 export default {
   name: 'Company',
   components: {
@@ -171,6 +168,12 @@ export default {
         }
       ]
     }
+  },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
   },
   created() {
     this.getEnterpriseList(this.searchCondition)
@@ -289,7 +292,6 @@ export default {
       })
     },
     cellStyle(column) {
-      console.log('column', column)
       if (column.columnIndex === 1) {
         return 'text-align: center;'
       }
