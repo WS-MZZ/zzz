@@ -80,7 +80,7 @@
               :min-width="item.minWidth"
             >
               <template slot-scope="scope">
-                <span v-if="item.prop == 'no'" style="color:#66b1ff;cursor: pointer" @click="detail(scope.row)">
+                <span v-if="item.prop == 'no'" :style="{color: theme}" class="hands" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
@@ -96,7 +96,7 @@
 <script>
 import KgTable from '@/components/KgComponents/KgTable'
 import { getInvoiceList, getInvoiceListColumnConfig, updateInvoiceListColumnConfig } from '@/api/documentation'
-
+import { mapGetters } from 'vuex'
 export default {
   name: 'Invoice',
   components: {
@@ -173,7 +173,12 @@ export default {
           }
         })[0]
       })
-    }
+    },
+    ...mapGetters([
+      'userInfo',
+      'authMap',
+      'theme'
+    ])
   },
   watch: {
     createRange(val) {
@@ -274,5 +279,8 @@ export default {
     display: flex;
     flex-flow: column wrap;
     height: 200px;
+  }
+  .hands {
+    cursor: pointer;
   }
 </style>
