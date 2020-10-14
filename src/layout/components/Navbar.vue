@@ -138,6 +138,7 @@ export default {
     },
     async logout() {
       await this.$store.dispatch('user/logout')
+      window.location.reload()
       this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     changeEnterprise(index, item) {
