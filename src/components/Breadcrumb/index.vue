@@ -76,3 +76,14 @@ export default {
   }
 }
 </style>
+<style>
+.el-breadcrumb__inner a:hover {
+  color:#606266!important;
+}
+.el-breadcrumb__separator {
+  color:#303133!important;
+}
+.el-breadcrumb__inner .no-redirect {
+  color:#606266!important;
+}
+</style>

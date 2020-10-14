@@ -8,6 +8,7 @@ const getters = {
   auth: state => state.user.auth,
   authMap: state => state.user.authMap,
   corpId: state => state.enterprise.corpId,
-  systemConfig: state => state.config.systemConfig
+  systemConfig: state => state.config.systemConfig,
+  theme: state => state.settings.theme
 }
 export default getters

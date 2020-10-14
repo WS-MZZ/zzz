@@ -172,4 +172,10 @@ export default {
 .theme-picker-dropdown .el-color-dropdown__link-btn {
   display: none;
 }
+.el-color-dropdown__main-wrapper {
+  display: none!important;
+}
+.el-color-dropdown {
+  top: 50px!important;
+}
 </style>

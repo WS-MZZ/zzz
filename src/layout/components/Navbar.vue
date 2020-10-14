@@ -1,8 +1,8 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :style="{ background: theme }">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb class="breadcrumb-container" />
+    <breadcrumb class="breadcrumb-container" style="color: black"/>
 
     <div v-if="false" class="breadcrumb-container" style="margin-left: 30%">
       <p style="margin: 0">{{ currentEnterprise }}
@@ -117,7 +117,8 @@ export default {
       'avatar',
       'name',
       'corpId',
-      'userInfo'
+      'userInfo',
+      'theme'
     ])
   },
   created() {
