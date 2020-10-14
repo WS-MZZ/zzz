@@ -60,7 +60,7 @@
                 <div v-if="item.prop == 'status'">
                   {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
                 </div>
-                <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" style="color:#66b1ff" @click="detail(scope.row)">
+                <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" :style="{ color: theme }" class="hands" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <el-image
@@ -96,7 +96,6 @@
 
 import KgTable from '@/components/KgComponents/KgTable'
 import { getSassEnterpriseList, activateEnterprise, freezeEnterprise, deleteEnterprise, resetEnterprisePass, getEnterToken } from '@/api/enterprise'
-import Cookies from 'js-cookie'
 import { mapGetters } from 'vuex'
 export default {
   name: 'Company',
@@ -172,7 +171,8 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
-      'authMap'
+      'authMap',
+      'theme'
     ])
   },
   created() {
@@ -329,5 +329,8 @@ export default {
     margin: 0;
     margin-right: 2px;
   }
+}
+.hands {
+  cursor: pointer;
 }
 </style>

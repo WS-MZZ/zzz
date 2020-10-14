@@ -53,14 +53,14 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <el-link v-if="item.prop == 'name' && authMap.interface.applicationDetail.show " style="color:#66b1ff" @click="detail(scope.row)">
+                <el-link v-if="item.prop == 'name' && authMap.interface.applicationDetail.show " :style="{ color: theme }" class="hands" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
-                <el-link v-else-if="item.prop == 'sysEnterpriseCount'" style="color:#66b1ff" @click="company(scope.row)">
+                <el-link v-else-if="item.prop == 'sysEnterpriseCount'" :style="{ color: theme }" class="hands" @click="company(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <div v-else-if="item.prop == 'status'">
-                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' :  scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
+                  {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
                 </div>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
               </template>
@@ -163,7 +163,8 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
-      'authMap'
+      'authMap',
+      'theme'
     ])
   },
   watch: {
@@ -339,5 +340,8 @@ export default {
       margin: 0;
       margin-right: 2px;
     }
+  }
+  .hands {
+    cursor: pointer;
   }
 </style>

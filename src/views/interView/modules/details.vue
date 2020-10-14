@@ -7,7 +7,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="访问应用：">
-                <span v-if="authMap.interface.applicationList.show" style="color:#66b1ff;cursor: pointer" @click="detail(form.sysApplicationId)">
+                <span v-if="authMap.interface.applicationList.show" :style="{color: theme }" class="hands" @click="detail(form.sysApplicationId)">
                   {{ form.sysApplicationName }}
                 </span>
                 <span v-else>
@@ -101,7 +101,8 @@ export default {
   computed: {
     ...mapGetters([
       'userInfo',
-      'authMap'
+      'authMap',
+      'theme'
     ])
   },
   created() {
@@ -176,6 +177,9 @@ export default {
         font-size: 18px;
       }
     }
+  }
+  .hands {
+    cursor: pointer;
   }
 </style>
 <style>
