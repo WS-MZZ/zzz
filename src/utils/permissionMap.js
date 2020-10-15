@@ -13,7 +13,11 @@ export const perMissionMap = {
   },
   interface: {
     applicationList: { id: 301, show: false },
-    applicationDetail: { id: 302, show: false }
+    applicationDetail: { id: 302, show: false },
+    applicationAdd: { id: 303, show: false },
+    applicationEdit: { id: 304, show: false },
+    applicationFreeze: { id: 305, show: false },
+    applicationDelete: { id: 306, show: false }
   },
   interfaceDoc: {
     interfaceDocList: { id: 401, show: false }

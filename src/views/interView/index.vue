@@ -57,7 +57,7 @@
                 <span v-if="item.prop == 'recordId' && authMap.interfaceRecord.recordDetail.show" :style="{color: theme}" class="hands" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
-                <span v-else-if="item.prop == 'sysApplicationName' && authMap.interface.applicationList.show" :style="{color: theme}" class="hands" @click="detail2(scope.row)">
+                <span v-else-if="item.prop == 'sysApplicationName' && authMap.interface.applicationDetail.show" :style="{color: theme}" class="hands" @click="detail2(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </span>
                 <span v-else>{{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}</span>
@@ -157,8 +157,6 @@ export default {
     }
   },
   created() {
-    this.getAllApplications()
-    this.getInterfaceRecordList(this.searchCondition)
     if (this.authMap.interfaceRecord.recordList.show) {
       this.getAllApplications()
       this.getInterfaceRecordList(this.searchCondition)

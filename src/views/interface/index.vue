@@ -24,7 +24,7 @@
     </div>
     <div class="block-wrapper company-list">
       <div class="add">
-        <el-button size="medium" type="primary" @click="add">新增应用</el-button>
+        <el-button v-if="authMap.interface.applicationAdd.show" size="medium" type="primary" @click="add">新增应用</el-button>
       </div>
       <KgTable
         :total="total"
@@ -56,7 +56,7 @@
                 <el-link v-if="item.prop == 'name' && authMap.interface.applicationDetail.show " :style="{ color: theme }" class="hands" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
-                <el-link v-else-if="item.prop == 'sysEnterpriseCount'" :style="{ color: theme }" class="hands" @click="company(scope.row)">
+                <el-link v-else-if="item.prop == 'sysEnterpriseCount' && authMap.interface.applicationEdit.show" :style="{ color: theme }" class="hands" @click="company(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <div v-else-if="item.prop == 'status'">
@@ -71,10 +71,10 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button class="mgr" v-if="scope.row.status==='FREEZE'" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
-                <el-button class="mgr" v-if="scope.row.status==='NORMAL'" type="text" size="small" @click="freeze(scope.row)">冻结</el-button>
-                <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
+                <el-button v-if="authMap.interface.applicationEdit.show" class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                <el-button v-if="scope.row.status==='FREEZE' && authMap.interface.applicationFreeze.show" class="mgr" type="text" size="small" @click="activate(scope.row)">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL' && authMap.interface.applicationFreeze.show" class="mgr" type="text" size="small" @click="freeze(scope.row)">冻结</el-button>
+                <el-button v-if="authMap.interface.applicationDelete.show" class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>

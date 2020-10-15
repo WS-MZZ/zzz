@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authMap.system.sysConfiguration.show" class="dashboard-container">
+  <div v-if="authMap.system.sysConfiguration.show" class="dashboard-container" style="overflow:scroll;height:100%">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
         <el-form-item label="logo：">
@@ -12,6 +12,17 @@
             @onSuccess="dealUpload($event, 'logo')"
           />
           <span>建议尺寸：400*200</span>
+        </el-form-item>
+        <el-form-item label="侧边栏logo：">
+          <ImgUpload
+            class="imgUpload"
+            :width="400"
+            :height="200"
+            :image="form.logo"
+            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            @onSuccess="dealUpload($event, 'logo')"
+          />
+          <span>建议尺寸：300*50</span>
         </el-form-item>
         <el-form-item label="登录背景图：">
           <ImgUpload
@@ -126,14 +137,15 @@ export default {
   .dashboard {
     &-container {
       /*padding: 15px;*/
-      height: 100%;
+      // height: 100%;
     }
     &-text {
       font-size: 30px;
       line-height: 46px;
       background-color: #fff;
       display: flex;
-      height: 100%;
+      // height: 100%;
+      padding-bottom: 20px;
       border-radius: 5px;
       padding-left: 50px;
       padding-top: 20px;

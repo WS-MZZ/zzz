@@ -7,7 +7,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item label="访问应用：">
-                <span v-if="authMap.interface.applicationList.show" :style="{color: theme }" class="hands" @click="detail(form.sysApplicationId)">
+                <span v-if="authMap.interface.applicationDetail.show" :style="{color: theme }" class="hands" @click="detail(form.sysApplicationId)">
                   {{ form.sysApplicationName }}
                 </span>
                 <span v-else>

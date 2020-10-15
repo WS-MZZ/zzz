@@ -58,6 +58,9 @@ service.interceptors.response.use(
       }
       // else if (error.response.data.detail === 'Access is denied') {
       // }
+      if (error.response.data.status === 403) {
+        error.response.data.detail = '暂无权限'
+      }
       Message({
         message: error.response.data.title === 'Unauthorized' ? '账号异常，请重新登录' : error.response.data.detail || '连接错误请重试',
         type: 'error',
