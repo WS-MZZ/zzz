@@ -16,7 +16,7 @@
     </div>
 
     <div class="right-menu">
-      <theme-picker style="float: right;height: 26px;margin: 5px 10px 0px 0px;" @change="themeChange" />
+      <theme-picker v-show="false" style="float: right;height: 26px;margin: 5px 10px 0px 0px;" />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img v-if="avatar" :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -28,9 +28,9 @@
           <router-link to="/personalInfo">
             <el-dropdown-item>个人信息</el-dropdown-item>
           </router-link>
-<!--          <a target="_blank" href="">-->
-<!--            <el-dropdown-item>更换皮肤</el-dropdown-item>-->
-<!--          </a>-->
+          <a @click="showThemePicker">
+            <el-dropdown-item>更换皮肤</el-dropdown-item>
+          </a>
           <a @click="showChangePass">
             <el-dropdown-item>修改密码</el-dropdown-item>
           </a>
@@ -57,6 +57,52 @@
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancel">取 消</el-button>
         <el-button :loading="loading" type="primary" @click="submit">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-dialog title="更换皮肤" :visible.sync="showThemeForm" :before-close="cancelThemeForm" width="30%">
+      <div class="themeForm">
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <div>
+              <div class="blue colorChunck">
+              </div>
+              <div class="radiobox">
+                <el-radio v-model="selectedTheme" label="#409EFF">备选项</el-radio>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div>
+              <div class="green colorChunck">
+              </div>
+              <div class="radiobox">
+                <el-radio v-model="selectedTheme" label="#32B16C">备选项</el-radio>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div>
+              <div class="red colorChunck">
+              </div>
+              <div class="radiobox">
+                <el-radio v-model="selectedTheme" label="#B13232">备选项</el-radio>
+              </div>
+            </div>
+          </el-col>
+          <el-col :span="6">
+            <div>
+              <div class="grey colorChunck">
+              </div>
+              <div class="radiobox">
+                <el-radio v-model="selectedTheme" label="#AAAAAA">备选项</el-radio>
+              </div>
+            </div>
+          </el-col>
+        </el-row>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="cancelThemeForm">取 消</el-button>
+        <el-button :loading="loading" type="primary" @click="themeChange">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -98,6 +144,8 @@ export default {
       enterpriseList: [],
       currentEnterprise: '',
       showChangePassForm: false,
+      showThemeForm: false,
+      selectedTheme: '',
       password: {
         oldPassword: '',
         newPassword: '',
@@ -151,6 +199,10 @@ export default {
     showChangePass() {
       this.showChangePassForm = true
     },
+    showThemePicker() {
+      this.showThemeForm = true
+      this.selectedTheme = this.theme
+    },
     submit() {
       this.$refs.changePassword.validate(valid => {
         if (valid) {
@@ -180,14 +232,21 @@ export default {
       this.showChangePassForm = false
       this.resetForm('changePassword')
     },
-    themeChange(val) {
+    cancelThemeForm() {
+      this.showThemeForm = false
+      setTimeout(() => {
+        this.selectedTheme = this.theme
+      }, 500)
+    },
+    themeChange() {
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',
-        value: val
+        value: this.selectedTheme
       })
-      updateThemeColor({ theme: val }).then(res => {
+      updateThemeColor({ theme: this.selectedTheme }).then(res => {
         console.log(res, 'color')
       })
+      this.showThemeForm = false
     }
   }
 }
@@ -275,6 +334,28 @@ export default {
         }
       }
     }
+  }
+  .themeForm {
+    .colorChunck {
+      height: 50px;
+    }
+    .blue {
+      background: url("../../assets/theme/blue.png");
+    }
+    .green {
+      background: url("../../assets/theme/green.png");
+    }
+    .red {
+      background: url("../../assets/theme/red.png");
+    }
+    .grey {
+      background: url("../../assets/theme/grey.png");
+    }
+    .radiobox {
+      margin-top: 5px;
+      text-align: center;
+    }
+
   }
 }
 </style>
