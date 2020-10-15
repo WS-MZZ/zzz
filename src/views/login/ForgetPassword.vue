@@ -32,7 +32,7 @@
           tabindex="2"
           auto-complete="on"
         >
-          <i slot="prefix" class="el-input__icon el-icon-folder" style="padding-left: 8px"></i>
+          <i slot="prefix" class="el-input__icon el-icon-folder" style="padding-left: 8px" />
         </el-input>
       </el-form-item>
 
@@ -48,7 +48,7 @@
             tabindex="3"
             auto-complete="on"
           >
-            <i slot="prefix" class="el-input__icon el-icon-lock" style="padding-left: 8px"></i>
+            <i slot="prefix" class="el-input__icon el-icon-lock" style="padding-left: 8px" />
           </el-input>
         </el-col>
         <el-col :span="8">
@@ -120,13 +120,17 @@ export default {
       }
     }
     const validateEmail = (rule, value, callback) => {
+      const mailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
       if (!value) {
-        callback(new Error('邮箱不能为空'))
-      } else if (!validEmail(value)) {
-        callback(new Error('邮箱格式错误'))
-      } else {
-        callback()
+        return callback(new Error('邮箱不能为空'))
       }
+      setTimeout(() => {
+        if (mailReg.test(value)) {
+          callback()
+        } else {
+          callback(new Error('请输入正确的邮箱格式'))
+        }
+      }, 100)
     }
     const validateCode = (rule, value, callback) => {
       if (!value) {

@@ -45,7 +45,7 @@
 <script>
 import { userEditDetail, editUserInfo, addUser, getAccountnoInfo, getRoleSelect, addOldUser } from '@/api/userAdminstration'
 var checkEmail = (rule, value, callback) => {
-  const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+  const mailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/
   if (!value) {
     return callback(new Error('邮箱不能为空'))
   }
