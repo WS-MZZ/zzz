@@ -121,7 +121,7 @@ export default {
       searchCondition: {
         name: '',
         page: '',
-        size: 5,
+        size: 10,
         sort: 'DESC'
       },
       tableHeader: [

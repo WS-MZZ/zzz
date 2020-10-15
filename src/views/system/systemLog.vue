@@ -68,7 +68,7 @@ import { mapGetters } from 'vuex'
 const defaultForm = {
   operateName: '',
   page: '',
-  size: 5,
+  size: 10,
   typeName: ''
 }
 

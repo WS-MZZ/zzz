@@ -110,7 +110,7 @@ export default {
       searchCondition: {
         // userRole: '',
         status: '',
-        size: 5,
+        size: 10,
         page: '',
         sort: 'DESC',
         sysRoleId: '',
