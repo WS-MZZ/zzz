@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
+  <div class="sidebar-logo-container" :style="{ background: theme }" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <!-- <img v-if="logo" :src="logo" class="sidebar-logo"> -->
@@ -29,7 +29,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'systemConfig'
+      'systemConfig',
+      'theme'
     ]),
     logo() {
       if (this.systemConfig) {
@@ -62,7 +63,7 @@ export default {
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 60px;
+  height: 59px;
   line-height: 60px;
   background: #2b2f3a;
   text-align: center;
