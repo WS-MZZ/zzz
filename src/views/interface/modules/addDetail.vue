@@ -220,5 +220,8 @@ export default {
       line-height: 82px;
     }
   }
+  ::v-deep .el-transfer-panel {
+    width:300px;
+  }
 </style>
 
