@@ -38,7 +38,7 @@
           <el-table
             ref="companyList"
             v-loading="loading"
-            :height="slotProps.tableHeight"
+            :height="slotProps.tableHeight - 12"
             :data="tableData"
             border
             style="width: 100%"
@@ -315,10 +315,10 @@ export default {
 }
 .company-list {
   .add {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   .list-table {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   .pagination {
     display: flex;
