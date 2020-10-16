@@ -60,8 +60,8 @@ export default {
     cursor: default;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     margin: 0 auto;
-    margin-top: 40px;
-    margin-bottom: 40px;
+    // margin-top: 40px;
+    // margin-bottom: 40px;
     display: block;
   }
   .pan-info-roles-container {
@@ -73,7 +73,7 @@ export default {
     height: 100%;
     background-position: center center;
     background-size: cover;
-    border-radius: 50%;
+    border-radius: 10px;
     overflow: hidden;
     position: absolute;
     transform-origin: 95% 40%;

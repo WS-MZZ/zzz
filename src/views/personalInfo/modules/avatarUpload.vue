@@ -1,11 +1,10 @@
 <template>
   <div class="components-container">
-    <pan-thumb :image="image" />
-
-    <el-button type="primary" icon="el-icon-upload" style="margin: 0 auto;display: block;" @click="imagecropperShow=true">
-      更换头像
-    </el-button>
-
+    <el-form label-width="80px" style="margin:30px 0 0 40px" label-position="right">
+      <el-form-item label="头像：">
+        <pan-thumb :image="image" @click.native="imagecropperShow=true" />
+      </el-form-item>
+    </el-form>
     <image-cropper
       v-show="imagecropperShow"
       :key="imagecropperKey"
@@ -68,9 +67,11 @@ export default {
 </script>
 
 <style scoped>
+.components-container{
+  width: 200px;
+}
   .avatar{
     width: 200px;
     height: 200px;
-    border-radius: 50%;
   }
 </style>

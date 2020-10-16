@@ -1,11 +1,8 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">
-      <div class="left">
-        <avatarUpload ref="avatarUpload" />
-      </div>
-
       <div class="right">
+        <avatarUpload ref="avatarUpload" />
         <personalDetails ref="personalDetails" :is-edit="isEdit" @submit="submit" />
       </div>
     </div>
@@ -24,7 +21,7 @@ export default {
   },
   data() {
     return {
-      isEdit: false
+      isEdit: true
     }
   },
   computed: {},
