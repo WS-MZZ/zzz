@@ -480,7 +480,7 @@ export default {
       .detail-briefintroduction {
         font-size: 14px;
         color: rgb(179, 176, 176);
-        margin-bottom: 20px;
+        margin-bottom: 7px;
       }
       .detail-moType {
         display: flex;
