@@ -43,13 +43,13 @@
     <el-dialog title="修改密码" :visible.sync="showChangePassForm" :before-close="cancel" width="30%">
       <div class="changePassword">
         <el-form ref="changePassword" :model="password" :rules="rules" label-width="150px">
-          <el-form-item label="密码" prop="oldPassword">
+          <el-form-item label="原密码" prop="oldPassword">
             <el-input v-model="password.oldPassword" type="password" autocomplete="off" />
           </el-form-item>
           <el-form-item label="新密码" prop="newPassword">
             <el-input v-model="password.newPassword" type="password" autocomplete="off" />
           </el-form-item>
-          <el-form-item label="重复新密码密码" prop="confirmPassword">
+          <el-form-item label="重复新密码" prop="confirmPassword">
             <el-input v-model="password.confirmPassword" type="password" autocomplete="off" />
           </el-form-item>
         </el-form>
