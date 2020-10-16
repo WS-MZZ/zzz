@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
   .documentTabs {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   .config-column {
     display: flex;

@@ -8,7 +8,7 @@
           range-separator="至"
           start-placeholder="创建日期开始"
           end-placeholder="创建日期结束"
-          size="small"
+          size="medium"
           style="width: 250px;"
         />
         <el-date-picker
@@ -17,13 +17,14 @@
           range-separator="至"
           start-placeholder="开票日期开始"
           end-placeholder="开票日期结束"
-          size="small"
+          size="medium"
           style="margin-left: 20px; width: 250px;"
         />
         <el-input
           v-model="searchCondition.fullFiledName"
           size="medium"
           placeholder="请输入合同编号/公司名称"
+          style="margin-left: 20px;"
           class="search-input"
         />
       </div>
@@ -35,7 +36,7 @@
     <div class="block-wrapper">
       <div class="config-column">
         <el-button
-          style="margin-left: auto;margin-bottom: 10px;"
+          style="margin-left: auto;margin-bottom: 15px;"
           type="primary"
           size="medium"
           @click="showColumnConfigDialog"
@@ -65,7 +66,7 @@
         <template v-slot:default="slotProps">
           <el-table
             v-loading="loading"
-            :height="slotProps.tableHeight"
+            :height="slotProps.tableHeight + 10"
             :data="tableData"
             border
             style="width: 100%"
@@ -270,7 +271,7 @@ export default {
 
 <style lang="scss" scoped>
   .documentTabs {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
   .config-column {
     display: flex;
