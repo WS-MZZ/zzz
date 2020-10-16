@@ -436,6 +436,7 @@ export default {
   font-size: 18px;
   margin-left: 30px;
   padding-top: 5px;
+  font-weight: 600;
   img {
     /*position: absolute;*/
     margin-left: 100px;

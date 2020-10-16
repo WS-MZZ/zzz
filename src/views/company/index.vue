@@ -194,7 +194,8 @@ export default {
       getEnterToken(data.id).then(res => {
         // console.log('id_token', res)
         // Cookies.set('id_token', res.id_token, { domain: 'copeople.dev.aks.chilunyc.com' })
-        window.open('https://firm.admin.copeople.dev.aks.chilunyc.com/#/home?id_token=' + res.id_token)
+        // window.open('https://firm.admin.copeople.dev.aks.chilunyc.com/#/home?id_token=' + res.id_token)
+        console.log('https://firm.admin.copeople.dev.aks.chilunyc.com/#/home?id_token=' + res.id_token)
       })
     },
     getEnterpriseList(searchCondition) {
