@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">
-      <el-form ref="form" :model="form" :inline="true" :rules="rules" class="demo-form-inline" label-width="100px" :label-position="labelPosition">
+      <el-form ref="form" :model="form" :rules="rules" class="demo-form-inline" label-width="100px" :label-position="labelPosition">
         <el-form-item label="账号" prop="accountNo">
           <el-input v-model="form.accountNo" size="middle" @blur="changeInfo" />
         </el-form-item>
@@ -243,11 +243,14 @@ export default {
       line-height: 82px;
     }
   }
-  .demo-form-inline{
-      width: 800px;
+  .el-form{
+    margin-top: 30px;
   }
-  .selectStyle{
-      width:185px;
+  .demo-form-inline{
+      width: 400px;
+  }
+  .el-select{
+    width: 100%;
   }
   .btnStyle{
       text-align: center;
