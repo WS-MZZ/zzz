@@ -344,4 +344,7 @@ export default {
   .hands {
     cursor: pointer;
   }
+::v-deep .el-transfer-panel {
+    width:300px;
+  }
 </style>
