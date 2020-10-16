@@ -50,7 +50,7 @@ export default {
   &-search {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     .search-input {
       width: 300px;
       margin-left: 10px;

@@ -1,7 +1,7 @@
 <template>
-  <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+  <el-form hide-required-asterisk ref="form" :model="form" label-width="80px" :rules="rules">
     <el-form-item label="账号：">
-      <span>{{ form.accountNo }}</span>
+      <el-input v-model="form.accountNo" size="small" disabled/>
     </el-form-item>
     <el-form-item label="姓名：" prop="username">
       <el-input v-if="isEdit" v-model="form.username" size="small" maxlength="20"/>
@@ -16,22 +16,21 @@
       <span v-else>{{ form.mobilePhone }}</span>
     </el-form-item>
     <el-form-item label="工号：">
-      <span>{{ form.workNo }}</span>
+      <el-input v-model="form.workNo" size="small" disabled/>
     </el-form-item>
     <el-form-item label="英文名：">
-      <el-input v-if="isEdit" v-model="form.englishName" size="small"/>
-      <span v-else>{{ form.englishName }}</span>
+      <el-input v-model="form.englishName" size="small"/>
     </el-form-item>
     <el-form-item label="部门：">
-      <span>{{ form.department }}</span>
+      <el-input v-model="form.department" size="small" disabled/>
     </el-form-item>
     <el-form-item label="角色：">
-      <span>{{ form.role }}</span>
+      <el-input v-model="form.role" size="small" disabled/>
     </el-form-item>
     <div class="but">
       <div v-if="isEdit">
-        <el-button type="primary" @click="submit">保存</el-button>
-        <el-button plain @click="cancel">取消</el-button>
+        <el-button type="primary" @click="submit">修改个人信息</el-button>
+        <!-- <el-button plain @click="cancel">取消</el-button> -->
       </div>
       <el-button v-else type="primary" :disabled="isDisable" @click="edit">修改个人信息</el-button>
     </div>
@@ -83,7 +82,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           updateUserInfo(this.form).then(res => {
-            this.$emit('submit', false)
+            // this.$emit('submit', false)
             this.isDisable = true
             this.$message({
               message: '提交成功',
@@ -101,10 +100,10 @@ export default {
     },
     cancel() {
       this.$refs.form.resetFields()
-      this.$emit('submit', false)
+      // this.$emit('submit', false)
     },
     edit() {
-      this.$emit('submit', true)
+      // this.$emit('submit', true)
     }
   }
 }
@@ -118,9 +117,8 @@ export default {
 
 <style lang="scss" scoped>
   .el-form{
-    width: 80%;
     margin-left: 40px;
-    margin-top: 30px;
+    margin-top: -10px;
     .el-form-item{
       margin-bottom: 5px;
     }

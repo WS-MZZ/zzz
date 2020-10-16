@@ -1,10 +1,10 @@
 <template>
   <div v-if="authMap.interfaceDoc.interfaceDocList.show" class="app-main">
-    <div class="layout-module">
+    <div class="layout-module interfaceDocumentation">
       <div class="menu-nav block-wrapper">
         <el-row class="tac">
           <el-col :span="20">
-            <h5>功能说明</h5>
+            <div class="detail-title">功能说明</div>
             <el-menu
               :default-active="defaultActive"
               class="el-menu-vertical-demo"
@@ -71,7 +71,25 @@ export default {
 }
 </script>
 
+<style>
+.interfaceDocumentation .el-submenu__title{
+  height: 40px !important;
+  line-height: 40px !important;
+}
+</style>
 <style lang="scss" scoped>
+.el-menu-item{
+  margin-bottom: 8px !important;
+}
+.el-submenu .el-menu-item{
+  height: 40px !important;
+  line-height: 40px !important;
+}
+.detail-title {
+  font-weight: 600;
+  padding: 10px 0px;
+  margin-bottom: 10px;
+}
 .layout-module {
   display: flex;
   // height: 100%;

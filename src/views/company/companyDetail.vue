@@ -157,6 +157,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.dashboard-text{
+  min-height: calc(100vh - 130px);
+}
   .dashboard {
     &-container {
       /*padding: 15px;*/

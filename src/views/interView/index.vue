@@ -228,7 +228,7 @@ export default {
     &-search {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       .search-input {
         width: 300px;
         margin-left: 10px;
@@ -237,10 +237,10 @@ export default {
   }
   .company-list {
     .add {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .list-table {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .pagination {
       display: flex;

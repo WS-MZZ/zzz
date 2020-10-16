@@ -451,10 +451,10 @@ export default {
   }
   .company-list {
     .add {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .list-table {
-      margin-bottom: 10px;
+      margin-bottom: 15px;
     }
     .pagination {
       display: flex;
