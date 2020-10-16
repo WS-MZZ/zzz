@@ -192,7 +192,7 @@ export default {
     detail(data) {
       console.log('企业ID', data.id)
       getEnterToken(data.id).then(res => {
-        console.log('id_token', res)
+        // console.log('id_token', res)
         // Cookies.set('id_token', res.id_token, { domain: 'copeople.dev.aks.chilunyc.com' })
         window.open('https://firm.admin.copeople.dev.aks.chilunyc.com/#/home?id_token=' + res.id_token)
       })
