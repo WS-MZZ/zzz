@@ -525,7 +525,7 @@ export default {
   padding-left: 30px;
   justify-content: space-between;
   span {
-    margin-right: 20px;
+    margin-right: 12px;
   }
 }
 .homeChart{
