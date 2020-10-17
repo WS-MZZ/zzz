@@ -38,7 +38,7 @@
           <el-table
             ref="companyList"
             v-loading="loading"
-            :height="slotProps.tableHeight - 12"
+            :height="slotProps.tableHeight"
             :data="tableData"
             border
             style="width: 100%"
