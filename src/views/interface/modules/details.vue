@@ -1,10 +1,10 @@
 <template>
-  <div class="dashboard-container" style="overflow-y: auto;">
+  <div class="dashboard-container interfaceDetail" style="overflow-y: auto;">
     <div class="dashboard-text">
       <div class="top">
         <div class="top-left">
-          <div class="title">基础信息</div>
-          <el-form ref="form" :model="form" label-width="150px">
+          <div class="title1">基础信息</div>
+          <el-form ref="form" :model="form" label-width="125px" label-position="left">
             <el-form-item label="应用名称：">
               <span>{{ form.name }}</span>
             </el-form-item>
@@ -26,28 +26,27 @@
           </el-form>
         </div>
         <div class="top-center">
-          <div class="center">
-            <div class="title">
-              今日访问量
-              <p class="num">{{ todayVisit.totalCount }}</p>
-              <p>
+          <div class="center yang-flex-row">
+            <div class="count">
+              <div class="title2">今日访问量</div>
+              <div class="total">{{Number(todayVisit.totalCount).toLocaleString()}}</div>
+              <div class="title2">
                 成功 <span>{{ todayVisit.successCount }}</span> 失败
-                <span>{{ todayVisit.failCount }}</span>
-              </p>
+                <span>{{ todayVisit.failCount }}</span></div>
             </div>
 
             <div class="homeChart">
               <homeChart ref="homeChart" :toptraffice="toptraffice" />
             </div>
           </div>
-          <div class="center" style="margin-top:6px">
-            <div class="title">
-              累计访问量
-              <p class="num">{{ Cumulat.totalCount }}</p>
-              <p>
-                成功<span>{{ Cumulat.successCount }}</span> 失败
+          <div class="center yang-flex-row" style="margin-top:15px">
+            <div class="count">
+              <div class="title2">累计访问量</div>
+              <div class="total">{{Number(Cumulat.totalCount).toLocaleString()}}</div>
+              <div class="title2">
+                成功 <span>{{ Cumulat.successCount }}</span> 失败
                 <span>{{ Cumulat.failCount }}</span>
-              </p>
+              </div>
             </div>
             <div class="homeChart">
               <homeChart ref="homeChart" :cumulativelist="cumulativelist" />
@@ -55,7 +54,7 @@
           </div>
         </div>
         <div class="top-right">
-          <div class="title">
+          <div class="title1">
             文档类型分布
             <div class="pieModule">
               <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
@@ -294,7 +293,59 @@ export default {
 }
 </script>
 
+<style>
+.interfaceDetail .el-form-item__label{
+  color: #999999;
+  font-weight: normal;
+}
+</style>
 <style lang="scss" scoped>
+.top-left{
+  margin-right: 15px !important;
+  .homeChart{
+    margin: 0 !important;
+  }
+}
+.top-center{
+  margin-right: 15px !important;
+  .center{
+    padding: 0 20px;
+    height: calc(50% - 8px) !important;
+    .total{
+      font-size: 32px;
+      color: #212736;
+      line-height: 1;
+      margin: 8px 0 20px;
+      font-weight: bold;
+    }
+  }
+  .homeChart{
+    margin: 0 !important;
+    border: 1px dashed #cccccc
+  }
+}
+.top-right{
+  margin-left: 0 !important;
+}
+.title1{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  margin: 20px 0 10px 20px;
+}
+.title2{
+  font-size: 14px;
+  line-height: 1;
+  color: #999999;
+}
+.el-form{
+  padding: 0 20px;
+  .appSec{
+    display: block;
+    line-height: 20px;
+    margin: 0;
+  }
+}
 // .yang-flex-row{
 //   padding: 0 20px;
 // }
