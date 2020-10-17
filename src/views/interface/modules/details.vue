@@ -54,15 +54,13 @@
           </div>
         </div>
         <div class="top-right">
-          <div class="title1">
-            文档类型分布
-            <div class="pieModule">
-              <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
-              <div class="pieFont">
-                <div v-for="(item,index) of distr" :key="index" class="pieContent">
-                  <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
-                  <div><span>{{ item.key }}:</span> {{ item.count }}</div>
-                </div>
+          <div class="title1">文档类型分布</div>
+          <div class="pieModule flex-row">
+            <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
+            <div class="pieFont">
+              <div v-for="(item,index) of distr" :key="index" class="pieContent">
+                <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
+                <div><span>{{ item.key }}:</span> {{ item.count }}</div>
               </div>
             </div>
           </div>
@@ -412,12 +410,9 @@ export default {
         }
       }
       &-right {
-        display: flex;
-        // height: 291px;
-        width: 40%;
+        flex: 1;
         background-color: #fff;
         border-radius: 5px;
-        margin-left: 0.5%;
         .con {
           margin-top: 50px;
           p {
@@ -426,11 +421,8 @@ export default {
           }
         }
          .pie {
-          width: 200px;
+           flex: 1;
           height: 300px;
-          margin-left: -50px;
-          // margin-right: 50px;
-          margin-top: -20px;
         }
       }
     }
@@ -490,9 +482,9 @@ export default {
   align-items: center;
 }
 .pieFont{
+  flex: 1;
   font-size: 14px;
-  margin-right: 30px;
-  margin-left: 20px;
+  padding-left: 20px;
 }
 .pieContent{
   display: flex;

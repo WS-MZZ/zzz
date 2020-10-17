@@ -33,8 +33,8 @@ export default {
         series: [
           {
             type: 'pie',
-            radius: [30, 65],
-            center: ['60%', '50%'],
+            radius: [45, 85],
+            center: ['50%', '50%'],
             // roseType: 'area',
             label: {
               show: false
