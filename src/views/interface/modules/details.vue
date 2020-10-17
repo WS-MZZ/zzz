@@ -70,31 +70,40 @@
         </div>
       </div>
       <div class="bottom">
-        <div class="time">
-          <div
-            :class="[{ select: isSelect }, 'time1']"
-            style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
-            @click="click(1)"
-          >
-            今日
+          <div class="chart-title">接口访问统计</div>
+          <div class="chart-box">
+          <div class="time">
+            <el-radio v-model="day" :label="1">今日</el-radio>
+            <el-radio v-model="day" :label="30">近30日</el-radio>
+            <!-- <div
+              :class="[{ select: isSelect }, 'time1']"
+              style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
+              @click="click(1)"
+            >
+              今日
+            </div>
+            <div
+              :class="[{ select: !isSelect }, 'time1']"
+              style="
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+              "
+              @click="click(30)"
+            >
+              近30日
+            </div> -->
           </div>
-          <div
-            :class="[{ select: !isSelect }, 'time1']"
-            style="
-              border-bottom-right-radius: 5px;
-              border-top-right-radius: 5px;
-            "
-            @click="click(30)"
-          >
-            近30日
-          </div>
+          <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
         </div>
-        <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
       </div>
       <!--  -->
       <div class="bottom">
-        <div class="time">
-          <div
+        <div class="chart-title">适用企业及访问量统计排名</div>
+        <div class="chart-box">
+          <div class="time">
+            <el-radio v-model="day2" :label="1">今日</el-radio>
+            <el-radio v-model="day2" :label="30">近30日</el-radio>
+          <!-- <div
             :class="[{ select: isSelectBar }, 'time1']"
             style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
             @click="clickBar(1)"
@@ -110,9 +119,10 @@
             @click="clickBar(30)"
           >
             近30日
+          </div> -->
           </div>
+          <interfaceChart class="line" :enterpiselist="enterpiselist" />
         </div>
-        <interfaceChart class="line" :enterpiselist="enterpiselist" />
       </div>
     </div>
     <!-- <div class="sec-develop">二期功能开发中</div> -->
@@ -150,6 +160,8 @@ export default {
   },
   data() {
     return {
+      day: 1,
+      day2: 1,
       form: {},
       isSelect: true,
       isSelectBar: true,
@@ -176,7 +188,14 @@ export default {
     }
   },
   computed: {},
-  watch: { },
+  watch: { 
+    day(val){
+      this.click(val)
+    },
+    day2(val){
+      this.clickBar(val)
+    }
+  },
   mounted() {
     if (this.$route.query.id) {
       this.id = this.$route.query.id
@@ -276,6 +295,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+// .yang-flex-row{
+//   padding: 0 20px;
+// }
+.bottom{
+  overflow: hidden;
+  margin-top: 15px !important;
+}
+.chart-title{
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 0 20px;
+}
+.time{
+  text-align: right;
+  padding-right: 25px;
+}
+.chart-box{
+  border: 1px solid #EEEEEE;
+  margin: 0 20px 20px;
+}
 .dashboard {
   &-container {
     /*padding: 15px;*/
@@ -353,9 +392,6 @@ export default {
       .time {
         // position: fixed;
         // right: 100px;
-        text-align: right;
-        margin-right: 100px;
-        padding-top: 10px;
         z-index: 99;
         cursor: pointer;
         .time1 {

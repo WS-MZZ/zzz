@@ -17,7 +17,6 @@ export default {
   data() {
     return {
       options: {
-        title: { text: '适用企业及访问量统计排名' },
         xAxis: {
           splitLine: { show: false }, // 去除网格线
           axisTick: { // y轴刻度线

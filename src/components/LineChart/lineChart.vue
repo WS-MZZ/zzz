@@ -19,7 +19,6 @@ export default {
     return {
       selected: {},
       options: {
-        title: { text: '接口访问统计' },
         tooltip: {
           trigger: 'axis',
           position: function(pos, params, dom, rect, size) {
