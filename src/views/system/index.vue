@@ -18,9 +18,9 @@
             class="imgUpload"
             :width="400"
             :height="200"
-            :image="form.logo"
+            :image="form.leftLogo"
             url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
-            @onSuccess="dealUpload($event, 'logo')"
+            @onSuccess="dealUpload($event, 'leftLogo')"
           />
           <span>建议尺寸：300*50</span>
         </el-form-item>
@@ -80,9 +80,11 @@ export default {
         backgroundUrl: '',
         favicon: '',
         footer: '',
-        title: ''
+        title: '',
+        leftLogo: ''
       },
       logo: '',
+      leftLogo: '',
       backgroundUrl: '',
       favicon: '',
       rules: {
@@ -104,15 +106,16 @@ export default {
   },
   methods: {
     submit() {
+      console.log('from', this.form)
       this.loading = true
       updateSystemConfig(this.form).then(res => {
         this.loading = false
         this.$message({
           message: '提交成功',
-          type: 'success',
-          onClose: () => {
-            window.location.reload()
-          }
+          type: 'success'
+          // onClose: () => {
+          //   window.location.reload()
+          // }
         })
       }).then(err => {
         console.log(err)

@@ -34,7 +34,7 @@ export default {
     ]),
     logo() {
       if (this.systemConfig) {
-        return this.systemConfig.logo
+        return this.systemConfig.leftLogo
       } else {
         return ''
       }

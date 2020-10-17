@@ -69,19 +69,19 @@
               <template slot-scope="scope">
                 <div v-if="!checkIfAdmin(scope.row)">
                   <div v-if="authMap.userManagement.userMange.show">
-                    <el-button class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
+                    <el-button class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="handleClick(scope.row)">编辑</el-button>
                     <div>
-                      <el-button class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
+                      <el-button class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="resetPass(scope.row.id)">重置密码</el-button>
                     </div>
                     <div>
-                      <el-button v-if="scope.row.status==='NORMAL'" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
+                      <el-button v-if="scope.row.status==='NORMAL'" :style="{ color: 'rgb(64, 158, 255)' }" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
                     </div>
                     <div>
-                      <el-button v-if="scope.row.status==='FREEZE'" class="mgr" type="text" size="small" @click="freeThaws(scope.row)">解冻</el-button>
+                      <el-button v-if="scope.row.status==='FREEZE'" :style="{ color: 'rgb(64, 158, 255)' }" class="mgr" type="text" size="small" @click="freeThaws(scope.row)">解冻</el-button>
                     </div>
                   </div>
                   <div v-if="authMap.userManagement.userDelete.show">
-                    <el-button class="mgr" type="text" size="small" @click="del(scope.row)">删除</el-button>
+                    <el-button class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="del(scope.row)">删除</el-button>
                   </div>
                 </div>
                 <div v-else>
