@@ -11,6 +11,15 @@ body {
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
+.yang-flex,.pagination{
+  display: flex;
+  align-items: center;
+}
+.yang-flex-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 label {
   font-weight: 700;

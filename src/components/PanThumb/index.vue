@@ -95,7 +95,7 @@ export default {
     position: absolute;
     width: inherit;
     height: inherit;
-    border-radius: 50%;
+    // border-radius: 50%;
     overflow: hidden;
     box-shadow: inset 0 0 0 5px rgba(0, 0, 0, 0.05);
   }

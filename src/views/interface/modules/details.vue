@@ -1,10 +1,10 @@
 <template>
-  <div class="dashboard-container" style="overflow-y: auto;">
+  <div class="dashboard-container interfaceDetail" style="overflow-y: auto;">
     <div class="dashboard-text">
       <div class="top">
         <div class="top-left">
-          <div class="title">基础信息</div>
-          <el-form ref="form" :model="form" label-width="150px">
+          <div class="title1">基础信息</div>
+          <el-form ref="form" :model="form" label-width="125px" label-position="left">
             <el-form-item label="应用名称：">
               <span>{{ form.name }}</span>
             </el-form-item>
@@ -26,28 +26,27 @@
           </el-form>
         </div>
         <div class="top-center">
-          <div class="center">
-            <div class="title">
-              今日访问量
-              <p class="num">{{ todayVisit.totalCount }}</p>
-              <p>
+          <div class="center yang-flex-row">
+            <div class="count">
+              <div class="title2">今日访问量</div>
+              <div class="total">{{Number(todayVisit.totalCount).toLocaleString()}}</div>
+              <div class="title2">
                 成功 <span>{{ todayVisit.successCount }}</span> 失败
-                <span>{{ todayVisit.failCount }}</span>
-              </p>
+                <span>{{ todayVisit.failCount }}</span></div>
             </div>
 
             <div class="homeChart">
               <homeChart ref="homeChart" :toptraffice="toptraffice" />
             </div>
           </div>
-          <div class="center" style="margin-top:6px">
-            <div class="title">
-              累计访问量
-              <p class="num">{{ Cumulat.totalCount }}</p>
-              <p>
-                成功<span>{{ Cumulat.successCount }}</span> 失败
+          <div class="center yang-flex-row" style="margin-top:15px">
+            <div class="count">
+              <div class="title2">累计访问量</div>
+              <div class="total">{{Number(Cumulat.totalCount).toLocaleString()}}</div>
+              <div class="title2">
+                成功 <span>{{ Cumulat.successCount }}</span> 失败
                 <span>{{ Cumulat.failCount }}</span>
-              </p>
+              </div>
             </div>
             <div class="homeChart">
               <homeChart ref="homeChart" :cumulativelist="cumulativelist" />
@@ -55,46 +54,53 @@
           </div>
         </div>
         <div class="top-right">
-          <div class="title">
-            文档类型分布
-            <div class="pieModule">
-              <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
-              <div class="pieFont">
-                <div v-for="(item,index) of distr" :key="index" class="pieContent">
-                  <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
-                  <div><span>{{ item.key }}:</span> {{ item.count }}</div>
-                </div>
+          <div class="title1">文档类型分布</div>
+          <div class="pieModule flex-row">
+            <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
+            <div class="pieFont">
+              <div v-for="(item,index) of distr" :key="index" class="pieContent">
+                <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
+                <div><span>{{ item.key }}:</span> {{ item.count }}</div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="bottom">
-        <div class="time">
-          <div
-            :class="[{ select: isSelect }, 'time1']"
-            style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
-            @click="click(1)"
-          >
-            今日
+          <div class="chart-title">接口访问统计</div>
+          <div class="chart-box">
+          <div class="time">
+            <el-radio v-model="day" :label="1">今日</el-radio>
+            <el-radio v-model="day" :label="30">近30日</el-radio>
+            <!-- <div
+              :class="[{ select: isSelect }, 'time1']"
+              style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
+              @click="click(1)"
+            >
+              今日
+            </div>
+            <div
+              :class="[{ select: !isSelect }, 'time1']"
+              style="
+                border-bottom-right-radius: 5px;
+                border-top-right-radius: 5px;
+              "
+              @click="click(30)"
+            >
+              近30日
+            </div> -->
           </div>
-          <div
-            :class="[{ select: !isSelect }, 'time1']"
-            style="
-              border-bottom-right-radius: 5px;
-              border-top-right-radius: 5px;
-            "
-            @click="click(30)"
-          >
-            近30日
-          </div>
+          <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
         </div>
-        <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
       </div>
       <!--  -->
       <div class="bottom">
-        <div class="time">
-          <div
+        <div class="chart-title">适用企业及访问量统计排名</div>
+        <div class="chart-box">
+          <div class="time">
+            <el-radio v-model="day2" :label="1">今日</el-radio>
+            <el-radio v-model="day2" :label="30">近30日</el-radio>
+          <!-- <div
             :class="[{ select: isSelectBar }, 'time1']"
             style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
             @click="clickBar(1)"
@@ -110,9 +116,10 @@
             @click="clickBar(30)"
           >
             近30日
+          </div> -->
           </div>
+          <interfaceChart class="line" :enterpiselist="enterpiselist" />
         </div>
-        <interfaceChart class="line" :enterpiselist="enterpiselist" />
       </div>
     </div>
     <!-- <div class="sec-develop">二期功能开发中</div> -->
@@ -150,6 +157,8 @@ export default {
   },
   data() {
     return {
+      day: 1,
+      day2: 1,
       form: {},
       isSelect: true,
       isSelectBar: true,
@@ -176,7 +185,14 @@ export default {
     }
   },
   computed: {},
-  watch: { },
+  watch: { 
+    day(val){
+      this.click(val)
+    },
+    day2(val){
+      this.clickBar(val)
+    }
+  },
   mounted() {
     if (this.$route.query.id) {
       this.id = this.$route.query.id
@@ -275,7 +291,79 @@ export default {
 }
 </script>
 
+<style>
+.interfaceDetail .el-form-item__label{
+  color: #999999;
+  font-weight: normal;
+}
+</style>
 <style lang="scss" scoped>
+.top-left{
+  margin-right: 15px !important;
+  .homeChart{
+    margin: 0 !important;
+  }
+}
+.top-center{
+  margin-right: 15px !important;
+  .center{
+    padding: 0 20px;
+    height: calc(50% - 8px) !important;
+    .total{
+      font-size: 32px;
+      color: #212736;
+      line-height: 1;
+      margin: 8px 0 20px;
+      font-weight: bold;
+    }
+  }
+  .homeChart{
+    margin: 0 !important;
+    border: 1px dashed #cccccc
+  }
+}
+.top-right{
+  margin-left: 0 !important;
+}
+.title1{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  margin: 20px 0 10px 20px;
+}
+.title2{
+  font-size: 14px;
+  line-height: 1;
+  color: #999999;
+}
+.el-form{
+  padding: 0 20px;
+  .appSec{
+    display: block;
+    line-height: 20px;
+    margin: 0;
+  }
+}
+// .yang-flex-row{
+//   padding: 0 20px;
+// }
+.bottom{
+  overflow: hidden;
+  margin-top: 15px !important;
+}
+.chart-title{
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 0 20px;
+}
+.time{
+  text-align: right;
+  padding-right: 25px;
+}
+.chart-box{
+  border: 1px solid #EEEEEE;
+  margin: 0 20px 20px;
+}
 .dashboard {
   &-container {
     /*padding: 15px;*/
@@ -322,12 +410,9 @@ export default {
         }
       }
       &-right {
-        display: flex;
-        // height: 291px;
-        width: 40%;
+        flex: 1;
         background-color: #fff;
         border-radius: 5px;
-        margin-left: 0.5%;
         .con {
           margin-top: 50px;
           p {
@@ -336,11 +421,8 @@ export default {
           }
         }
          .pie {
-          width: 200px;
+           flex: 1;
           height: 300px;
-          margin-left: -50px;
-          // margin-right: 50px;
-          margin-top: -20px;
         }
       }
     }
@@ -349,13 +431,9 @@ export default {
       width: 100%;
       background-color: #fff;
       border-radius: 5px;
-      margin-bottom: 10px;
       .time {
         // position: fixed;
         // right: 100px;
-        text-align: right;
-        margin-right: 100px;
-        padding-top: 10px;
         z-index: 99;
         cursor: pointer;
         .time1 {
@@ -403,9 +481,9 @@ export default {
   align-items: center;
 }
 .pieFont{
+  flex: 1;
   font-size: 14px;
-  margin-right: 30px;
-  margin-left: 20px;
+  padding-left: 20px;
 }
 .pieContent{
   display: flex;
