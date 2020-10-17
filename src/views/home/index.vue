@@ -467,10 +467,7 @@ export default {
         }
         .pie {
           width: 200px;
-          height: 300px;
-          margin-left: -30px;
-          // margin-right: 50px;
-          margin-top: -20px;
+          height: 255px;
         }
       }
     }
