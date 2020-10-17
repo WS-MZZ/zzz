@@ -39,18 +39,20 @@
             <div class="top">
               <div class="top-left">
                 <div class="title1">应用访问量排名</div>
-                <div v-for="(item, index) in applicat" :key="index">
-                  <div class="applicationVist">
-                    <div
-                      style="
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                      "
-                    >
-                      <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                <div class="ranking-list">
+                  <div v-for="(item, index) in applicat" :key="index">
+                    <div class="applicationVist">
+                      <div
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                        "
+                      >
+                        <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                      </div>
+                      <div>{{ item.totalCount }}</div>
                     </div>
-                    <div>{{ item.totalCount }}</div>
                   </div>
                 </div>
               </div>
@@ -60,18 +62,20 @@
             <div class="top">
               <div class="top-left">
                 <div class="title1">企业访问量排名</div>
-                <div v-for="(item, index) in enterprice" :key="index">
-                  <div class="applicationVist">
-                    <div
-                      style="
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                      "
-                    >
-                      <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                <div class="ranking-list">
+                  <div v-for="(item, index) in enterprice" :key="index">
+                    <div class="applicationVist">
+                      <div
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                        "
+                      >
+                        <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                      </div>
+                      <div>{{ item.totalCount }}</div>
                     </div>
-                    <div>{{ item.totalCount }}</div>
                   </div>
                 </div>
               </div>
@@ -297,6 +301,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ranking-list{
+  height: 240px;
+  overflow-y: auto;
+}
 .applicationVist{
   padding: 0 15px 0 20px !important;
 }
