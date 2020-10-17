@@ -1,32 +1,32 @@
 <template>
   <div class="dashboard-container">
     <div class="dashboard-text">
-      <el-row :gutter="10">
+      <el-row :gutter="15">
         <div v-if="authMap.index.statistic.show" class="dashboard-modlue">
           <el-col :span="6">
             <div class="statistic-Left">
               <div class="top-center">
-                <div class="center">
+                <div class="center yang-flex-row" style="margin-bottom:15px">
                   <div>
-                    <div class="title">今日访问量</div>
-                    <p class="num">{{ visitList.totalCount }}</p>
-                    <p>
+                    <div class="title2">今日访问量</div>
+                    <div class="total">{{ visitList.totalCount }}</div>
+                    <div class="title2">
                       成功 <span>{{ visitList.successCount }}</span> 失败
                       <span>{{ visitList.failCount }}</span>
-                    </p>
+                    </div>
                   </div>
                   <div class="homeChart">
                     <homeChart ref="homeChart" :toptraffice="toptraffice" />
                   </div>
                 </div>
-                <div class="center">
+                <div class="center yang-flex-row">
                   <div>
-                    <div class="title">累计访问量</div>
-                    <p class="num">{{ cumlua.totalCount }}</p>
-                    <p>
+                    <div class="title2">累计访问量</div>
+                    <div class="total">{{ cumlua.totalCount }}</div>
+                    <div class="title2">
                       成功<span>{{ cumlua.successCount }}</span> 失败
                       <span>{{ cumlua.failCount }}</span>
-                    </p>
+                    </div>
                   </div>
                   <div class="homeChart">
                     <homeChart :cumulativelist="cumulativelist" />
@@ -38,19 +38,21 @@
           <el-col :span="6">
             <div class="top">
               <div class="top-left">
-                <div class="title">应用访问量排名</div>
-                <div v-for="(item, index) in applicat" :key="index">
-                  <div class="applicationVist">
-                    <div
-                      style="
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                      "
-                    >
-                      <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                <div class="title1">应用访问量排名</div>
+                <div class="ranking-list">
+                  <div v-for="(item, index) in applicat" :key="index">
+                    <div class="applicationVist">
+                      <div
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                        "
+                      >
+                        <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                      </div>
+                      <div>{{ item.totalCount }}</div>
                     </div>
-                    <div style="padding-right: 30px">{{ item.totalCount }}</div>
                   </div>
                 </div>
               </div>
@@ -59,19 +61,21 @@
           <el-col :span="6">
             <div class="top">
               <div class="top-left">
-                <div class="title">企业访问量排名</div>
-                <div v-for="(item, index) in enterprice" :key="index">
-                  <div class="applicationVist">
-                    <div
-                      style="
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                      "
-                    >
-                      <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                <div class="title1">企业访问量排名</div>
+                <div class="ranking-list">
+                  <div v-for="(item, index) in enterprice" :key="index">
+                    <div class="applicationVist">
+                      <div
+                        style="
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                        "
+                      >
+                        <span class="applicatClass" :class="index<3 ? 'applicatClassSelect' : ''">{{ index + 1 }}</span><span>{{ item.key }}</span>
+                      </div>
+                      <div>{{ item.totalCount }}</div>
                     </div>
-                    <div style="padding-right: 30px">{{ item.totalCount }}</div>
                   </div>
                 </div>
               </div>
@@ -80,14 +84,14 @@
           <el-col :span="6">
             <!-- bar图表 -->
             <div class="top-right">
-              <div class="title">
+              <div class="title1">
                 文档类型分布
                 <!-- <div class="con">
-                  <p v-for="(item,index) of distr" :key="index">{{ item.key }}：<span>{{ item.count }}</span>，占比：<span>{{ item.percent }}%</span></p>
+                  <div v-for="(item,index) of distr" :key="index">{{ item.key }}：<span>{{ item.count }}</span>，占比：<span>{{ item.percent }}%</span></div>
                 </div> -->
               </div>
               <div class="pieModule">
-                <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
+                <div class="pie"><divieChart ref="pieChart" :distr="distr" /></div>
                 <div class="pieFont">
                   <div v-for="(item,index) of distr" :key="index" class="pieContent">
                     <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
@@ -101,7 +105,13 @@
       </el-row>
       <!--  -->
       <div v-if="authMap.index.statistic.show" class="bottom">
-        <div class="time">
+        <div class="chart-title">接口访问统计</div>
+        <div class="chart-box">
+          <div class="time">
+            <el-radio v-model="day" :label="1">今日</el-radio>
+            <el-radio v-model="day" :label="30">近30日</el-radio>
+          </div>
+        <!-- <div class="time">
           <div
             :class="[{ select: isSelect }, 'time1']"
             style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
@@ -119,8 +129,9 @@
           >
             近30日
           </div>
+        </div> -->
+          <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
         </div>
-        <lineChart ref="lineChart" class="line" :todaylist="todaylist" />
       </div>
     </div>
     <companyDialog
@@ -157,6 +168,7 @@ export default {
   },
   data() {
     return {
+      day: 1,
       form: {},
       isSelect: true,
       list: [
@@ -193,6 +205,11 @@ export default {
       'userInfo',
       'authMap'
     ])
+  },
+  watch: {
+    day(val){
+      this.click(val)
+    },
   },
   created() {
     this.getCorpInfo()
@@ -284,6 +301,62 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ranking-list{
+  height: 240px;
+  overflow-y: auto;
+}
+.applicationVist{
+  padding: 0 15px 0 20px !important;
+}
+.top-center{
+  margin-right: 15px !important;
+  .center{
+    padding: 0 20px;
+    // height: calc(50% - 8px) !important;
+    .total{
+      font-size: 32px;
+      color: #212736;
+      line-height: 1;
+      margin: 8px 0 20px;
+      font-weight: bold;
+    }
+  }
+  .homeChart{
+    margin: 0 !important;
+    border: 1px dashed #cccccc
+  }
+}
+.top-right{   
+  overflow: hidden;
+}
+.title1{
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  margin: 20px 0 10px 20px;
+}
+.title2{
+  font-size: 14px;
+  line-height: 1;
+  color: #999999;
+}
+.bottom{
+  overflow: hidden;
+  margin-top: 15px !important;
+}
+.chart-title{
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 0 20px;
+}
+.time{
+  text-align: right;
+  padding-right: 25px;
+}
+.chart-box{
+  border: 1px solid #EEEEEE;
+  margin: 0 20px 20px;
+}
 .dashboard {
   &-container {
     /*padding: 15px;*/
@@ -332,7 +405,7 @@ export default {
       width: 100%;
       // margin-bottom: 10px;
       display: flex;
-      max-height: 310px;
+      max-height: 315px;
       &-left {
         height: 100%;
         width: 100%;
@@ -351,7 +424,6 @@ export default {
       &-center {
         // height: 100%;
         width: 100%;
-        margin-bottom: 10px;
         // min-width: 640px;
         .center {
           width: 100%;
@@ -362,7 +434,7 @@ export default {
           justify-content: space-between;
           // min-width: 315px;
           margin-right: 10px;
-          margin-bottom: 10px;
+          // margin-bottom: 10px;
           p {
             font-size: 16px;
             margin: 0;
@@ -382,8 +454,8 @@ export default {
         width: 100%;
         background-color: #fff;
         border-radius: 5px;
-        height: 310px;
-        max-height: 310px;
+        height: 315px;
+        max-height: 315px;
         // justify-content: space-between;
         // margin-left: 0.5%;
         .con {
@@ -395,10 +467,7 @@ export default {
         }
         .pie {
           width: 200px;
-          height: 300px;
-          margin-left: -30px;
-          // margin-right: 50px;
-          margin-top: -20px;
+          height: 255px;
         }
       }
     }
@@ -407,7 +476,7 @@ export default {
       width: 100%;
       background-color: #fff;
       border-radius: 5px;
-      margin-top: 10px;
+      margin-top: 15px;
       .time {
         margin-left: 80%;
         margin-bottom: -30px;
@@ -461,7 +530,7 @@ export default {
   padding-left: 30px;
   justify-content: space-between;
   span {
-    margin-right: 20px;
+    margin-right: 12px;
   }
 }
 .homeChart{

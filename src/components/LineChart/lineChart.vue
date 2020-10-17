@@ -1,5 +1,5 @@
 <template>
-  <div id="chart">
+  <div id="chart" class="chart">
     <chart ref="chart" :options="options" auto-resize />
   </div>
 </template>
@@ -19,7 +19,6 @@ export default {
     return {
       selected: {},
       options: {
-        title: { text: '接口访问统计' },
         tooltip: {
           trigger: 'axis',
           position: function(pos, params, dom, rect, size) {
@@ -172,6 +171,9 @@ export default {
 </script>
 
 <style scoped>
+.chart{
+  height: 433px
+}
     /deep/ .echarts{
         width: 100%;
     }

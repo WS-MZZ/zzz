@@ -1,31 +1,31 @@
 <template>
   <el-form hide-required-asterisk ref="form" :model="form" label-width="80px" :rules="rules">
-    <el-form-item label="账号：">
-      <el-input v-model="form.accountNo" size="small" disabled/>
+    <el-form-item label="账号">
+      <el-input v-model="form.accountNo" disabled />
     </el-form-item>
-    <el-form-item label="姓名：" prop="username">
-      <el-input v-if="isEdit" v-model="form.username" size="small" maxlength="20"/>
+    <el-form-item label="姓名" prop="username">
+      <el-input v-if="isEdit" v-model="form.username" maxlength="20" />
       <span v-else>{{ form.username }}</span>
     </el-form-item>
-    <el-form-item label="邮件：" prop="email">
-      <el-input v-if="isEdit" v-model="form.email" size="small" />
+    <el-form-item label="邮件" prop="email">
+      <el-input v-if="isEdit" v-model="form.email" />
       <span v-else>{{ form.email }}</span>
     </el-form-item>
-    <el-form-item label="手机号：" prop="mobilePhone">
-      <el-input v-if="isEdit" v-model="form.mobilePhone" size="small"/>
+    <el-form-item label="手机号" prop="mobilePhone">
+      <el-input v-if="isEdit" v-model="form.mobilePhone" />
       <span v-else>{{ form.mobilePhone }}</span>
     </el-form-item>
-    <el-form-item label="工号：">
-      <el-input v-model="form.workNo" size="small" disabled/>
+    <el-form-item label="工号">
+      <el-input v-model="form.workNo" disabled />
     </el-form-item>
-    <el-form-item label="英文名：">
-      <el-input v-model="form.englishName" size="small"/>
+    <el-form-item label="英文名">
+      <el-input v-model="form.englishName" />
     </el-form-item>
-    <el-form-item label="部门：">
-      <el-input v-model="form.department" size="small" disabled/>
+    <el-form-item label="部门">
+      <el-input v-model="form.department" disabled />
     </el-form-item>
-    <el-form-item label="角色：">
-      <el-input v-model="form.role" size="small" disabled/>
+    <el-form-item label="角色">
+      <el-input v-model="form.role" disabled />
     </el-form-item>
     <div class="but">
       <div v-if="isEdit">
@@ -48,31 +48,38 @@ export default {
   props: {
     isEdit: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       rules: {
         username: [
-          { message: '请输入姓名', trigger: 'change', required: true }
+          { message: '请输入姓名', trigger: 'change', required: true },
         ],
         email: [
-          { pattern: regexps.email, message: '请输入正确的邮箱', trigger: 'blur', required: true }
+          {
+            pattern: regexps.email,
+            message: '请输入正确的邮箱',
+            trigger: 'blur',
+            required: true,
+          },
         ],
         mobilePhone: [
-          { pattern: regexps.mobile, message: '请输入正确的手机号', trigger: 'blur', required: true }
-        ]
-
+          {
+            pattern: regexps.mobile,
+            message: '请输入正确的手机号',
+            trigger: 'blur',
+            required: true,
+          },
+        ],
       },
       form: '',
-      isDisable: false
+      isDisable: false,
     }
   },
   computed: {
-    ...mapGetters([
-      'userInfo'
-    ])
+    ...mapGetters(['userInfo']),
   },
   created() {
     this.form = { ...this.userInfo }
@@ -81,7 +88,7 @@ export default {
     submit() {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          updateUserInfo(this.form).then(res => {
+          updateUserInfo(this.form).then((res) => {
             // this.$emit('submit', false)
             this.isDisable = true
             this.$message({
@@ -89,7 +96,7 @@ export default {
               type: 'success',
               onClose: () => {
                 this.$router.go(0)
-              }
+              },
             })
           })
         } else {
@@ -104,8 +111,8 @@ export default {
     },
     edit() {
       // this.$emit('submit', true)
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -116,19 +123,19 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-  .el-form{
-    margin-left: 40px;
-    margin-top: -10px;
-    .el-form-item{
-      margin-bottom: 5px;
-    }
-    .but{
-      .el-form-item__content{
-        margin-left: 0 !important;
-      }
-    }
-    .el-input{
-      max-width: 235px;
-    }
+.el-form {
+  margin-left: 40px;
+  margin-top: 0;
+  width: 400px;
+  .but {
+    text-align: center;
+    margin-bottom: 20px;
+    // .el-form-item__content {
+    //   margin-left: 0 !important;
+    // }
   }
+  .el-input {
+    max-width: 235px;
+  }
+}
 </style>

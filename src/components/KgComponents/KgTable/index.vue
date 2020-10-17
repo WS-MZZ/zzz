@@ -57,15 +57,15 @@ export default {
     }
   },
   mounted() {
-    setTimeout(() => {
+    this.$nextTick(() => {
       this.tableHeight = this.calculateTableHeight()
       this.showTable = true
-    }, 0)
+    })
   },
   methods: {
     calculateTableHeight() {
       const tableOffsetTop = this.$refs.table.offsetTop
-      return window.innerHeight - tableOffsetTop - 185
+      return window.innerHeight - tableOffsetTop - 192
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)
