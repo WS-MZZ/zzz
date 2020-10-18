@@ -60,7 +60,7 @@
       </span>
     </el-dialog>
     <el-dialog title="更换皮肤" :visible.sync="showThemeForm" :before-close="cancelThemeForm" width="30%">
-      <div class="themeForm">
+      <div class="themeForm change-theme-radio-group">
         <el-row :gutter="20">
           <el-col :span="6">
             <div>
@@ -253,6 +253,47 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.change-theme-radio-group{
+  & .el-col:nth-child(1) {
+    .el-radio__input.is-checked .el-radio__inner{
+      border-color: #409FFF;
+      background: #409FFF;
+    }
+    .el-radio__label{
+      color: #409FFF;
+    }
+  }
+  & .el-col:nth-child(2) {
+    .el-radio__input.is-checked .el-radio__inner{
+      border-color: #34B16D;
+      background: #34B16D;
+    }
+    .el-radio__label{
+      color: #34B16D;
+    }
+  }
+  & .el-col:nth-child(3) {
+    .el-radio__input.is-checked .el-radio__inner{
+      border-color: #B13132;
+      background: #B13132;
+    }
+    .el-radio__label{
+      color: #B13132;
+    }
+  }
+  & .el-col:nth-child(4) {
+    .el-radio__input.is-checked .el-radio__inner{
+      border-color: #AAAAAA;
+      background: #AAAAAA;
+    }
+    .el-radio__label{
+      color: #AAAAAA;
+    }
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .navbar {
