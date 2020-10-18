@@ -102,7 +102,9 @@ export default {
     ])
   },
   created() {
-    this.form = { ...this.systemConfig }
+    if (this.authMap && this.authMap.system.sysConfiguration.show) {
+      this.form = { ...this.systemConfig }
+    }
   },
   methods: {
     submit() {

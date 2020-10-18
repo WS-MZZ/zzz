@@ -174,7 +174,7 @@ export default {
     }
   },
   created() {
-    if (this.authMap.interface.applicationList.show) {
+    if (this.authMap && this.authMap.interface.applicationList.show) {
       this.getApplicationList(this.searchCondition)
     }
   },

@@ -181,8 +181,10 @@ export default {
     ])
   },
   created() {
-    this.userList()
-    this.roleSelect()
+    if (this.authMap && this.authMap.userManagement.userList.show) {
+      this.userList()
+      this.roleSelect()
+    }
   },
   methods: {
     // 查询
