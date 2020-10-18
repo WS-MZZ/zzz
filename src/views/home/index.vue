@@ -91,7 +91,7 @@
                 </div> -->
               </div>
               <div class="pieModule">
-                <div class="pie"><divieChart ref="pieChart" :distr="distr" /></div>
+                <div class="pie"><pieChart ref="pieChart" :distr="distr" /></div>
                 <div class="pieFont">
                   <div v-for="(item,index) of distr" :key="index" class="pieContent">
                     <div :key="item.key" class="pieRoundLeft" style="margin-right:10px" :class="setColor[index]" />
