@@ -325,6 +325,7 @@ export default {
         .name {
           vertical-align: middle;
           margin-left: 10px;
+          color: #ffffff;
         }
 
         .el-icon-caret-bottom {
@@ -333,6 +334,7 @@ export default {
           right: -20px;
           top: 15px;
           font-size: 12px;
+          color: #ffffff;
         }
       }
     }
