@@ -207,19 +207,21 @@ export default {
     ])
   },
   watch: {
-    day(val){
+    day(val) {
       this.click(val)
-    },
+    }
   },
   created() {
-    this.getCorpInfo()
-    this.todayVisit()
-    this.cumulatives()
-    this.applicationRanks()
-    this.enterpriceRanks()
-    this.contentVist()
-    this.distributions()
-    this.contentTop({ day: 30 })
+    if (this.authMap && this.authMap.index.statistic.show) {
+      this.getCorpInfo()
+      this.todayVisit()
+      this.cumulatives()
+      this.applicationRanks()
+      this.enterpriceRanks()
+      this.contentVist()
+      this.distributions()
+      this.contentTop({ day: 30 })
+    }
   },
   methods: {
     getCorpInfo() {
@@ -326,7 +328,7 @@ export default {
     border: 1px dashed #cccccc
   }
 }
-.top-right{   
+.top-right{
   overflow: hidden;
 }
 .title1{

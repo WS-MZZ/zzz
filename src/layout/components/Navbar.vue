@@ -181,9 +181,15 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
-      window.location.reload()
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      try {
+        await this.$store.dispatch('user/logout')
+        window.location.reload()
+      } catch (e) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 500)
+      }
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     changeEnterprise(index, item) {
       this.currentEnterprise = item.name
