@@ -1,8 +1,8 @@
 <template>
-  <div class="dashboard-container">
+  <div v-if="authMap.index.statistic.show" class="dashboard-container">
     <div class="dashboard-text">
       <el-row :gutter="15">
-        <div v-if="authMap.index.statistic.show" class="dashboard-modlue">
+        <div class="dashboard-modlue">
           <el-col :span="6">
             <div class="statistic-Left">
               <div class="top-center">
@@ -111,7 +111,7 @@
             <el-radio v-model="day" :label="1">今日</el-radio>
             <el-radio v-model="day" :label="30">近30日</el-radio>
           </div>
-        <!-- <div class="time">
+          <!-- <div class="time">
           <div
             :class="[{ select: isSelect }, 'time1']"
             style="border-bottom-left-radius: 5px; border-top-left-radius: 5px"
