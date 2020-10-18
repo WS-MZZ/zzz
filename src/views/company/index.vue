@@ -57,10 +57,10 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <div v-if="item.prop == 'status'">
+                <div v-if="item.prop == 'status'" :style="{ color: 'rgb(64, 158, 255)' }">
                   {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
                 </div>
-                <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" :style="{ color: theme }" class="hands" @click="detail(scope.row)">
+                <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" :style="{ color: 'rgb(64, 158, 255)' }" class="hands" @click="detail(scope.row)">
                   {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
                 </el-link>
                 <el-image
@@ -78,11 +78,11 @@
               width=""
             >
               <template slot-scope="scope">
-                <el-button v-if="authMap.company.companyEdit.show" class="mgr" type="text" size="small" @click="handleClick(scope.row)">编辑</el-button>
-                <el-button v-if="scope.row.status==='FREEZE' && authMap.company.compayEnable.show " class="mgr" type="text" size="small" @click="activate(scope.row.id)">解冻</el-button>
-                <el-button v-if="scope.row.status==='NORMAL' && authMap.company.compayEnable.show " class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
-                <el-button v-if="authMap.company.companyReset.show" class="mgr" type="text" size="small" @click="resetPass(scope.row.id)">重置密码</el-button>
-                <el-button v-if="authMap.company.companyDelete.show" class="mgr" type="text" size="small" @click="deleteEnterprise(scope.row.id)">删除</el-button>
+                <el-button v-if="authMap.company.companyEdit.show" class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="handleClick(scope.row)">编辑</el-button>
+                <el-button v-if="scope.row.status==='FREEZE' && authMap.company.compayEnable.show " class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="activate(scope.row.id)">解冻</el-button>
+                <el-button v-if="scope.row.status==='NORMAL' && authMap.company.compayEnable.show " class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="freeze(scope.row.id)">冻结</el-button>
+                <el-button v-if="authMap.company.companyReset.show" class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="resetPass(scope.row.id)">重置密码</el-button>
+                <el-button v-if="authMap.company.companyDelete.show" class="mgr" type="text" size="small" :style="{ color: 'rgb(64, 158, 255)' }" @click="deleteEnterprise(scope.row.id)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>

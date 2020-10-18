@@ -2,14 +2,14 @@
   <div class="navbar" :style="{ background: theme }">
     <hamburger :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
 
-    <breadcrumb class="breadcrumb-container" style="color: black"/>
+    <breadcrumb class="breadcrumb-container" style="color: black" />
 
     <div v-if="false" class="breadcrumb-container" style="margin-left: 30%">
       <p style="margin: 0">{{ currentEnterprise }}
         <el-dropdown class="avatar-container" trigger="click" placement="bottom-end">
           <span style="cursor: pointer;color: #20a0ff;">[切换企业]</span>
           <el-dropdown-menu slot="dropdown" class="user-dropdown" style="overflow: hidden;width: 300px;">
-            <el-dropdown-item v-for="(item, index) in enterpriseList" @click.native="changeEnterprise(index, item)">{{ item.name }}</el-dropdown-item>
+            <el-dropdown-item v-for="(item, index) in enterpriseList" :key="index" @click.native="changeEnterprise(index, item)">{{ item.name }}</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </p>
@@ -64,8 +64,7 @@
         <el-row :gutter="20">
           <el-col :span="6">
             <div>
-              <div class="blue colorChunck">
-              </div>
+              <div class="blue colorChunck" />
               <div class="radiobox">
                 <el-radio v-model="selectedTheme" label="#409EFF">备选项</el-radio>
               </div>
@@ -73,8 +72,7 @@
           </el-col>
           <el-col :span="6">
             <div>
-              <div class="green colorChunck">
-              </div>
+              <div class="green colorChunck" />
               <div class="radiobox">
                 <el-radio v-model="selectedTheme" label="#32B16C">备选项</el-radio>
               </div>
@@ -82,8 +80,7 @@
           </el-col>
           <el-col :span="6">
             <div>
-              <div class="red colorChunck">
-              </div>
+              <div class="red colorChunck" />
               <div class="radiobox">
                 <el-radio v-model="selectedTheme" label="#B13232">备选项</el-radio>
               </div>
@@ -91,8 +88,7 @@
           </el-col>
           <el-col :span="6">
             <div>
-              <div class="grey colorChunck">
-              </div>
+              <div class="grey colorChunck" />
               <div class="radiobox">
                 <el-radio v-model="selectedTheme" label="#AAAAAA">备选项</el-radio>
               </div>
@@ -185,9 +181,15 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
-      window.location.reload()
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      try {
+        await this.$store.dispatch('user/logout')
+        window.location.reload()
+      } catch (e) {
+        setTimeout(() => {
+          window.location.reload()
+        }, 500)
+      }
+      // this.$router.push(`/login?redirect=${this.$route.fullPath}`)
     },
     changeEnterprise(index, item) {
       this.currentEnterprise = item.name
