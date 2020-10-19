@@ -360,8 +360,6 @@ export default {
     },
     // child权限
     handleCheckChange(id, event, row, item) {
-      console.log(row)
-      console.log(id)
       if (event) {
         if (id === 101 || id === 201 || id === 301 || id === 401 || id === 501 || id === 601 || id === 701 || id === 801) {
           row.child.forEach(items => {
