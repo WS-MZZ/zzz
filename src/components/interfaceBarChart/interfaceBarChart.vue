@@ -1,5 +1,5 @@
 <template>
-  <div id="chart">
+  <div id="chart" class="chart">
     <chart ref="chart" :options="options" auto-resize />
   </div>
 </template>
@@ -102,6 +102,9 @@ export default {
 </script>
 
 <style scoped>
+.chart{
+  height: 300px;
+}
  /deep/ .echarts{
         width: 100%;
     }
