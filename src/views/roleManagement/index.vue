@@ -311,6 +311,9 @@ export default {
                 item.child.forEach((childItem3, index3) => {
                   if (index3 !== 0) {
                     childItem3.disabled = true
+                    if (childItem3.id === 802) {
+                      childItem3.disabled = false
+                    }
                   }
                 })
               }
@@ -360,6 +363,7 @@ export default {
     },
     // child权限
     handleCheckChange(id, event, row, item) {
+      console.log(row)
       if (event) {
         if (id === 101 || id === 201 || id === 301 || id === 401 || id === 501 || id === 601 || id === 701 || id === 801) {
           row.child.forEach(items => {
@@ -373,9 +377,18 @@ export default {
           row.child.forEach(items => {
             items.disabled = true
             item.disabled = false
+            if (items.id === 802) {
+              items.disabled = false
+            }
             this.permissionIdList.forEach((seleceId, index) => {
               if (items.id === seleceId) {
-                this.permissionIdList.splice(index, 1)
+                if (items.id === 802) {
+                  this.permissionIdList.splice(index, 1)
+                  this.permissionIdList.push(802)
+                  this.permissionIdList = Array.from(new Set(this.permissionIdList))
+                } else {
+                  this.permissionIdList.splice(index, 1)
+                }
               }
             })
           })

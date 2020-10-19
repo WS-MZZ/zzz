@@ -67,10 +67,12 @@ service.interceptors.response.use(
         duration: 3 * 1000,
         onClose() {
           if (error.response.data.title === 'Unauthorized') {
-            store.dispatch('user/resetToken')
             // 下面这个判断是为了如果用户没保持登录状态的话，在permissionjs中会跳转登录页，这样就不要再重新刷新页面了
             if (store.getters.name) {
+              store.dispatch('user/resetToken')
               window.location.reload()
+            } else {
+              store.dispatch('user/resetToken')
             }
           }
         }
