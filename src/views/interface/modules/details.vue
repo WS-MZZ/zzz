@@ -321,7 +321,7 @@ export default {
   }
   .homeChart{
     margin: 0 !important;
-    border: 1px dashed #cccccc
+    // border: 1px dashed #cccccc
   }
 }
 .top-right{
