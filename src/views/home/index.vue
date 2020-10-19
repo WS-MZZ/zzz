@@ -476,8 +476,8 @@ export default {
           }
         }
         .pie {
-          flex: 1;
-          max-width: 200px;
+          width: 200px;
+          margin-left: 5px;
           height: 255px;
         }
       }
