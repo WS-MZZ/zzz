@@ -98,7 +98,7 @@
     </el-dialog>
     <!-- 设置权限 -->
     <el-dialog :visible.sync="dialogFormRole">
-      <div class="setRoleTitStyle">当前角色:{{ roleName }}</div>
+      <div class="setRoleTitStyle">当前角色：{{ roleName }}</div>
       <el-table
         :data="roledata"
         :header-cell-style="{ background:'rgb(85, 85, 85)',color:'#ffffff','border-right':'1px solid #ffffff'}"
