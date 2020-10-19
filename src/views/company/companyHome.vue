@@ -251,7 +251,6 @@ export default {
         border-radius: 5px;
         .time{
           margin-left: 80%;
-          margin-bottom: -30px;
           z-index: 99;
           cursor: pointer;
           .time1{
