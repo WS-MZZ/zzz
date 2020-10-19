@@ -104,7 +104,7 @@ export default {
   created() {
     if (this.authMap && this.authMap.system.sysConfiguration.show) {
       this.form = { ...this.systemConfig }
-      console.log(this.form)
+      console.log('form', this.form)
     }
   },
   methods: {
@@ -115,10 +115,10 @@ export default {
         this.loading = false
         this.$message({
           message: '提交成功',
-          type: 'success'
-          // onClose: () => {
-          //   window.location.reload()
-          // }
+          type: 'success',
+          onClose: () => {
+            window.location.reload()
+          }
         })
       }).then(err => {
         console.log(err)
