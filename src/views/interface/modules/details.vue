@@ -18,7 +18,7 @@
               <span>{{ form.maxLimit ? form.maxLimit : "无限制" }}</span>
             </el-form-item>
             <el-form-item label="状态：">
-              <span>{{ form.status }}</span>
+              <span>{{ form.status == 'NORMAL' ? '正常' : form.status == 'FREEZE' ? '冻结' : form.status == 'EXPIRE' ? '过期' : '' }}</span>
             </el-form-item>
             <el-form-item label="创建时间：">
               <span>{{ form.createdDate }}</span>
