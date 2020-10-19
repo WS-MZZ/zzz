@@ -259,13 +259,21 @@ export default {
     applicationRanks() {
       applicationRank().then((res) => {
         console.log('应用', res)
-        this.applicat = res
+        res.forEach((item, index) => {
+          if (index <= 4) {
+            this.applicat.push(item)
+          }
+        })
       })
     },
     // 企业访问量排名
     enterpriceRanks() {
       enterpriceRank().then((res) => {
-        this.enterprice = res
+        res.forEach((item, index) => {
+          if (index <= 4) {
+            this.enterprice.push(item)
+          }
+        })
       })
     },
     // 文档类型分布
@@ -583,10 +591,5 @@ color: #2161FD;
   background-color: #2161FD;
   color: white;
 }
-.top-left{
-  overflow-y: hidden;
-}
-.top-left:hover {
-  overflow-y: scroll;
-}
+
 </style>
