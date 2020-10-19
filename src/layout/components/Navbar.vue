@@ -42,7 +42,7 @@
     </div>
     <el-dialog title="修改密码" :visible.sync="showChangePassForm" :before-close="cancel" width="30%">
       <div class="changePassword">
-        <el-form ref="changePassword" :model="password" :rules="rules" label-width="150px">
+        <el-form ref="changePassword" :model="password" :rules="rules" label-width="100px" label-position="left">
           <el-form-item label="原密码" prop="oldPassword">
             <el-input v-model="password.oldPassword" type="password" autocomplete="off" />
           </el-form-item>
