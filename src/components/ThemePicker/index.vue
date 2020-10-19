@@ -31,6 +31,9 @@ export default {
       immediate: true
     },
     async theme(val) {
+      if (!val) {
+        val = '#409EFF'
+      }
       const oldVal = this.chalk ? this.theme : ORIGINAL_THEME
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
