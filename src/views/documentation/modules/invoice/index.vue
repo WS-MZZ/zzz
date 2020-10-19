@@ -66,7 +66,7 @@
         <template v-slot:default="slotProps">
           <el-table
             v-loading="loading"
-            :height="slotProps.tableHeight + 10"
+            :height="slotProps.tableHeight"
             :data="tableData"
             border
             style="width: 100%"
