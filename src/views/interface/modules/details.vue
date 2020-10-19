@@ -303,6 +303,10 @@ export default {
 .interfaceDetail .el-form-item__label{
   color: #999999;
   font-weight: normal;
+  line-height: 34px;
+}
+.interfaceDetail .el-form-item__content{
+  line-height: 34px;
 }
 </style>
 <style lang="scss" scoped>
@@ -349,6 +353,7 @@ export default {
   .appSec{
     display: block;
     line-height: 20px;
+    padding-top: 6px;
     margin: 0;
   }
 }
@@ -389,14 +394,14 @@ export default {
       display: flex;
       &-left {
         // height: 100%;
-        width: 34%;
+        width: 32%;
         background-color: #fff;
         border-radius: 5px;
         margin-right: 0.5%;
       }
       &-center {
         // height: 100%;
-        width: 25%;
+        width: 32%;
         .center {
           width: 100%;
           height: 49%;
