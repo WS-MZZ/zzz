@@ -104,6 +104,7 @@ export default {
   created() {
     if (this.authMap && this.authMap.system.sysConfiguration.show) {
       this.form = { ...this.systemConfig }
+      console.log(this.form)
     }
   },
   methods: {

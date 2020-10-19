@@ -118,8 +118,10 @@ export default {
     ])
   },
   created() {
-    this.getSystemList(this.searchCondition)
-    this.getAllUsers()
+    if (this.authMap && this.authMap.system.sysLog.show) {
+      this.getSystemList(this.searchCondition)
+      this.getAllUsers()
+    }
   },
   mounted() {
     this.getSystemList(this.searchCondition)
