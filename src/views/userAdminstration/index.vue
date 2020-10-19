@@ -199,7 +199,7 @@ export default {
     // 角色下拉框
     roleSelect() {
       getRoleSelect().then(res => {
-        res.data.forEach(item => {
+        res.forEach(item => {
           this.userRole.push({
             label: item.name,
             value: item.id

@@ -149,7 +149,7 @@ export default {
     roleSelect() {
       getRoleSelect().then(res => {
         console.log('角色', res)
-        this.formRole = res.data
+        this.formRole = res
       })
     },
     cancel() {
