@@ -130,6 +130,10 @@ export default {
     getSystemList(searchCondition) {
       this.loading = true
       getSystemList(searchCondition).then(res => {
+        res.data.forEach(item => {
+          item.typeDesc = `"${item.typeDesc}"`
+        })
+        console.log('res', res)
         this.loading = false
         this.tableData = res.data
         this.total = parseInt(res.total)
