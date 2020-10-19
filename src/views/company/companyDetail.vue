@@ -14,7 +14,7 @@
             url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
             @onSuccess="dealUpload"
           />
-          <span>建议尺寸：200*200</span>
+          <span>建议尺寸：200*100</span>
         </el-form-item>
         <el-form-item label="联系人：" prop="contact">
           <el-input v-model="form.contact" size="middle" />
