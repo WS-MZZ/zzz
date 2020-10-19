@@ -30,7 +30,7 @@ const actions = {
   getTheme({ commit, state }) {
     return new Promise((resolve, reject) => {
       getThemeColor().then(response => {
-        commit('CHANGE_SETTING', { key: 'theme', value: response.theme })
+        commit('CHANGE_SETTING', { key: 'theme', value: response? response.theme : '#409EFF' })
         resolve(response)
       }).catch(error => {
         reject(error)
