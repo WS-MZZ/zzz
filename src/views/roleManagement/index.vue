@@ -215,7 +215,7 @@ export default {
     }
   },
   created() {
-    if (this.authMap.roleManagement.roleList.show) {
+    if (this.authMap && this.authMap.roleManagement.roleList.show) {
       this.roleList()
     }
     // this.roleSelect()

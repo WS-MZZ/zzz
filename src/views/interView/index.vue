@@ -157,7 +157,7 @@ export default {
     }
   },
   created() {
-    if (this.authMap.interfaceRecord.recordList.show) {
+    if (this.authMap && this.authMap.interfaceRecord.recordList.show) {
       this.getAllApplications()
       this.getInterfaceRecordList(this.searchCondition)
     }

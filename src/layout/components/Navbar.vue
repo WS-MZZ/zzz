@@ -42,7 +42,7 @@
     </div>
     <el-dialog title="修改密码" :visible.sync="showChangePassForm" :before-close="cancel" width="30%">
       <div class="changePassword">
-        <el-form ref="changePassword" :model="password" :rules="rules" label-width="150px">
+        <el-form ref="changePassword" :model="password" :rules="rules" label-width="100px" label-position="left">
           <el-form-item label="原密码" prop="oldPassword">
             <el-input v-model="password.oldPassword" type="password" autocomplete="off" />
           </el-form-item>
@@ -98,7 +98,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancelThemeForm">取 消</el-button>
-        <el-button :loading="loading" type="primary" @click="themeChange">确 定</el-button>
+        <el-button :style="{background: selectedTheme, borderColor: selectedTheme}" :loading="loading" type="primary" @click="themeChange">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -326,7 +326,7 @@ export default {
     height: 100%;
     display: flex;
     align-items: center;
-
+    cursor: pointer;
     &:focus {
       outline: none;
     }

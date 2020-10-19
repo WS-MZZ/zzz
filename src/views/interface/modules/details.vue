@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-container interfaceDetail" style="overflow-y: auto;">
+  <div v-if="authMap.interface.applicationDetail.show" class="dashboard-container interfaceDetail" style="overflow-y: auto;">
     <div class="dashboard-text">
       <div class="top">
         <div class="top-left">
@@ -29,7 +29,7 @@
           <div class="center yang-flex-row">
             <div class="count">
               <div class="title2">今日访问量</div>
-              <div class="total">{{Number(todayVisit.totalCount).toLocaleString()}}</div>
+              <div class="total">{{ Number(todayVisit.totalCount).toLocaleString() }}</div>
               <div class="title2">
                 成功 <span>{{ todayVisit.successCount }}</span> 失败
                 <span>{{ todayVisit.failCount }}</span></div>
@@ -42,7 +42,7 @@
           <div class="center yang-flex-row" style="margin-top:15px">
             <div class="count">
               <div class="title2">累计访问量</div>
-              <div class="total">{{Number(Cumulat.totalCount).toLocaleString()}}</div>
+              <div class="total">{{ Number(Cumulat.totalCount).toLocaleString() }}</div>
               <div class="title2">
                 成功 <span>{{ Cumulat.successCount }}</span> 失败
                 <span>{{ Cumulat.failCount }}</span>
@@ -67,8 +67,8 @@
         </div>
       </div>
       <div class="bottom">
-          <div class="chart-title">接口访问统计</div>
-          <div class="chart-box">
+        <div class="chart-title">接口访问统计</div>
+        <div class="chart-box">
           <div class="time">
             <el-radio v-model="day" :label="1">今日</el-radio>
             <el-radio v-model="day" :label="30">近30日</el-radio>
@@ -131,6 +131,7 @@ import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
 import homeChart from '@/components/LineChart/homeLineChart'
 import interfaceChart from '@/components/interfaceBarChart/interfaceBarChart'
+import { mapGetters } from 'vuex'
 import {
   getSysApplication,
   getTodayStatic,
@@ -184,25 +185,32 @@ export default {
       enterpiselist: []
     }
   },
-  computed: {},
-  watch: { 
-    day(val){
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
+  watch: {
+    day(val) {
       this.click(val)
     },
-    day2(val){
+    day2(val) {
       this.clickBar(val)
     }
   },
   mounted() {
-    if (this.$route.query.id) {
-      this.id = this.$route.query.id
-      this.getSysApplication(this.id)
-      this.getTodayVist({ sysApplicationId: this.id })
-      this.getCumulatives({ sysApplicationId: this.id })
-      this.distributions({ sysApplicationId: this.id })
-      this.contentVist({ sysApplicationId: this.id })
-      this.contentTop({ sysApplicationId: this.id, day: 30 })
-      this.enterpriseRanks({ day: 0 })
+    if (this.authMap && this.authMap.interface.applicationDetail.show) {
+      if (this.$route.query.id) {
+        this.id = this.$route.query.id
+        this.getSysApplication(this.id)
+        this.getTodayVist({ sysApplicationId: this.id })
+        this.getCumulatives({ sysApplicationId: this.id })
+        this.distributions({ sysApplicationId: this.id })
+        this.contentVist({ sysApplicationId: this.id })
+        this.contentTop({ sysApplicationId: this.id, day: 30 })
+        this.enterpriseRanks({ day: 0 })
+      }
     }
   },
   methods: {
@@ -319,7 +327,7 @@ export default {
   }
   .homeChart{
     margin: 0 !important;
-    border: 1px dashed #cccccc
+    // border: 1px dashed #cccccc
   }
 }
 .top-right{
@@ -422,7 +430,6 @@ export default {
         }
          .pie {
            flex: 1;
-          height: 300px;
         }
       }
     }

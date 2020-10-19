@@ -325,7 +325,7 @@ export default {
   }
   .homeChart{
     margin: 0 !important;
-    border: 1px dashed #cccccc
+    // border: 1px dashed #cccccc
   }
 }
 .top-right{
@@ -468,7 +468,8 @@ export default {
           }
         }
         .pie {
-          width: 200px;
+          flex: 1;
+          max-width: 200px;
           height: 255px;
         }
       }
@@ -543,11 +544,10 @@ export default {
   display: flex;
   // justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 }
 .pieFont{
   font-size: 14px;
-  margin-right: 30px;
-  margin-left: 20px;
 }
 .pieContent{
   display: flex;

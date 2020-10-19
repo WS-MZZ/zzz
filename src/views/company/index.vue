@@ -176,7 +176,9 @@ export default {
     ])
   },
   created() {
-    this.getEnterpriseList(this.searchCondition)
+    if (this.authMap && this.authMap.company.companyList.show) {
+      this.getEnterpriseList(this.searchCondition)
+    }
   },
   mounted() {
   },
