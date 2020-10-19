@@ -131,6 +131,7 @@ import pieChart from '@/components/PieChart/pieChart'
 import lineChart from '@/components/LineChart/lineChart'
 import homeChart from '@/components/LineChart/homeLineChart'
 import interfaceChart from '@/components/interfaceBarChart/interfaceBarChart'
+import { mapGetters } from 'vuex'
 import {
   getSysApplication,
   getTodayStatic,
@@ -184,7 +185,12 @@ export default {
       enterpiselist: []
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
   watch: {
     day(val) {
       this.click(val)
