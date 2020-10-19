@@ -51,7 +51,7 @@
               :align="item.align || 'left'"
               :prop="item.prop"
               :label="item.label"
-              :show-overflow-tooltip="true"
+              :show-overflow-tooltip="item.tooltip"
               :width="item.width"
               :min-width="item.minWidth"
               :fixed="item.fixed"
@@ -61,7 +61,9 @@
                   {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
                 </div>
                 <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" :style="{ color: 'rgb(64, 158, 255)' }" class="hands" @click="detail(scope.row)">
-                  {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+                  <div class="company_name">
+                    {{ scope.row[item.prop] || scope.row[item.prop] == 0 ? scope.row[item.prop] : '-' }}
+                  </div>
                 </el-link>
                 <el-image
                   v-else-if="item.prop == 'logoUrl'"
