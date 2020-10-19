@@ -148,7 +148,7 @@ export default {
     return {
       searchCondition: {
         name: '',
-        size: 10,
+        size: 20,
         page: '',
         sort: 'DESC'
       },
