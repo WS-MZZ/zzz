@@ -127,7 +127,7 @@ export default {
       searchCondition: {
         startDate: '',
         page: '',
-        size: 10,
+        size: 20,
         sort: 'DESC',
         endDate: '',
         sysApplicationId: ''

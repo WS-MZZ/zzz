@@ -159,7 +159,7 @@ export default {
         makeOutStartDate: '',
         makeOutEndDate: '',
         page: '',
-        size: 5,
+        size: 20,
         sort: 'DESC',
         fullFiledName: ''
       }
