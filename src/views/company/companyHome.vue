@@ -14,15 +14,15 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item label="状态：">
-                    <span>{{ enterpriseInfo.status == 'NORMAL' ? '正常' : enterpriseInfo.status == 'FREEZE' ? '冻结' : enterpriseInfo.status == 'EXPIRE' ? '过期' : '' }}</span>
+                  <el-form-item label="联系人：">
+                    <span>{{ enterpriseInfo.contact }}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item label="联系人：">
-                    <span>{{ enterpriseInfo.contact }}</span>
+                  <el-form-item label="状态：">
+                    <span>{{ enterpriseInfo.status == 'NORMAL' ? '正常' : enterpriseInfo.status == 'FREEZE' ? '冻结' : enterpriseInfo.status == 'EXPIRE' ? '过期' : '' }}</span>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -251,7 +251,6 @@ export default {
         border-radius: 5px;
         .time{
           margin-left: 80%;
-          margin-bottom: -30px;
           z-index: 99;
           cursor: pointer;
           .time1{

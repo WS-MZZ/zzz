@@ -47,16 +47,15 @@ export default {
           transitionDuration: 0// echart防止tooltip的抖动
         },
         legend: {
-          top: 5,
-          left: 140,
+          top: 0,
           padding: 5,
           data: ['访问次数', '失败次数']
         },
         grid: {
-          left: '2%',
-          right: '1%',
-          width: '95%',
-          bottom: '20%',
+          top: '45',
+          left: '40',
+          right: '40',
+          bottom: '30',
           containLabel: true
         },
         xAxis: {
@@ -170,11 +169,18 @@ export default {
 }
 </script>
 
+<style>
+.echarts {
+  width: 100%;
+  height: 100%;
+}
+</style>
+
 <style scoped>
 .chart{
-  height: calc(100vh - 504px)
+  height: calc(100vh - 534px)
 }
 /deep/ .echarts{
-    width: 100%;
+  width: 100%;
 }
 </style>

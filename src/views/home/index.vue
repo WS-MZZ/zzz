@@ -476,8 +476,8 @@ export default {
           }
         }
         .pie {
-          flex: 1;
-          max-width: 200px;
+          width: 200px;
+          margin-left: 5px;
           height: 255px;
         }
       }
@@ -490,7 +490,6 @@ export default {
       margin-top: 15px;
       .time {
         margin-left: 80%;
-        margin-bottom: -30px;
         z-index: 99;
         cursor: pointer;
         .time1 {
@@ -504,10 +503,6 @@ export default {
         .select {
           color: #20a0ff;
         }
-      }
-      .line {
-        padding-top: 20px;
-        padding-left: 1%;
       }
     }
   }

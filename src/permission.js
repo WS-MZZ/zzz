@@ -34,6 +34,7 @@ router.beforeEach(async(to, from, next) => {
       const hasGetUserInfo = store.getters.name
       const hasAuthInfo = store.getters.auth
       if (hasGetUserInfo && hasAuthInfo) {
+        await store.dispatch('user/getAuth')
         next()
       } else {
         try {

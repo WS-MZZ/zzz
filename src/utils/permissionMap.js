@@ -47,6 +47,8 @@ export function loadAuthInfo(authIds) {
     for (const key2 in perMissionMap[key1]) {
       if (authIds.indexOf(perMissionMap[key1][key2].id) !== -1) {
         perMissionMap[key1][key2].show = true
+      } else {
+        perMissionMap[key1][key2].show = false
       }
     }
   }
