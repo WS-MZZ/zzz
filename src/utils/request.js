@@ -52,7 +52,7 @@ service.interceptors.response.use(
     return res
   },
   error => {
-    if (/^4/.test(String(error.response.status)) || /^5/.test(String(error.response.status))) {
+    if (error.response && (/^4/.test(String(error.response.status)) || /^5/.test(String(error.response.status)))) {
       if (error.response.data.detail === '没有用户') {
         return Promise.reject(error.response.data || 'Error')
       }

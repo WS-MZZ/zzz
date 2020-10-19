@@ -114,6 +114,7 @@ import { changePassword } from '@/api/user'
 import { setToken } from '@/utils/auth'
 import { validPassword } from '@/utils/validate'
 import { updateThemeColor } from '@/api/theme'
+import store from '@/store'
 
 export default {
   components: {
@@ -185,6 +186,7 @@ export default {
         await this.$store.dispatch('user/logout')
         window.location.reload()
       } catch (e) {
+        store.dispatch('user/resetToken')
         setTimeout(() => {
           window.location.reload()
         }, 500)
