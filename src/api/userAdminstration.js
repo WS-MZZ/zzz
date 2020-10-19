@@ -67,11 +67,10 @@ export function freeThaw(id) {
   })
 }
 // 角色下拉框
-export function getRoleSelect(params) {
+export function getRoleSelect() {
   return request({
-    url: '/api/sysRole/page',
-    method: 'get',
-    params
+    url: '/api/sysRole/roleSelectBox',
+    method: 'get'
   })
 }
 

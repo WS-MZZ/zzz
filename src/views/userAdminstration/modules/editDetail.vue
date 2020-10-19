@@ -147,7 +147,7 @@ export default {
     // },
     // 角色下拉框
     roleSelect() {
-      getRoleSelect({ size: 1000 }).then(res => {
+      getRoleSelect().then(res => {
         console.log('角色', res)
         this.formRole = res.data
       })

@@ -198,7 +198,7 @@ export default {
     },
     // 角色下拉框
     roleSelect() {
-      getRoleSelect({ size: 1000 }).then(res => {
+      getRoleSelect().then(res => {
         res.data.forEach(item => {
           this.userRole.push({
             label: item.name,

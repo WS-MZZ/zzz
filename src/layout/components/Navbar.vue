@@ -66,7 +66,7 @@
             <div>
               <div class="blue colorChunck" />
               <div class="radiobox">
-                <el-radio v-model="selectedTheme" label="#409EFF">蓝色(默认)</el-radio>
+                <el-radio v-model="selectedTheme" label="#409EFF">蓝黑白</el-radio>
               </div>
             </div>
           </el-col>
@@ -74,7 +74,7 @@
             <div>
               <div class="green colorChunck" />
               <div class="radiobox">
-                <el-radio v-model="selectedTheme" label="#32B16C">绿色</el-radio>
+                <el-radio v-model="selectedTheme" label="#32B16C">绿黑白</el-radio>
               </div>
             </div>
           </el-col>
@@ -82,7 +82,7 @@
             <div>
               <div class="red colorChunck" />
               <div class="radiobox">
-                <el-radio v-model="selectedTheme" label="#B13232">红色</el-radio>
+                <el-radio v-model="selectedTheme" label="#B13232">红黑白</el-radio>
               </div>
             </div>
           </el-col>
@@ -90,7 +90,7 @@
             <div>
               <div class="grey colorChunck" />
               <div class="radiobox">
-                <el-radio v-model="selectedTheme" label="#AAAAAA">灰色</el-radio>
+                <el-radio v-model="selectedTheme" label="#AAAAAA">灰黑白</el-radio>
               </div>
             </div>
           </el-col>
