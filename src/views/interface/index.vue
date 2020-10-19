@@ -151,7 +151,7 @@ export default {
       searchCondition: {
         name: '',
         page: '',
-        size: 10,
+        size: 20,
         sort: 'DESC',
         status: '',
         sysEnterpriseId: ''
