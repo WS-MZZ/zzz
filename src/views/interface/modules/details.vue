@@ -327,7 +327,7 @@ export default {
   }
   .homeChart{
     margin: 0 !important;
-    border: 1px dashed #cccccc
+    // border: 1px dashed #cccccc
   }
 }
 .top-right{
@@ -430,7 +430,6 @@ export default {
         }
          .pie {
            flex: 1;
-          height: 300px;
         }
       }
     }
