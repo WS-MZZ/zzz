@@ -57,7 +57,7 @@
               :fixed="item.fixed"
             >
               <template slot-scope="scope">
-                <div v-if="item.prop == 'status'" :style="{ color: 'rgb(64, 158, 255)' }">
+                <div v-if="item.prop == 'status'">
                   {{ scope.row[item.prop] == 'NORMAL' ? '正常' : scope.row[item.prop] == 'FREEZE' ? '冻结' : scope.row[item.prop] == 'EXPIRE' ? '过期' : '' }}
                 </div>
                 <el-link v-else-if="item.prop == 'name' && authMap.company.companyMockLogin.show" :style="{ color: 'rgb(64, 158, 255)' }" class="hands" @click="detail(scope.row)">
