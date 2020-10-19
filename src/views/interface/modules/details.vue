@@ -424,7 +424,6 @@ export default {
         }
          .pie {
            flex: 1;
-          height: 300px;
         }
       }
     }

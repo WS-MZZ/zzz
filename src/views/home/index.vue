@@ -468,7 +468,8 @@ export default {
           }
         }
         .pie {
-          min-width: 200px;
+          flex: 1;
+          max-width: 200px;
           height: 255px;
         }
       }
@@ -543,10 +544,10 @@ export default {
   display: flex;
   // justify-content: space-between;
   align-items: center;
+  overflow: hidden;
 }
 .pieFont{
   font-size: 14px;
-  margin-left: 10px;
 }
 .pieContent{
   display: flex;
