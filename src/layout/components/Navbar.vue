@@ -98,7 +98,7 @@
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="cancelThemeForm">取 消</el-button>
-        <el-button :loading="loading" type="primary" @click="themeChange">确 定</el-button>
+        <el-button :style="{background: selectedTheme, borderColor: selectedTheme}" :loading="loading" type="primary" @click="themeChange">确 定</el-button>
       </span>
     </el-dialog>
   </div>
