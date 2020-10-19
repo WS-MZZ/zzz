@@ -62,7 +62,6 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .app-breadcrumb.el-breadcrumb {
   display: inline-block;
@@ -82,14 +81,5 @@ export default {
 <style>
 .el-breadcrumb__separator{
   color: #ffffff;
-}
-.el-breadcrumb__inner a:hover {
-  color:#606266!important;
-}
-.el-breadcrumb__separator {
-  color:#303133!important;
-}
-.el-breadcrumb__inner .no-redirect {
-  color:#606266!important;
 }
 </style>
