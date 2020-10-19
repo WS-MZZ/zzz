@@ -4,7 +4,7 @@
       ref="chart"
       :options="options"
       auto-resize
-      style="width: auto; height: 300px"
+      style="width: auto; height: 250px"
     />
   </div>
 </template>
