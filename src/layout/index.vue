@@ -7,7 +7,7 @@
         <navbar style="border-bottom: 1px solid #eeeeee" />
       </div>
       <app-main />
-      <Footer />
+      <!-- <Footer /> -->
     </div>
   </div>
 </template>

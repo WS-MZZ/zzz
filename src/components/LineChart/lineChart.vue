@@ -172,9 +172,9 @@ export default {
 
 <style scoped>
 .chart{
-  height: 433px
+  height: calc(100vh - 504px)
 }
-    /deep/ .echarts{
-        width: 100%;
-    }
+/deep/ .echarts{
+    width: 100%;
+}
 </style>
