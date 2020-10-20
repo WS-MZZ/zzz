@@ -97,8 +97,10 @@ export default {
     if (this.$route.query.types === 'edit') {
       this.userEditDetails(this.$route.query.id)
       this.showPassword = false
+      this.disabled = true
     } else {
       this.showPassword = true
+      this.disabled = false
     }
     this.roleSelect()
   },
