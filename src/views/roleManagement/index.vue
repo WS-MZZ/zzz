@@ -323,6 +323,9 @@ export default {
               if (index !== 0) {
                 childItem.disabled = true
               }
+              if (childItem.id === 802) {
+                childItem.disabled = false
+              }
             })
           }
           // item.child.forEach((childItem, index) => {
@@ -420,6 +423,9 @@ export default {
           indexItem.push(item.id)
           if (index !== 0) {
             item.disabled = true
+          }
+          if (item.id === 802) {
+            item.disabled = false
           }
         })
         const indexList = this.permissionIdList.filter(items => {
