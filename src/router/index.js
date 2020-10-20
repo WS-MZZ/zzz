@@ -76,7 +76,7 @@ export const constantRoutes1 = [
         path: 'companyDetail',
         name: 'companyDetail',
         component: () => import('@/views/company/companyDetail'),
-        meta: { title: '企业管理 / 新增企业', icon: 'dashboard' },
+        meta: { title: '企业管理 / 操作企业', icon: 'dashboard' },
         hidden: true
       },
       {
@@ -114,7 +114,7 @@ export const constantRoutes1 = [
         path: 'addDetail',
         name: 'addDetail',
         component: () => import('@/views/interface/modules/addDetail'),
-        meta: { title: '应用授权管理 / 新增应用', icon: 'table' },
+        meta: { title: '应用授权管理 / 操作应用', icon: 'table' },
         hidden: true
       },
       {
@@ -159,14 +159,14 @@ export const constantRoutes1 = [
         path: 'addUserAdminstration',
         name: 'addUserAdminstration',
         component: () => import('@/views/userAdminstration/modules/addUserAdminstration'),
-        meta: { title: '新增用户', icon: 'table' },
+        meta: { title: '操作用户', icon: 'table' },
         hidden: true
       },
       {
         path: 'editDetail',
         name: 'editDetail',
         component: () => import('@/views/userAdminstration/modules/editDetail'),
-        meta: { title: '编辑用户', icon: 'table' },
+        meta: { title: '操作用户', icon: 'table' },
         hidden: true
       },
       {
