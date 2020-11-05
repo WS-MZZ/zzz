@@ -5,8 +5,8 @@ stages:
 variables:
   GROUP_NAME: "copeople"
   PROJECT_NAME: "admin-saas"
-  DOMAIN_DEVELOP: 'saas.admin.copeople.dev.aks.chilunyc.com'
-  DOMAIN_DEMO: 'saas.admin.copeople.demo.aks.chilunyc.com'
+  DOMAIN_DEVELOP: 'saas.copeople.dev.aks.chilunyc.com'
+  DOMAIN_DEMO: 'saas.copeople.demo.aks.chilunyc.com'
   IMAGE_REPOSITORY: '${GROUP_NAME}-${PROJECT_NAME}:v${CI_PIPELINE_ID}'
   FARM_TRACK_CODE: 24C4lK93
 

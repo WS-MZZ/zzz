@@ -17,10 +17,14 @@ spec:
   - host: ${domain}
     http:
       paths:
-      - path: /
+      - path: /admin
         backend:
           serviceName: ${project_name}
           servicePort: 80
+      - path: /firm
+          backend:
+            serviceName: admin-firm
+            servicePort: 80
   tls:
   - hosts:
     - ${domain}
