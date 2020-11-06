@@ -21,6 +21,7 @@
 <script>
 /* eslint-disable prefer-const */
 import { getEnterpriseListOfApp, updateApplication } from '@/api/applications'
+import { mapGetters } from 'vuex'
 export default {
   name: 'BuyDialog',
   props: {
@@ -38,8 +39,16 @@ export default {
       application: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'userInfo',
+      'authMap'
+    ])
+  },
   created() {
-    this.getEnterpriseListOfApp()
+    if (this.authMap && this.authMap.interface.applicationEdit.show) {
+      this.getEnterpriseListOfApp()
+    }
   },
   methods: {
     getEnterpriseListOfApp(params) {
