@@ -24,7 +24,7 @@
           <span class="name">{{ name }}</span>
           <i class="el-icon-caret-bottom" />
         </div>
-        <el-dropdown-menu slot="dropdown" class="user-dropdown">
+        <el-dropdown-menu slot="dropdown" class="user-dropdown selectMinimum">
           <router-link to="/personalInfo">
             <el-dropdown-item>个人信息</el-dropdown-item>
           </router-link>
@@ -402,7 +402,9 @@ export default {
       margin-top: 5px;
       text-align: center;
     }
-
   }
+}
+.selectMinimum {
+  min-width: 98px;
 }
 </style>

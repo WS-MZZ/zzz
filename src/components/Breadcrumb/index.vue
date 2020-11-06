@@ -35,7 +35,6 @@ export default {
       if (!this.isDashboard(first)) {
         matched = [{ path: '/home', meta: { title: 'sass管理后台' }}].concat(matched)
       }
-
       this.levelList = matched.filter(item => item.meta && item.meta.title && item.meta.breadcrumb !== false)
     },
     isDashboard(route) {

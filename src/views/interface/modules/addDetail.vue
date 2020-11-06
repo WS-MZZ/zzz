@@ -210,6 +210,7 @@ export default {
       padding-top: 20px;
       .but{
         margin-left: 120px;
+        height: 80px;
       }
     }
   }
@@ -222,6 +223,13 @@ export default {
   }
   ::v-deep .el-transfer-panel {
     width:300px;
+  }
+  .dashboard-text {
+    height: 100%;
+    overflow-y: scroll;
+  }
+  .dashboard-text::-webkit-scrollbar {
+    width:0;
   }
 </style>
 

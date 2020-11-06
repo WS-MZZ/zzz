@@ -257,4 +257,11 @@ export default {
   .btnStyle{
       text-align: center;
   }
+  .dashboard-text {
+    height: 100%;
+    overflow-y: scroll;
+  }
+.dashboard-text::-webkit-scrollbar {
+  width:0;
+}
 </style>

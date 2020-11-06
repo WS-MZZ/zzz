@@ -190,4 +190,10 @@ export default {
   ::v-deep .pan-item {
     margin: 0!important;
   }
+.dashboard-text {
+  overflow-y: scroll;
+}
+.dashboard-text::-webkit-scrollbar {
+  width:0;
+}
 </style>
