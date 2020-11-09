@@ -54,9 +54,11 @@
         <el-form-item label="footer：" prop="footer">
           <el-input v-model="form.footer" size="middle" maxlength="100" />
         </el-form-item>
-        <div class="but">
-          <el-button :loading="loading" type="primary" size="middle" @click="submit">提交</el-button>
-        </div>
+        <el-form-item>
+          <div class="but">
+            <el-button :loading="loading" type="primary" size="middle" @click="submit">提交</el-button>
+          </div>
+        </el-form-item>
       </el-form>
     </div>
   </div>

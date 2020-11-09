@@ -65,7 +65,7 @@ export default {
   methods: {
     calculateTableHeight() {
       const tableOffsetTop = this.$refs.table.offsetTop
-      return window.innerHeight - tableOffsetTop - 192 + 40
+      return window.innerHeight - tableOffsetTop - 192
     },
     handleSizeChange(pageSize) {
       console.log(pageSize)
