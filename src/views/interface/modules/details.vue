@@ -209,7 +209,7 @@ export default {
         this.distributions({ sysApplicationId: this.id })
         this.contentVist({ sysApplicationId: this.id })
         this.contentTop({ sysApplicationId: this.id, day: 30 })
-        this.enterpriseRanks({ day: 0 })
+        this.enterpriseRanks({ sysApplicationId: this.id, day: 0 })
       }
     }
   },

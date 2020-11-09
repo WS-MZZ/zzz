@@ -77,7 +77,7 @@
                       <el-button v-if="scope.row.status==='NORMAL'" :style="{ color: 'rgb(64, 158, 255)' }" class="mgr" type="text" size="small" @click="freeze(scope.row.id)">冻结</el-button>
                     </div>
                     <div>
-                      <el-button v-if="scope.row.status==='FREEZE'" :style="{ color: 'rgb(64, 158, 255)' }" class="mgr" type="text" size="small" @click="freeThaws(scope.row)">解冻</el-button>
+                      <el-button v-if="scope.row.status==='FREEZE'" :style="{ color: 'rgb(64, 158, 255)' }" class="mgr" type="text" size="small" @click="freeThaws(scope.row.id)">解冻</el-button>
                     </div>
                   </div>
                   <div v-if="authMap.userManagement.userDelete.show">
