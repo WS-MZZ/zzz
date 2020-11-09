@@ -38,21 +38,23 @@ export default {
           },
           axisLabel: {
             color: 'black',
-            formatter: function(params, index) {
-              return (index + 1) + '     ' + params
+            formatter: function(val, index) {
+              var strs = val.split('') // 字符串数组
+              var str = ''
+              for (var i = 0, s; s = strs[i++];) { // 遍历字符串数组
+                str += s
+                if (!(i % 16)) str += '\n' // 按需要求余
+              }
+              return (index + 1) + ' ' + str
             },
             textStyle: {
-              align: 'left', // 设置左对齐
-              baseline: 'middle',
-              fontSize: 16
-            },
-            margin: 250
+              fontSize: 13
+            }
           }
         },
         grid: {
-          left: '18%',
-          right: '0%',
-          width: '70%',
+          left: '30%',
+          width: '50%',
           bottom: '20%',
           containLabel: false
         },
