@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authMap.system.sysConfiguration.show" class="dashboard-container" style="overflow:scroll;height:100%">
+  <div v-if="authMap.system.sysConfiguration.show" class="dashboard-container" style="height:100%;">
     <div class="dashboard-text">
       <el-form ref="form" :model="form" label-width="120px" :rules="rules">
         <el-form-item label="logo：">
@@ -173,5 +173,8 @@ export default {
   }
   .dashboard-text::-webkit-scrollbar {
     width:0;
+  }
+  .app-main[data-v-078753dd] {
+    height: calc(100vh - 100px);
   }
 </style>
