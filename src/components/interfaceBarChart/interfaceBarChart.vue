@@ -46,19 +46,20 @@ export default {
               baseline: 'middle',
               fontSize: 16
             },
-            margin: 200
+            margin: 250
           }
         },
         grid: {
-          left: '13%',
+          left: '18%',
           right: '0%',
-          width: '95%',
+          width: '70%',
           bottom: '20%',
           containLabel: false
         },
         series: [{
           data: [],
           type: 'bar',
+          barWidth: '30px',
           yAxisIndex: 0,
           label: {
             show: true,
@@ -74,9 +75,9 @@ export default {
     }
   },
   watch: {
-    // enterpiselist() {
-    //   this.enterpriseContent()
-    // }
+    enterpiselist() {
+      this.enterpriseContent()
+    }
   },
   mounted() {
     const erd = elementResizeDetectorMaker()
@@ -91,6 +92,8 @@ export default {
   },
   methods: {
     enterpriseContent() {
+      this.options.yAxis.data = []
+      this.options.series[0].data = []
       this.enterpiselist.forEach(item => {
         console.log(item)
         this.options.yAxis.data.push(item.key)
@@ -105,7 +108,7 @@ export default {
 .chart{
   height: 300px;
 }
- /deep/ .echarts{
-        width: 100%;
-    }
+ /*/deep/ .echarts{*/
+ /*       width: 90%;*/
+ /*   }*/
 </style>
