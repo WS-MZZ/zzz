@@ -166,4 +166,12 @@ export default {
   span{
     color: #999999;
   }
+  .dashboard-text {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+  .dashboard-text::-webkit-scrollbar {
+    width:0;
+  }
 </style>
