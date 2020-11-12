@@ -207,6 +207,7 @@ export default {
     resetSearchCondition() {
       this.searchCondition.name = ''
       this.searchCondition.status = ''
+      this.getApplicationList(this.searchCondition)
     },
     add() {
       this.$router.push({

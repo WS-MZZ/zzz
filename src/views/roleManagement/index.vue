@@ -231,7 +231,8 @@ export default {
     },
     // 重置
     resetSearchCondition() {
-      this.roleName = ''
+      this.searchCondition.name = ''
+      this.roleList()
     },
     // 表格列表
     roleList() {

@@ -233,6 +233,7 @@ export default {
       this.searchCondition.fullFiledName = ''
       this.createRange = []
       this.makeOutRange = []
+      this.getInvoiceList(this.searchCondition)
     },
     getColumnConfig() {
       getInvoiceListColumnConfig().then(res => {

@@ -160,6 +160,7 @@ export default {
     },
     resetSearchCondition() {
       this.searchCondition = { ...defaultForm }
+      this.getSystemList(this.searchCondition)
     }
   }
 }

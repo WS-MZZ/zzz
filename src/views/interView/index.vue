@@ -215,6 +215,7 @@ export default {
     resetSearchCondition() {
       this.searchCondition.sysApplicationId = ''
       this.timeRange = []
+      this.getInterfaceRecordList(this.searchCondition)
     }
   }
 }

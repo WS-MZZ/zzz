@@ -124,7 +124,8 @@ export default {
         name: '',
         page: '',
         size: 20,
-        sort: 'DESC'
+        sort: 'DESC',
+        status: ''
       },
       tableHeader: [
         {
@@ -227,6 +228,7 @@ export default {
     resetSearchCondition() {
       this.searchCondition.name = ''
       this.searchCondition.status = ''
+      this.getEnterpriseList(this.searchCondition)
     },
     handleClick(row) {
       this.$router.push({

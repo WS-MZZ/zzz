@@ -193,8 +193,10 @@ export default {
     },
     // 重置
     resetSearchCondition() {
-      this.searchCondition.userRole = ''
+      this.searchCondition.sysRoleId = ''
       this.searchCondition.status = ''
+      this.searchCondition.name = ''
+      this.userList(this.searchCondition)
     },
     // 角色下拉框
     roleSelect() {
