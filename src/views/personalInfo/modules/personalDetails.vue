@@ -41,45 +41,53 @@
 import regexps from '@/utils/regexps'
 import { mapGetters } from 'vuex'
 import { updateUserInfo } from '@/api/user'
-
+const validatePhone = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入手机号'))
+  } else {
+    if (!/^1[3456789]\d{9}$/.test(value)) {
+      callback(new Error('请输入正确的手机号'))
+    } else {
+      callback()
+    }
+  }
+}
 export default {
   name: 'PersonalDetails',
   comments: {},
   props: {
     isEdit: {
       type: Boolean,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       rules: {
         username: [
-          { message: '请输入姓名', trigger: 'change', required: true },
+          { message: '请输入姓名', trigger: 'change', required: true }
         ],
         email: [
           {
             pattern: regexps.email,
             message: '请输入正确的邮箱',
             trigger: 'blur',
-            required: true,
-          },
+            required: true
+          }
         ],
-        mobilePhone: [
-          {
-            pattern: regexps.mobile,
-            message: '请输入正确的手机号',
-            trigger: 'blur',
-            required: true,
-          },
-        ],
+        mobilePhone: {
+          required: true,
+          validator: validatePhone,
+          message: '请输入正确的手机号',
+          trigger: 'blur'
+        }
       },
       form: '',
-      isDisable: false,
+      isDisable: false
     }
   },
   computed: {
-    ...mapGetters(['userInfo']),
+    ...mapGetters(['userInfo'])
   },
   created() {
     this.form = { ...this.userInfo }
@@ -96,7 +104,7 @@ export default {
               type: 'success',
               onClose: () => {
                 this.$router.go(0)
-              },
+              }
             })
           })
         } else {
@@ -111,8 +119,8 @@ export default {
     },
     edit() {
       // this.$emit('submit', true)
-    },
-  },
+    }
+  }
 }
 </script>
 
