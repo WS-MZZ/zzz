@@ -7,7 +7,7 @@
             v-for="item in applicationList"
             :key="item.id"
             :label="item.name"
-            :value="item.appId"
+            :value="item.id"
           />
         </el-select>
         <el-date-picker
@@ -181,6 +181,7 @@ export default {
       })
     },
     getInterfaceRecordList(searchCondition) {
+      console.log('searchCondition', searchCondition)
       this.loading = true
       getInterfaceRecordList(searchCondition).then(res => {
         this.loading = false
@@ -196,6 +197,7 @@ export default {
         size: 10000,
         sort: 'DESC'
       }).then(res => {
+        console.log('企业Content', res)
         this.applicationList = res.data
       })
     },
