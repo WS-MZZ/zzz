@@ -22,7 +22,7 @@
         <el-form-item label="工号">
           <el-input v-model="form.workNo" size="middle" />
         </el-form-item>
-        <el-form-item label="手机号">
+        <el-form-item label="手机号" prop="mobilePhone">
           <el-input v-model="form.mobilePhone" size="middle" />
         </el-form-item>
         <el-form-item label="英文名">
@@ -57,6 +57,17 @@ var checkEmail = (rule, value, callback) => {
     }
   }, 100)
 }
+const validatePhone = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入手机号'))
+  } else {
+    if (!/^1[3456789]\d{9}$/.test(value)) {
+      callback(new Error('请输入正确的手机号'))
+    } else {
+      callback()
+    }
+  }
+}
 export default {
   name: 'EditDetail',
   data() {
@@ -83,6 +94,7 @@ export default {
         password: { required: true, message: '请输入密码', trigger: 'blur' },
         username: { required: true, message: '请输入姓名', trigger: 'blur' },
         email: { required: true, validator: checkEmail, trigger: 'blur' },
+        mobilePhone: { required: true, validator: validatePhone, trigger: 'change' },
         sysRoleIdList: { required: true, message: '请选择角色', trigger: 'change' }
       },
       labelPosition: 'right',
@@ -168,6 +180,7 @@ export default {
           accountNo: { required: true, message: '请输入账号', trigger: 'blur' },
           username: { required: true, message: '请输入姓名', trigger: 'blur' },
           email: { required: true, validator: checkEmail, trigger: 'blur' },
+          mobilePhone: { required: true, validator: validatePhone, trigger: 'change' },
           sysRoleIdList: { required: true, message: '请选择角色', trigger: 'change' }
         }
       } else {
@@ -180,6 +193,7 @@ export default {
           password: { required: true, message: '请输入密码', trigger: 'blur' },
           username: { required: true, message: '请输入姓名', trigger: 'blur' },
           email: { required: true, validator: checkEmail, trigger: 'blur' },
+          mobilePhone: { required: true, validator: validatePhone, trigger: 'change' },
           sysRoleIdList: { required: true, message: '请选择角色', trigger: 'change' }
         }
       }
