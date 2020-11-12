@@ -184,6 +184,7 @@ export default {
     async logout() {
       try {
         await this.$store.dispatch('user/logout')
+        window.history.replaceState('', '', '/login')
         window.location.reload()
       } catch (e) {
         store.dispatch('user/resetToken')
