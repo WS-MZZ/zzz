@@ -155,9 +155,9 @@ export default {
       } else {
         this.todaylist.forEach(item => {
           if (item.key.split('')[0] === '0') {
-            item.key = item.key.split('')[1] + ':00'
+            item.key = item.key.split('')[1] + ''
           } else {
-            item.key = item.key + ':00'
+            item.key = item.key + ''
           }
           this.options.xAxis.data.push(item.key)
           this.options.series[0].data.push(item.totalCount)
