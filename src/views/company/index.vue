@@ -199,8 +199,8 @@ export default {
       getEnterToken(data.id).then(res => {
         // console.log('id_token', res)
         // Cookies.set('id_token', res.id_token, { domain: 'copeople.dev.aks.chilunyc.com' })
-        window.open(`${process.env.VUE_APP_BASE_API}/#/home?id_token=` + res.id_token)
-        console.log(`${process.env.VUE_APP_BASE_API}/#/home?id_token=` + res.id_token)
+        window.open(`${process.env.VUE_APP_BASE_API}/firm/home?id_token=` + res.id_token)
+        console.log(`${process.env.VUE_APP_BASE_API}/home?id_token=` + res.id_token)
       })
     },
     getEnterpriseList(searchCondition) {
