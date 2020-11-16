@@ -53,7 +53,17 @@
 // import regexps from '@/utils/regexps'
 import ImgUpload from '@/views/system/modules/imgUpload'
 import { createEnterprise, updateEnterprise, getEnterpriseDetail } from '@/api/enterprise'
-
+const validatePhone = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入手机号'))
+  } else {
+    if (!/^1[3456789]\d{9}$/.test(value)) {
+      callback(new Error('请输入正确的手机号'))
+    } else {
+      callback()
+    }
+  }
+}
 export default {
   name: 'CompanyDetail',
   components: {
@@ -81,12 +91,11 @@ export default {
           { message: '请输入邮箱', trigger: 'blur', required: true }
         ],
         mobilePhone: [
-          { message: '请输入手机号', trigger: 'blur', required: true }
+          { message: '请输入手机号', trigger: 'blur', required: true, validator: validatePhone }
         ],
         expireDate: [
           { message: '请输入截止日期', trigger: 'blur', required: true }
         ]
-
       },
       dialogImageUrl: '',
       dialogVisible: false,
