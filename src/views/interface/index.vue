@@ -13,7 +13,7 @@
         <el-input
           v-model="searchCondition.name"
           size="medium"
-          placeholder="请输入应用名称"
+          placeholder="请输入应用名称/企业名称"
           class="search-input"
         />
       </div>
