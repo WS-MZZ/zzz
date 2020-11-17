@@ -91,7 +91,7 @@ export default {
           { message: '请输入邮箱', trigger: 'blur', required: true }
         ],
         mobilePhone: [
-          { message: '请输入手机号', trigger: 'blur', required: true, validator: validatePhone }
+          { trigger: 'change', required: true, validator: validatePhone }
         ],
         expireDate: [
           { message: '请输入截止日期', trigger: 'blur', required: true }
