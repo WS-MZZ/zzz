@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog :visible="visible" class="dialog-dialog" title="购套配置" width="45%" @close="cancle">
+    <el-dialog :visible="visible" class="dialog-dialog" title="帐套配置" width="45%" @close="cancle">
       <el-transfer
         v-model="value"
         style="text-align: left; display: inline-block"

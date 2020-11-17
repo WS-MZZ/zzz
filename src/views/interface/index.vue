@@ -115,7 +115,7 @@ export default {
         },
         {
           prop: 'sysEnterpriseCount',
-          label: '购套数量'
+          label: '帐套数量'
           // width: '160'
         },
         {
