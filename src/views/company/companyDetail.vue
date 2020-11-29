@@ -11,7 +11,7 @@
             :width="200"
             :height="200"
             :image="logoUrl"
-            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
             @onSuccess="dealUpload"
           />
           <span>建议尺寸：200*100</span>

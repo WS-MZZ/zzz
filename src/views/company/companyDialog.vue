@@ -8,7 +8,7 @@
             :width="400"
             :height="200"
             :image="form.logoUrl"
-            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
             @onSuccess="dealUpload"
           />
           <el-input v-model="form.logoUrl" style="display: none;" />

@@ -8,7 +8,7 @@
             :width="400"
             :height="200"
             :image="form.logo"
-            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
             @onSuccess="dealUpload($event, 'logo')"
           />
           <span>建议尺寸：400*200</span>
@@ -19,7 +19,7 @@
             :width="400"
             :height="200"
             :image="form.leftLogo"
-            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
             @onSuccess="dealUpload($event, 'leftLogo')"
           />
           <span>建议尺寸：300*50</span>
@@ -30,7 +30,7 @@
             :width="1920"
             :height="1080"
             :image="form.backgroundUrl"
-            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
             @onSuccess="dealUpload($event, 'backgroundUrl')"
           />
           <span>建议尺寸：1920*800</span>
@@ -46,7 +46,7 @@
             img-width="50px"
             img-height="50px"
             :image="form.favicon"
-            url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+            :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
             @onSuccess="dealUpload($event, 'favicon')"
           />
           <span>建议尺寸：20*20</span>

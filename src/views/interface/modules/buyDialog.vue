@@ -53,6 +53,7 @@ export default {
   methods: {
     getEnterpriseListOfApp(params) {
       getEnterpriseListOfApp(params).then(res => {
+        console.log('params', res)
         this.allEnterpriseIdList = res.allEnterpriseIdList
         this.data = res.allEnterpriseIdList.map((item, index) => {
           return {

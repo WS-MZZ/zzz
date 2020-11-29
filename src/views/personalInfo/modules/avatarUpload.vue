@@ -10,7 +10,7 @@
       :key="imagecropperKey"
       :width="300"
       :height="300"
-      url="https://api.saas.copeople.dev.aks.chilunyc.com/api/file/v1"
+      :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
       lang-type="zh"
       @close="close"
       @crop-upload-success="cropSuccess"
