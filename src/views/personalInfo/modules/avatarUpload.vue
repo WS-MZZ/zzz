@@ -10,7 +10,7 @@
       :key="imagecropperKey"
       :width="300"
       :height="300"
-      :url="`${process.env.VUE_APP_BASE_API}/api/file/v1`"
+      :url="apiPoint+'/api/file/v1'"
       lang-type="zh"
       @close="close"
       @crop-upload-success="cropSuccess"
