@@ -29,6 +29,7 @@ export default {
   components: { ImageCropper, PanThumb },
   data() {
     return {
+       apiPoint: process.env.VUE_APP_BASE_API,
       imagecropperShow: false,
       imagecropperKey: 0
     }

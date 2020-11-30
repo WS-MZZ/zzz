@@ -71,6 +71,7 @@ export default {
   },
   data() {
     return {
+       apiPoint: process.env.VUE_APP_BASE_API,
       loading: false,
       form: {},
       logoUrl: '',

@@ -49,6 +49,7 @@ export default {
   },
   data() {
     return {
+       apiPoint: process.env.VUE_APP_BASE_API,
       loading: false,
       form: {},
       text: '建议尺寸：400*200',
