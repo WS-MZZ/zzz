@@ -50,7 +50,7 @@
 
 <script>
 
-// import regexps from '@/utils/regexps'
+import regexps from '@/utils/regexps'
 import ImgUpload from '@/views/system/modules/imgUpload'
 import { createEnterprise, updateEnterprise, getEnterpriseDetail } from '@/api/enterprise'
 const validatePhone = (rule, value, callback) => {
@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-       apiPoint: process.env.VUE_APP_BASE_API,
+      apiPoint: process.env.VUE_APP_BASE_API,
       loading: false,
       form: {},
       logoUrl: '',
@@ -89,7 +89,12 @@ export default {
           { message: '请输入密码', trigger: 'blur', required: true }
         ],
         email: [
-          { message: '请输入邮箱', trigger: 'blur', required: true }
+          {
+            pattern: regexps.email,
+            message: '请输入正确的邮箱',
+            trigger: 'blur',
+            required: true
+          }
         ],
         mobilePhone: [
           { trigger: 'change', required: true, validator: validatePhone }
