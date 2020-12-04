@@ -59,7 +59,7 @@ export default {
           return {
             key: item.id,
             label: item.name,
-            disabled: item.status !== 'NORMAL'
+            disabled: item.status === 'FREEZE'
           }
         })
         if (res.selectEnterpriseIdList) {
