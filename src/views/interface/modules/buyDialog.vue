@@ -59,7 +59,7 @@ export default {
           return {
             key: item.id,
             label: item.name,
-            disabled: item.status === 'FREEZE'
+            disabled: item.status === 'FREEZE' && item.isExpired === false
           }
         })
         if (res.selectEnterpriseIdList) {
