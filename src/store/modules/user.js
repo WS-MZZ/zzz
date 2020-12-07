@@ -45,7 +45,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password, sysCode: 'sass' }).then(response => {
+      login({ username: username.trim(), password: password}).then(response => {
         commit('SET_TOKEN', response.id_token)
         setToken(response.id_token) // 存入cookie
         resolve()
