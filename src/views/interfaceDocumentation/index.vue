@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authMap.interfaceDoc.interfaceDocList.show" class="app-main">
+  <div v-if="authMap.interfaceDoc.interfaceDocList.show" style="margin-bottom: 20px">
     <div class="layout-module interfaceDocumentation">
       <div class="menu-nav block-wrapper">
         <el-row class="tac">
@@ -15,8 +15,47 @@
                   <span>合同类</span>
                 </template>
                 <el-menu-item-group>
+                  <el-menu-item index="7" @click="selectMod('AddSales')">新增销售合同</el-menu-item>
+                  <el-menu-item index="8" @click="selectMod('ModifySales')">修改销售合同</el-menu-item>
+                  <el-menu-item index="3" @click="selectMod('AddPurash')">新增采购合同</el-menu-item>
+                  <el-menu-item index="4" @click="selectMod('ModifyPurash')">修改采购合同</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="2">
+                <template slot="title">
+                  <span>发票类</span>
+                </template>
+                <el-menu-item-group>
                   <el-menu-item index="1" @click="selectMod('InterfaceContent')">新增发票</el-menu-item>
                   <el-menu-item index="2" @click="selectMod('ModifyInvoice')">修改发票</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="3">
+                <template slot="title">
+                  <span>订单类</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="5" @click="selectMod('AddPurashOrder')">新增采购订单</el-menu-item>
+                  <el-menu-item index="6" @click="selectMod('ModifyPurashOrder')">修改采购订单</el-menu-item>
+                  <el-menu-item index="9" @click="selectMod('AddSalesOrder')">新增销售订单</el-menu-item>
+                  <el-menu-item index="10" @click="selectMod('AddSalesOrder')">修改销售订单</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="4">
+                <template slot="title">
+                  <span>报销类</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="11" @click="selectMod('addReimbursement')">新增报销单</el-menu-item>
+                  <el-menu-item index="12" @click="selectMod('modifyReimbursement')">修改报销单</el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+              <el-submenu index="5">
+                <template slot="title">
+                  <span>公共类</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="13" @click="selectMod('UploadFile')">上传单个文件</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -36,12 +75,32 @@
 <script>
 import InterfaceContent from '@/views/interfaceDocumentation/modules/interfaceContent'
 import ModifyInvoice from '@/views/interfaceDocumentation/modules/modifyInvoice'
+import AddPurash from '@/views/interfaceDocumentation/modules/addPurash'
+import ModifyPurash from '@/views/interfaceDocumentation/modules/modifyPurash'
+import AddPurashOrder from '@/views/interfaceDocumentation/modules/addPurashOrder'
+import ModifyPurashOrder from '@/views/interfaceDocumentation/modules/modifyPurashOrder'
+import AddSales from '@/views/interfaceDocumentation/modules/addSales'
+import ModifySales from '@/views/interfaceDocumentation/modules/modifySales'
+import AddSalesOrder from '@/views/interfaceDocumentation/modules/addSalesOrder'
+import addReimbursement from '@/views/interfaceDocumentation/modules/addReimbursement'
+import modifyReimbursement from '@/views/interfaceDocumentation/modules/modifyReimbursement'
+import UploadFile from '@/views/interfaceDocumentation/modules/uploadFile'
 import { mapGetters } from 'vuex'
 export default {
   name: 'InterfaceDocumentation',
   components: {
     InterfaceContent,
-    ModifyInvoice
+    ModifyInvoice,
+    AddPurash,
+    ModifyPurash,
+    AddPurashOrder,
+    ModifyPurashOrder,
+    AddSales,
+    ModifySales,
+    AddSalesOrder,
+    addReimbursement,
+    modifyReimbursement,
+    UploadFile
   },
   data() {
     return {
@@ -111,7 +170,7 @@ export default {
   min-width: 140px;
 }
 .app-main{
-  overflow:scroll ;
+  //overflow:scroll;
 }
 .zz{
   display: block;
