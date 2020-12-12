@@ -125,7 +125,7 @@ export default {
       if (this.passwordType === 'password') {
         this.passwordType = ''
       } else {
-        this.passwordType = 'password'
+        this.passwordType =  'password'
       }
       this.$nextTick(() => {
         this.$refs.password.focus()
