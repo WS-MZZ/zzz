@@ -171,7 +171,10 @@ export default {
       setColor: [
         'setRed',
         'setYello',
-        'setBlue'
+        'setBlue',
+        'setGreen',
+        'setOrigin',
+        'setBlack'
       ],
       todaylist: [],
       toptraffice: [
@@ -516,6 +519,7 @@ export default {
 .setBlue {
   background: #5CAFFF;
 }
+
 .homeChart{
   margin-top: 10px;
   margin-right: 20px;

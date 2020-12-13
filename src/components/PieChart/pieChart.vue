@@ -29,7 +29,7 @@ export default {
           formatter: '{b} : {c} ({d}%)',
           transitionDuration: 0 // echart防止tooltip的抖动
         },
-        color: ['#F57A71', '#5CAFFF', '#FFEE7B'],
+        color: ['#F57A71', '#5CAFFF', '#FFEE7B', '#9fdabf', '#e98f6f', '#334b5c'],
         series: [
           {
             type: 'pie',

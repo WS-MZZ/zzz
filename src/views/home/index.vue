@@ -186,8 +186,11 @@ export default {
       visible: false,
       setColor: [
         'setRed',
+        'setBlue',
         'setYello',
-        'setBlue'
+        'setGreen',
+        'setOrigin',
+        'setBlack'
       ],
       todaylist: [],
       toptraffice: [
@@ -566,11 +569,20 @@ export default {
 .setRed{
   background: #F57A71;
 }
+.setBlue {
+  background: #5CAFFF;
+}
 .setYello {
   background: #FFEE7B;
 }
-.setBlue {
-  background: #5CAFFF;
+.setGreen {
+  background: #9fdabf;
+}
+.setOrigin {
+  background: #e98f6f;
+}
+.setBlack {
+  background: #334b5c;
 }
 .applicatClass{
   width: 25px;
