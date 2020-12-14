@@ -66,7 +66,7 @@ export default {
       top: 0;
     }
     .main-container {
-      min-width: 1200px;
+      min-width: 1400px;
     }
   }
   .drawer-bg {
