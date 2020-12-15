@@ -12,50 +12,50 @@
             >
               <el-submenu index="1">
                 <template slot="title">
-                  <span>合同类</span>
+                  <span>公共类</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="7" @click="selectMod('AddSales')">新增销售合同</el-menu-item>
-                  <el-menu-item index="8" @click="selectMod('ModifySales')">修改销售合同</el-menu-item>
-                  <el-menu-item index="3" @click="selectMod('AddPurash')">新增采购合同</el-menu-item>
-                  <el-menu-item index="4" @click="selectMod('ModifyPurash')">修改采购合同</el-menu-item>
+                  <el-menu-item index="1" @click="selectMod('UploadFile')">上传单个文件</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="2">
                 <template slot="title">
-                  <span>发票类</span>
+                  <span>合同类</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="1" @click="selectMod('InterfaceContent')">新增发票</el-menu-item>
-                  <el-menu-item index="2" @click="selectMod('ModifyInvoice')">修改发票</el-menu-item>
+                  <el-menu-item index="17" @click="selectMod('AddSales')">新增销售合同</el-menu-item>
+                  <el-menu-item index="14" @click="selectMod('ModifySales')">修改销售合同</el-menu-item>
+                  <el-menu-item index="15" @click="selectMod('AddPurash')">新增采购合同</el-menu-item>
+                  <el-menu-item index="16" @click="selectMod('ModifyPurash')">修改采购合同</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="3">
                 <template slot="title">
-                  <span>订单类</span>
+                  <span>发票类</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="5" @click="selectMod('AddPurashOrder')">新增采购订单</el-menu-item>
-                  <el-menu-item index="6" @click="selectMod('ModifyPurashOrder')">修改采购订单</el-menu-item>
-                  <el-menu-item index="9" @click="selectMod('AddSalesOrder')">新增销售订单</el-menu-item>
-                  <el-menu-item index="10" @click="selectMod('AddSalesOrder')">修改销售订单</el-menu-item>
+                  <el-menu-item index="6" @click="selectMod('InterfaceContent')">新增发票</el-menu-item>
+                  <el-menu-item index="7" @click="selectMod('ModifyInvoice')">修改发票</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="4">
                 <template slot="title">
-                  <span>报销类</span>
+                  <span>订单类</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="11" @click="selectMod('addReimbursement')">新增报销单</el-menu-item>
-                  <el-menu-item index="12" @click="selectMod('modifyReimbursement')">修改报销单</el-menu-item>
+                  <el-menu-item index="8" @click="selectMod('AddPurashOrder')">新增采购订单</el-menu-item>
+                  <el-menu-item index="9" @click="selectMod('ModifyPurashOrder')">修改采购订单</el-menu-item>
+                  <el-menu-item index="10" @click="selectMod('AddSalesOrder')">新增销售订单</el-menu-item>
+                  <el-menu-item index="11" @click="selectMod('ModifySalesOrder')">修改销售订单</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
               <el-submenu index="5">
                 <template slot="title">
-                  <span>公共类</span>
+                  <span>报销类</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="13" @click="selectMod('UploadFile')">上传单个文件</el-menu-item>
+                  <el-menu-item index="12" @click="selectMod('addReimbursement')">新增报销单</el-menu-item>
+                  <el-menu-item index="13" @click="selectMod('modifyReimbursement')">修改报销单</el-menu-item>
                 </el-menu-item-group>
               </el-submenu>
             </el-menu>
@@ -82,6 +82,7 @@ import ModifyPurashOrder from '@/views/interfaceDocumentation/modules/modifyPura
 import AddSales from '@/views/interfaceDocumentation/modules/addSales'
 import ModifySales from '@/views/interfaceDocumentation/modules/modifySales'
 import AddSalesOrder from '@/views/interfaceDocumentation/modules/addSalesOrder'
+import ModifySalesOrder from '@/views/interfaceDocumentation/modules/modifySalesOrder'
 import addReimbursement from '@/views/interfaceDocumentation/modules/addReimbursement'
 import modifyReimbursement from '@/views/interfaceDocumentation/modules/modifyReimbursement'
 import UploadFile from '@/views/interfaceDocumentation/modules/uploadFile'
@@ -100,7 +101,8 @@ export default {
     AddSalesOrder,
     addReimbursement,
     modifyReimbursement,
-    UploadFile
+    UploadFile,
+    ModifySalesOrder
   },
   data() {
     return {

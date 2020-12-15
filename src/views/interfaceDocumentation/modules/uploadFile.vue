@@ -7,7 +7,7 @@
       </div>
       <div class="detail-moType">
         <div class="moType-module">
-          所属分类: <span class="moType-moduleContent">合同类</span>
+          所属分类: <span class="moType-moduleContent">公共类</span>
         </div>
         <div class="moType-module">
           收费类型: <span class="moType-moduleContent">按次收费</span>
