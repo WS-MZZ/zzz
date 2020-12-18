@@ -1,5 +1,5 @@
 <template>
-  <div v-if="authMap.interfaceDoc.interfaceDocList.show" style="margin-bottom: 20px">
+  <div v-if="authMap.interfaceDoc.interfaceDocList.show" style="margin-bottom: 20px;">
     <div class="layout-module interfaceDocumentation">
       <div class="menu-nav block-wrapper">
         <el-row class="tac">
@@ -171,8 +171,12 @@ export default {
   margin-bottom: 10px;
   min-width: 140px;
 }
-.app-main{
-  //overflow:scroll;
+.app-main[data-v-078753dd]{
+  overflow:scroll;
+  //overflow: auto;
+}
+body {
+  overflow: visible !important;
 }
 .zz{
   display: block;

@@ -27,7 +27,10 @@ export default {
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)',
-          transitionDuration: 0 // echart防止tooltip的抖动
+          transitionDuration: 0, // echart防止tooltip的抖动
+          position: function(p) {
+            return [p[0], p[1] - 15]
+          }
         },
         color: ['#F57A71', '#5CAFFF', '#FFEE7B', '#9fdabf', '#e98f6f', '#334b5c'],
         series: [
