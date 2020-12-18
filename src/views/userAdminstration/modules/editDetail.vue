@@ -3,7 +3,7 @@
     <div class="dashboard-text">
       <el-form ref="form" :model="form" :rules="rules" class="demo-form-inline" label-width="100px" :label-position="labelPosition">
         <el-form-item label="账号" prop="accountNo">
-          <el-input v-model="form.accountNo" size="middle" @blur="changeInfo" />
+          <el-input v-model="form.accountNo" size="middle" @blur="changeInfo" :disabled="disabled" />
         </el-form-item>
         <el-form-item label="角色" prop="sysRoleIdList">
           <el-select v-model="form.sysRoleIdList" multiple placeholder="请选择角色" class="selectStyle" @change="$forceUpdate()">
