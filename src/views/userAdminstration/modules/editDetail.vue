@@ -68,6 +68,17 @@ const validatePhone = (rule, value, callback) => {
     }
   }
 }
+const valiuserName = (rule, value, callback) => {
+  if (value === '') {
+    callback(new Error('请输入账号'))
+  } else {
+    if (!/^[a-zA-Z0-9_-]{6,20}$/.test(value)) {
+      callback(new Error('请输入正确的账号'))
+    } else {
+      callback()
+    }
+  }
+}
 export default {
   name: 'EditDetail',
   data() {
@@ -90,7 +101,7 @@ export default {
           { required: true, message: '请输入账号名称', trigger: 'blur' },
           { min: 3, max: 5, message: '长度在 6 到 20 个字母', trigger: 'blur' }
         ],
-        accountNo: { required: true, message: '请输入账号', trigger: 'blur' },
+        accountNo: { required: true, validator:valiuserName, trigger: 'blur' },
         password: { required: true, message: '请输入密码', trigger: 'blur' },
         username: { required: true, message: '请输入姓名', trigger: 'blur' },
         email: { required: true, validator: checkEmail, trigger: 'blur' },
@@ -177,7 +188,7 @@ export default {
             { required: true, message: '请输入账号名称', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 6 到 20 个字母', trigger: 'blur' }
           ],
-          accountNo: { required: true, message: '请输入账号', trigger: 'blur' },
+          accountNo: { required: true, validator:valiuserName, trigger: 'blur' },
           username: { required: true, message: '请输入姓名', trigger: 'blur' },
           email: { required: true, validator: checkEmail, trigger: 'blur' },
           mobilePhone: { required: true, validator: validatePhone, trigger: 'change' },
@@ -189,7 +200,7 @@ export default {
             { required: true, message: '请输入账号名称', trigger: 'blur' },
             { min: 3, max: 5, message: '长度在 6 到 20 个字母', trigger: 'blur' }
           ],
-          accountNo: { required: true, message: '请输入账号', trigger: 'blur' },
+          accountNo: { required: true, validator:valiuserName, trigger: 'blur' },
           password: { required: true, message: '请输入密码', trigger: 'blur' },
           username: { required: true, message: '请输入姓名', trigger: 'blur' },
           email: { required: true, validator: checkEmail, trigger: 'blur' },

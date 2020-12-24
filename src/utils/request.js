@@ -62,7 +62,7 @@ service.interceptors.response.use(
         error.response.data.detail = '暂无权限'
       }
       Message({
-        message: error.response.data.title === 'Unauthorized' ? '账号异常，请重新登录' : error.response.data.detail || '连接错误请重试',
+        message: error.response.data.title === 'Unauthorized' ? '身份验证已过期，请重新登录' : error.response.data.detail || '连接错误请重试',
         type: 'error',
         duration: 3 * 1000,
         onClose() {

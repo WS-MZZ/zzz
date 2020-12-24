@@ -71,7 +71,7 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('用户名只可以包括数字字母和汉字'))
+        callback(new Error('用户名只可以包括数字,字母和常用符号'))
       } else {
         callback()
       }
