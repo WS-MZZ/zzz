@@ -97,7 +97,20 @@ export default {
   name: 'UploadFile',
   data() {
     return {
-      tableDetail: [],
+      tableDetail: [
+        {
+          date: 'realName',
+          meaning: '图片名称'
+        },
+        {
+          date: 'path',
+          meaning: '图片路径'
+        },
+        {
+          date: 'url',
+          meaning: '图片地址'
+        }
+      ],
       tableData: [
         {
           dateName: 'file',
@@ -134,27 +147,27 @@ export default {
           confirm: '否',
           defaultValue: ''
         },
-        {
-          dateName: 'appId',
-          meaning: 'appId',
-          rule: '',
-          confirm: '否',
-          defaultValue: ''
-        },
-        {
-          dateName: 'appSecret',
-          meaning: 'appSecret',
-          rule: '',
-          confirm: '否',
-          defaultValue: ''
-        },
-        {
-          dateName: 'sysEnterpriseId',
-          meaning: '企业id',
-          rule: '',
-          confirm: '否',
-          defaultValue: ''
-        }
+        // {
+        //   dateName: 'appId',
+        //   meaning: 'appId',
+        //   rule: '',
+        //   confirm: '否',
+        //   defaultValue: ''
+        // },
+        // {
+        //   dateName: 'appSecret',
+        //   meaning: 'appSecret',
+        //   rule: '',
+        //   confirm: '否',
+        //   defaultValue: ''
+        // },
+        // {
+        //   dateName: 'sysEnterpriseId',
+        //   meaning: '企业id',
+        //   rule: '',
+        //   confirm: '否',
+        //   defaultValue: ''
+        // }
       ]
     }
   }
