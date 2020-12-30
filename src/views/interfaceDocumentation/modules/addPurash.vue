@@ -316,8 +316,8 @@ export default {
         defaultValue: ''
       },
       {
-        dateName: '文件',
-        meaning: 'fileList',
+        dateName: '文件列表',
+        meaning: 'fileInfoList',
         rule: '',
         confirm: '非必须',
         defaultValue: ''

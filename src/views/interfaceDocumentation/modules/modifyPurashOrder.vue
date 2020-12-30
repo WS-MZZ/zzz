@@ -303,8 +303,8 @@ export default {
           defaultValue: ''
         },
         {
-          dateName: 'fileList',
-          meaning: '文件',
+          dateName: 'fileInfoList',
+          meaning: '文件列表',
           rule: '',
           confirm: '非必须',
           defaultValue: ''

@@ -104,7 +104,7 @@ export default {
         },
         {
           date: 'path',
-          meaning: '图片路径'
+          meaning: '图片路径',
         },
         {
           date: 'url',
