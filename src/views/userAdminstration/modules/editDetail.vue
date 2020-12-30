@@ -73,7 +73,7 @@ const valiuserName = (rule, value, callback) => {
     callback(new Error('请输入账号'))
   } else {
     if (!/^[a-zA-Z0-9_-]{6,20}$/.test(value)) {
-      callback(new Error('请输入正确的账号'))
+      callback(new Error('账号只能是:6-20位字母或者数字'))
     } else {
       callback()
     }
