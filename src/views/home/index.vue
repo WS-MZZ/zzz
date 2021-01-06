@@ -1,15 +1,13 @@
 <template>
-<div></div>
+<div>1</div>
 </template>
 
 <script>
-
 export default {
-  name: '',
-  components: {
-  },
-  data() {
-  }
+name: "index.vue"
 }
 </script>
 
+<style scoped>
+
+</style>

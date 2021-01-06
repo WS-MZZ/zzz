@@ -50,12 +50,11 @@ export const constantRoutes1 = [
       authId: 100,
       path: 'home',
       name: 'home',
-      meta: { title: '首页', icon: 'el-icon-s-help' },
-      component: () => import('@/views/home/index')
+      component: () => import('@/views/home/index'),
+      meta: { title: '首页', icon: 'el-icon-s-help' }
     }, {
       path: 'personalInfo',
       name: 'personalInfo',
-      component: () => import('@/views/personalInfo/index'),
       meta: { title: '个人信息', icon: 'el-icon-s-help' },
       hidden: true
     }]
@@ -71,20 +70,6 @@ export const constantRoutes1 = [
         name: 'company',
         component: () => import('@/views/company/index'),
         meta: { title: '企业管理', icon: 'dashboard' }
-      },
-      {
-        path: 'companyDetail',
-        name: 'companyDetail',
-        component: () => import('@/views/company/companyDetail'),
-        meta: { title: '企业管理 / 操作企业', icon: 'dashboard' },
-        hidden: true
-      },
-      {
-        path: 'companyHome',
-        name: 'companyHome',
-        component: () => import('@/views/company/companyHome'),
-        meta: { title: '企业管理 / 企业详情', icon: 'dashboard' },
-        hidden: true
       }
     ]
   },
@@ -109,118 +94,6 @@ export const constantRoutes1 = [
         component: () => import('@/views/interface/modules/details'),
         meta: { title: '应用授权管理 / 应用详情', icon: 'table' },
         hidden: true
-      },
-      {
-        path: 'addDetail',
-        name: 'addDetail',
-        component: () => import('@/views/interface/modules/addDetail'),
-        meta: { title: '应用授权管理 / 操作应用', icon: 'table' },
-        hidden: true
-      },
-      {
-        authId: 400,
-        path: 'interfaceDocumentation',
-        name: 'interfaceDocumentation',
-        component: () => import('@/views/interfaceDocumentation'),
-        meta: { title: '接口文档', icon: 'table' }
-      },
-      {
-        authId: 500,
-        path: 'interView',
-        name: 'interView',
-        component: () => import('@/views/interView/index'),
-        meta: { title: '接口访问记录', icon: 'table' }
-      },
-      {
-        path: 'interViewDetails',
-        name: 'interViewDetails',
-        component: () => import('@/views/interView/modules/details'),
-        meta: { title: '接口访问记录 / 应用详情', icon: 'table' },
-        hidden: true
-      }
-    ]
-  },
-  {
-    path: '/user',
-    component: Layout,
-    alwaysShow: true,
-    redirect: '/user/userAdminstration',
-    name: 'user',
-    meta: { title: '权限管理', icon: 'el-icon-s-help' },
-    children: [
-      {
-        authId: 600,
-        path: 'userAdminstration',
-        name: 'userAdminstration',
-        component: () => import('@/views/userAdminstration'),
-        meta: { title: '系统用户管理', icon: 'table' }
-      },
-      {
-        path: 'addUserAdminstration',
-        name: 'addUserAdminstration',
-        component: () => import('@/views/userAdminstration/modules/addUserAdminstration'),
-        meta: { title: '操作用户', icon: 'table' },
-        hidden: true
-      },
-      {
-        path: 'editDetail',
-        name: 'editDetail',
-        component: () => import('@/views/userAdminstration/modules/editDetail'),
-        meta: { title: '操作用户', icon: 'table' },
-        hidden: true
-      },
-      {
-        authId: 700,
-        path: 'roleManagement',
-        name: 'roleManagement',
-        component: () => import('@/views/roleManagement'),
-        meta: { title: '角色管理', icon: 'dashboard' }
-      }
-    ]
-  },
-  // {
-  //   path: '/documentation',
-  //   component: Layout,
-  //   name: 'documentation',
-  //   redirect: '/documentation/list',
-  //   alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
-  //   meta: { title: '文档管理', icon: 'el-icon-s-help' },
-  //   children: [
-  //     {
-  //       path: 'list',
-  //       name: 'documentationList',
-  //       meta: { title: '文档列表', icon: 'el-icon-s-help' },
-  //       component: () => import('@/views/documentation/index')
-  //     },
-  //     {
-  //       path: 'detail',
-  //       name: 'documentationDetail',
-  //       meta: { title: '文档详情', icon: 'el-icon-s-help' },
-  //       component: () => import('@/views/documentation/modules/details'),
-  //       hidden: true
-  //     }
-  //   ]
-  // },
-  {
-    authId: 800,
-    path: '/system',
-    component: Layout,
-    redirect: '/system/systemConfig',
-    name: 'inter',
-    alwaysShow: true, // 这个会使根目录一直出现，不管有几个子目录
-    meta: { title: '系统管理', icon: 'el-icon-s-help' },
-    children: [
-      {
-        path: 'systemConfig',
-        name: 'systemConfig',
-        component: () => import('@/views/system/index'),
-        meta: { title: '系统配置', icon: 'table' }
-      },
-      {
-        path: 'systemLog',
-        name: 'systemLog',
-        component: () => import('@/views/system/systemLog'),
-        meta: { title: '系统日志', icon: 'table' }
       }
     ]
   },
